@@ -1,11 +1,12 @@
 {
-  "name": "gatsby-starter-default",
+  "name": "john-kaeser",
   "private": true,
-  "description": "A simple starter to get up and developing quickly with Gatsby",
+  "description": "John Kaeser's portfolio site.",
   "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "author": "John Kaeser <jakaeser44@gmail.com>",
   "dependencies": {
     "gatsby": "^2.19.7",
+    "gatsby-alias-imports": "^1.0.4",
     "gatsby-image": "^2.2.39",
     "gatsby-plugin-manifest": "^2.2.39",
     "gatsby-plugin-offline": "^3.0.32",
@@ -21,10 +22,6 @@
   "devDependencies": {
     "prettier": "^1.19.1"
   },
-  "keywords": [
-    "gatsby"
-  ],
-  "license": "MIT",
   "scripts": {
     "build": "gatsby build",
     "develop": "gatsby develop",
@@ -36,9 +33,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/gatsbyjs/gatsby-starter-default"
-  },
-  "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby/issues"
+    "url": "https://github.com/jkaeser/hesse-v2"
   }
 }
