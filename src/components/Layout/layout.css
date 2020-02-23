@@ -6,6 +6,9 @@
   font-weight: 300;
   --c-green-dark: #475b5a;
   --c-white: #feffff;
+  --c-translucent: rgba(1,1,1,.15);
+  --c-translucent-light: rgba(1,1,1,.1);
+  --transition: all .2s ease;
 }
 html {
   box-sizing: border-box;
@@ -28,7 +31,115 @@ body {
   -ms-font-feature-settings: "kern", "liga", "clig", "calt";
   -webkit-font-feature-settings: "kern", "liga", "clig", "calt";
   font-feature-settings: "kern", "liga", "clig", "calt";
+  margin: 2rem;
+  padding-bottom: 3rem;
+  position: relative;
+  transition: var(--transition);
 }
+
+#gatsby-focus-wrapper {
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+main {
+  margin-top: 8rem;
+  max-width: 50rem;
+  transition: var(--transition);
+}
+
+footer {
+  padding: 1rem 0;
+}
+
+div {
+  display: block;
+}
+
 h1, h2, h3, h4, h5, h6 {
   font-weight: 400;
+  margin: 0;
+}
+h1 {
+  font-size: 2rem;
+  margin-bottom: .5rem;
+}
+
+a {
+  color: var(--c-white);
+  text-decoration: none;
+  position: relative;
+  font-weight: 400;
+  transition: var(--transition);
+  background-image: linear-gradient(to right, var(--c-translucent) 0, var(--c-translucent) 100%);
+  background-position: .25em .75em;
+  background-size: 100% 75%;
+  background-repeat: no-repeat;
+}
+a:hover,
+a:focus {
+  background-position: initial;
+  background-size: 100% 100%;
+}
+a:focus {
+  outline: 0;
+}
+a::before,
+a::after {
+  transition: var(--transition);
+  content: '';
+  display: block;
+  position: absolute;
+}
+a::before {
+  height: 1px;
+  width: 100%;
+  bottom: -.15rem;
+  left: 0;
+  background-color: transparent;
+  border-radius: 1rem;
+}
+a:focus::before {
+  background-color: var(--c-white);
+}
+
+p {
+  margin: 0;
+  font-size: 1.125rem;
+  line-height: 1.5;
+}
+p + p {
+  margin-top: .5rem;
+}
+
+ul {
+  margin: 1rem 0;
+  padding: 0;
+  list-style: none;
+}
+
+li + li {
+  margin-top: .5rem;
+}
+
+.contact-link__label {
+  display: inline-block;
+  margin-right: .5rem;
+}
+
+@media (min-width: 540px) {
+
+}
+@media (min-width: 768px) {
+
+}
+@media (min-width: 1024px) {
+  body {
+    margin-left: 10rem;
+  }
+  main {
+    margin-top: 16rem;
+  }
 }
