@@ -26,7 +26,7 @@ const IndexPage = () => (
         <a href="https://github.com/jkaeser">jkaeser</a>
       </li>
       <li class="contact-link">
-        <span class="contact-link__label">Codepen:</span>
+        <span class="contact-link__label">CodePen:</span>
         <a href="https://codepen.io/jakaeser">jkaeser</a>
       </li>
     </ul>
