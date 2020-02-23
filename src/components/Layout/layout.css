@@ -46,6 +46,7 @@ body {
 
 main {
   margin-top: 8rem;
+  margin-bottom: 4rem;
   max-width: 50rem;
   transition: var(--transition);
 }
