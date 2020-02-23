@@ -16,3 +16,6 @@
 .button::before {
   content: none;
 }
+.button:focus {
+  text-decoration: underline;
+}
