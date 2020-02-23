@@ -6,8 +6,8 @@
   font-weight: 300;
   --c-green-dark: #475b5a;
   --c-white: #feffff;
+  --c-white-dark: #fefeff;
   --c-translucent: rgba(1,1,1,.15);
-  --c-translucent-light: rgba(1,1,1,.1);
   --transition: all .2s ease;
 }
 html {
@@ -86,8 +86,7 @@ a:focus {
 a:focus {
   outline: 0;
 }
-a::before,
-a::after {
+a::before {
   transition: var(--transition);
   content: '';
   display: block;

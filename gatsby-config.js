@@ -25,7 +25,7 @@ module.exports = {
         background_color: `#475b5a`,
         theme_color: `#475b5a`,
         display: `minimal-ui`,
-        icon: `src/images/triforce.jpg`, // This path is relative to the root of the site.
+        icon: `src/images/triforce.png`, // This path is relative to the root of the site.
       },
     },
     // this (optional) plugin enables Progressive Web App + Offline functionality
