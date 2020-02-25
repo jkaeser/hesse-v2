@@ -3,10 +3,12 @@ import PropTypes from "prop-types"
 
 import "./layout.css"
 
-const Layout = ({ children }) => {
+const Layout = ({ children, cols, attribute }) => {
   return (
     <>
-      <main>{children}</main>
+      <main className={`cols cols--${cols ? cols : '1'} ${ attribute ? attribute : ''}`}>
+        {children}
+      </main>
       <footer>© {new Date().getFullYear()}</footer>
     </>
   )

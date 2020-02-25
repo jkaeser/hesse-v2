@@ -47,8 +47,8 @@ body {
 main {
   margin-top: 8rem;
   margin-bottom: 4rem;
-  max-width: 50rem;
   transition: var(--transition);
+  max-width: 50rem;
 }
 
 footer {
@@ -133,13 +133,30 @@ li + li {
 
 }
 @media (min-width: 768px) {
-
+  main.cols--2 {
+    column-count: 2;
+    max-width: none;
+  }
+  main.cols--3 {
+    column-count: 3;
+    max-width: none;
+  }
 }
 @media (min-width: 1024px) {
-  body {
+  body,
+  main.scroll ~ footer {
     margin-left: 10rem;
   }
   main {
     margin-top: 16rem;
+  }
+  main.scroll ~ footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1rem 0;
+    z-index: 1;
+    background-color: var(--c-green-dark);
   }
 }
