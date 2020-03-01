@@ -4,9 +4,14 @@ import PropTypes from "prop-types"
 import "./layout.css"
 
 const Layout = ({ children, cols, attribute }) => {
+  const classes = [
+    'cols cols--' + cols,
+    attribute ? attribute : '',
+  ]
+
   return (
     <>
-      <main className={`cols cols--${cols ? cols : '1'} ${ attribute ? attribute : ''}`}>
+      <main className={classes.join(' ')}>
         {children}
       </main>
       <footer>© {new Date().getFullYear()}</footer>
@@ -16,6 +21,12 @@ const Layout = ({ children, cols, attribute }) => {
 
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
+  cols: PropTypes.oneOf(['1', '2', '3']),
+  attribute: PropTypes.string
+}
+
+Layout.defaultProps = {
+  cols: '1'
 }
 
 export default Layout
