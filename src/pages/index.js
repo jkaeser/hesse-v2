@@ -19,17 +19,17 @@ const IndexPage = () => (
     <p>
       When I'm not building websites, you can find me playing the drums in a band called <a href="https://dwellermusic.com/">Dweller</a>. I might also be playing <a href="https://mtg.gamepedia.com/Commander_(format)">Commander</a>. Or eating ice cream.
     </p>
-    <ul class="contact-links">
-      <li class="contact-link">
-        <span class="contact-link__label">Email:</span>
+    <ul className="contact-links">
+      <li className="contact-link">
+        <span className="contact-link__label">Email:</span>
         <a href="mailto:jakaeser44@gmail.com">jakaeser44@gmail.com</a>
       </li>
-      <li class="contact-link">
-        <span class="contact-link__label">GitHub:</span>
+      <li className="contact-link">
+        <span className="contact-link__label">GitHub:</span>
         <a href="https://github.com/jkaeser">jkaeser</a>
       </li>
-      <li class="contact-link">
-        <span class="contact-link__label">CodePen:</span>
+      <li className="contact-link">
+        <span className="contact-link__label">CodePen:</span>
         <a href="https://codepen.io/jakaeser">jkaeser</a>
       </li>
     </ul>
