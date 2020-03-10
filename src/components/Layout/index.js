@@ -12,15 +12,25 @@ class Layout extends React.Component {
     this.switchMode = this.switchMode.bind(this);
   }
 
-  switchMode() {
+  static propTypes = {
+    children: PropTypes.node.isRequired,
+    cols: PropTypes.oneOf(['1', '2', '3']),
+    attribute: PropTypes.string
+  }
+
+  static defaultProps = {
+    cols: '1'
+  }
+
+  switchMode(mode) {
     if (this.state.colorMode === 'default') {
       this.setState(prevState => ({
-        colorMode: 'contrast',
+        colorMode: mode,
       }))
     }
     else {
       this.setState(prevState => ({
-        colorMode: 'default',
+        colorMode: prevState.colorMode === mode ? 'default' : mode,
       }))
     }
   }
@@ -36,21 +46,12 @@ class Layout extends React.Component {
         <main className={classes.join(' ')}>
           {this.props.children}
         </main>
-        <button onClick={this.switchMode}>Switch Color Mode</button>
+        <button onClick={() => {this.switchMode('contrast')}}>Contrast Mode</button>
+        <button onClick={() => {this.switchMode('hue-rotate')}}>Hue-rotate Mode</button>
         <footer>© {new Date().getFullYear()}</footer>
       </div>
     )
   }
-}
-
-Layout.propTypes = {
-  children: PropTypes.node.isRequired,
-  cols: PropTypes.oneOf(['1', '2', '3']),
-  attribute: PropTypes.string
-}
-
-Layout.defaultProps = {
-  cols: '1'
 }
 
 export default Layout

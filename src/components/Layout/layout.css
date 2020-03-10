@@ -48,6 +48,20 @@ body {
   --text-color: var(--c-green-dark);
 }
 
+@keyframes hue-rotate {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+  100% {
+    filter: hue-rotate(180deg);
+  }
+}
+
+.site-wrapper.hue-rotate {
+  filter: hue-rotate(180deg);
+  animation: 6s linear 0s infinite alternate hue-rotate;
+}
+
 main {
   margin-top: 8rem;
   margin-bottom: 5rem;
