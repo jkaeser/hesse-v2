@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from "prop-types"
 import Link from "gatsby-link"
-import './button.css'
 
 const Button = ({ children, path, className }) => {
   const classes = [
