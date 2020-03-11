@@ -46,10 +46,33 @@ class Layout extends React.Component {
         <main className={classes.join(' ')}>
           {this.props.children}
         </main>
-        <button onClick={() => {this.switchMode('contrast')}}>Contrast Mode</button>
-        <button onClick={() => {this.switchMode('hue-rotate')}}>Hue-rotate Mode</button>
+        <ModeSwitch onModeChange={() => {this.switchMode('contrast')}}>High Contrast</ModeSwitch>
+        <ModeSwitch onModeChange={() => {this.switchMode('hue-rotate')}}>Color Shift</ModeSwitch>
         <footer>© {new Date().getFullYear()}</footer>
       </div>
+    )
+  }
+}
+
+class ModeSwitch extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  static propTypes = {
+    onModeChange: PropTypes.func,
+  }
+
+  handleChange(e) {
+    this.props.onModeChange(e.target.value);
+  }
+
+  render() {
+    return (
+      <button onClick={this.handleChange}>
+        {this.props.children}
+      </button>
     )
   }
 }
