@@ -40,7 +40,7 @@ body {
   color: var(--text-color);
   padding: 2rem 2rem 3rem;
   position: relative;
-  height: 100vh;
+  height: 100%;
   font-weight: 300;
 }
 .site-wrapper.contrast {
@@ -150,6 +150,39 @@ li + li {
 .contact-link__label {
   display: inline-block;
   margin-right: .5rem;
+}
+
+button,
+.button {
+  display: inline-block;
+  padding: .5rem 1.25rem;
+  color: var(--c-white);
+  background: var(--c-green-dark);
+  border: 1px solid var(--c-white);
+  font-weight: 400;
+  font-size: .8rem;
+  letter-spacing: 1px;
+  transition: var(--transition);
+  cursor: pointer;
+}
+button:hover,
+.button:hover,
+button:focus,
+.button:focus {
+  background: var(--c-translucent);
+  outline: none;
+}
+button::before,
+.button::before {
+  content: none;
+}
+button:focus,
+.button:focus {
+  text-decoration: underline;
+}
+button + button,
+.button + .button {
+  margin-left: 1rem;
 }
 
 @media (min-width: 540px) {}
