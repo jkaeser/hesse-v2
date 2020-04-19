@@ -6,7 +6,7 @@ import "./layout.css"
 const Layout = ({ children, cols, attribute }) => {
   const classes = [
     'cols cols--' + cols,
-    attribute ? attribute : '',
+    attribute ? attribute : ''
   ]
 
   return (
