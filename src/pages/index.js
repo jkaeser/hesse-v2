@@ -3,6 +3,7 @@ import React from "react"
 import Layout from "components/Layout"
 import Button from "components/Button"
 import SEO from "components/Seo"
+import InViewport from 'components/InViewport'
 
 import resume from "files/JohnKaeser-Resume.pdf"
 
@@ -35,6 +36,13 @@ const IndexPage = () => (
     </ul>
     <br />
     <Button path={ resume }>Resume</Button>
+
+    <InViewport>
+      <p>Lorem ipsum dolor sit amet.</p>
+    </InViewport>
+    <InViewport>
+      <p>Consectetur adipiscing elit.</p>
+    </InViewport>
   </Layout>
 )
 
