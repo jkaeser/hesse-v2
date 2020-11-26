@@ -11,6 +11,9 @@
   --transition: all .2s ease;
   --background-color: var(--c-green-dark);
   --text-color: var(--c-white);
+  --gutter-large: 10rem;
+  --gutter-mid: 4rem;
+  --gutter-small: 2rem;
 }
 html {
   box-sizing: border-box;
@@ -31,6 +34,7 @@ body {
   -ms-font-feature-settings: "kern", "liga", "clig", "calt";
   -webkit-font-feature-settings: "kern", "liga", "clig", "calt";
   font-feature-settings: "kern", "liga", "clig", "calt";
+  position: relative;
   transition: var(--transition);
   margin: 0;
 }
@@ -64,9 +68,7 @@ body {
 
 main {
   margin-top: 8rem;
-  margin-bottom: 5rem;
   transition: var(--transition);
-  max-width: 50rem;
 }
 
 main.contrast {
@@ -169,24 +171,7 @@ button + button,
   margin-left: 1rem;
 }
 
-@media (min-width: 540px) {}
-@media (min-width: 768px) {
-  main.cols--2 {
-    column-count: 2;
-    max-width: none;
-  }
-  main.cols--3 {
-    column-count: 3;
-    max-width: none;
-  }
-}
 @media (min-width: 1024px) {
-  .site-wrapper {
-    padding-left: 10rem;
-  }
-  main.scroll ~ footer {
-    margin-left: 10rem;
-  }
   main {
     margin-top: 16rem;
   }
@@ -195,7 +180,6 @@ button + button,
     bottom: 0;
     left: 0;
     right: 0;
-    padding: 2.5rem 0 1rem;
     z-index: 1;
     background-color: var(--c-green-dark);
   }

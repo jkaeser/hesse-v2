@@ -1,6 +1,8 @@
 import React from "react"
 import PropTypes from "prop-types"
 
+import Footer from '../Footer'
+
 import "./layout.css"
 
 class Layout extends React.Component {
@@ -14,12 +16,7 @@ class Layout extends React.Component {
 
   static propTypes = {
     children: PropTypes.node.isRequired,
-    cols: PropTypes.oneOf(['1', '2', '3']),
-    attribute: PropTypes.string
-  }
-
-  static defaultProps = {
-    cols: '1'
+    attribute: PropTypes.oneOf(['scroll'])
   }
 
   switchMode(mode) {
@@ -37,8 +34,7 @@ class Layout extends React.Component {
 
   render() {
     const classes = [
-      'cols cols--' + this.props.cols,
-      this.props.attribute ? this.props.attribute : '',
+      this.props.attribute ? this.props.attribute : ''
     ]
 
     return (
@@ -48,8 +44,8 @@ class Layout extends React.Component {
         </main>
         <ModeSwitch onModeChange={() => {this.switchMode('contrast')}}>High Contrast</ModeSwitch>
         <ModeSwitch onModeChange={() => {this.switchMode('hue-rotate')}}>Color Shift</ModeSwitch>
-        <footer>© {new Date().getFullYear()}</footer>
       </div>
+      <Footer />
     )
   }
 }
