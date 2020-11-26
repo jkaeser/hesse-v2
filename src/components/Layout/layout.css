@@ -109,23 +109,7 @@ a:focus {
 }
 a:focus {
   outline: 0;
-}
-a::before {
-  transition: var(--transition);
-  content: '';
-  display: block;
-  position: absolute;
-}
-a::before {
-  height: 1px;
-  width: 100%;
-  bottom: -.15rem;
-  left: 0;
-  background-color: transparent;
-  border-radius: 1rem;
-}
-a:focus::before {
-  background-color: var(--c-white);
+  box-shadow: 0 1px 0 0 var(--c-white);
 }
 
 p {
