@@ -8,6 +8,7 @@ const Section = ({cols, color, children}) => {
   const classes = [
     cols !== '1' ? 'cols cols--' + cols : '',
     'color--' + color,
+    color !== 'green' ? 'full-width' : '',
   ]
 
   return (

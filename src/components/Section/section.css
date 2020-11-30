@@ -1,5 +1,8 @@
 section {
-  padding: var(--gutter-mid) var(--gutter-small);
+  padding: var(--gutter-mid) 0;
+}
+section:first-of-type {
+  padding-top: 0;
 }
 section > div {
   max-width: 50rem;
@@ -26,9 +29,5 @@ section.color--white + section.color--white {
 @media (min-width: 1024px) {
   main.scroll section:last-of-type {
     margin-bottom: var(--gutter-small);
-  }
-  section {
-    padding-left: var(--gutter-large);
-    padding-right: var(--gutter-mid);
   }
 }

@@ -1,7 +1,7 @@
 import React from "react"
 import PropTypes from "prop-types"
 
-import Footer from '../Footer'
+import Footer from "../Footer"
 
 import "./layout.css"
 
@@ -41,11 +41,13 @@ class Layout extends React.Component {
       <div className={`site-wrapper ${this.state.colorMode}`}>
         <main className={classes.join(' ')}>
           {this.props.children}
+          {
+          // <ModeSwitch onModeChange={() => {this.switchMode('contrast')}}>High Contrast</ModeSwitch>
+          // <ModeSwitch onModeChange={() => {this.switchMode('hue-rotate')}}>Color Shift</ModeSwitch>
+          }
         </main>
-        <ModeSwitch onModeChange={() => {this.switchMode('contrast')}}>High Contrast</ModeSwitch>
-        <ModeSwitch onModeChange={() => {this.switchMode('hue-rotate')}}>Color Shift</ModeSwitch>
+        <Footer />
       </div>
-      <Footer />
     )
   }
 }

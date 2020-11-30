@@ -1,9 +1,3 @@
 footer {
-  padding: 1rem var(--gutter-small);
-}
-
-@media (min-width: 1024px) {
-  footer {
-    padding-left: var(--gutter-large);
-  }
+  padding: 1rem 0;
 }

@@ -34,18 +34,25 @@ body {
   -ms-font-feature-settings: "kern", "liga", "clig", "calt";
   -webkit-font-feature-settings: "kern", "liga", "clig", "calt";
   font-feature-settings: "kern", "liga", "clig", "calt";
-  position: relative;
   transition: var(--transition);
   margin: 0;
+  background-color: var(--background-color);
+}
+
+html,
+body,
+body > div,
+body > div > div,
+.site-wrapper {
+  height: 100%;
 }
 
 .site-wrapper {
+  position: relative;
+  font-weight: 300;
   background-color: var(--background-color);
   color: var(--text-color);
-  padding: 2rem 2rem 3rem;
-  position: relative;
-  height: 100%;
-  font-weight: 300;
+  padding: 0 var(--gutter-small);
 }
 .site-wrapper.contrast {
   --background-color: var(--c-white);
@@ -67,7 +74,7 @@ body {
 }
 
 main {
-  margin-top: 8rem;
+  padding-top: 20vh;
   transition: var(--transition);
 }
 
@@ -75,9 +82,8 @@ main.contrast {
   --background-color: #fff;
   --text-color: #000;
 }
-
-footer {
-  padding: 1rem 0;
+main.scroll ~ footer {
+  padding-left: var(--gutter-small);
 }
 
 div {
@@ -165,15 +171,26 @@ button::before,
 button:focus,
 .button:focus {
   text-decoration: underline;
+  box-shadow: 0;
 }
 button + button,
 .button + .button {
   margin-left: 1rem;
 }
 
+.full-width {
+  margin-left: calc(var(--gutter-small) * -1);
+  margin-right: calc(var(--gutter-small) * -1);
+  padding-left: var(--gutter-small);
+  padding-right: var(--gutter-small);
+}
+
 @media (min-width: 1024px) {
+  .site-wrapper {
+    padding: 0 var(--gutter-mid) 0 var(--gutter-large);
+  }
   main {
-    margin-top: 16rem;
+    padding-top: 25vh;
   }
   main.scroll ~ footer {
     position: fixed;
@@ -182,5 +199,13 @@ button + button,
     right: 0;
     z-index: 1;
     background-color: var(--c-green-dark);
+    padding-left: var(--gutter-large);
+  }
+
+  .full-width {
+    margin-left: calc(var(--gutter-large) * -1);
+    margin-right: calc(var(--gutter-mid) * -1);
+    padding-left: var(--gutter-large);
+    padding-right: var(--gutter-mid);
   }
 }
