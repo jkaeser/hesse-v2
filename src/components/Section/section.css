@@ -1,0 +1,33 @@
+section {
+  padding: var(--gutter-mid) 0;
+}
+section:first-of-type {
+  padding-top: 0;
+}
+section > div {
+  max-width: 50rem;
+}
+section.color--green {
+  background-color: var(--c-green-dark);
+  color: var(--c-white-dark);
+}
+section.color--white {
+  background-color: var(--c-white-dark);
+  color: var(--c-green-dark);
+}
+section.color--green + section.color--green,
+section.color--white + section.color--white {
+  padding-top: 0;
+}
+
+@media (min-width: 768px) {
+  section.cols--2 > .section__inner,
+  section.cols--3 > .section__inner {
+    max-width: none;
+  }
+}
+@media (min-width: 1024px) {
+  main.scroll section:last-of-type {
+    margin-bottom: var(--gutter-small);
+  }
+}
