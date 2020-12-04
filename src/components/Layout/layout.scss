@@ -224,8 +224,8 @@ button,
     font-size: .65rem;
     box-shadow: 4px 4px var(--translucent);
 
-    &:nth-of-type(2).active svg {
-      animation: 6s linear 0s infinite rotate;
+    &.button--hue-rotate.active svg {
+      animation: 12s linear 0s infinite rotate;
     }
 
     + button {

@@ -6,8 +6,8 @@ import './section.scss'
 
 const Section = ({cols, color, children}) => {
   const classes = [
-    'color--' + color,
-    cols !== '1' ? 'cols cols--' + cols : '',
+    `color--${color}`,
+    cols !== '1' ? `cols cols--${cols}` : '',
     'full-width',
   ]
 
