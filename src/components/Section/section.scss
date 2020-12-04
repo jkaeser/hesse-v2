@@ -1,0 +1,44 @@
+@import '../../../utils/sass/all';
+
+section {
+  padding: $gutter-mid 0;
+  background-color: var(--background-color);
+  color: var(--text-color);
+
+  &.color--green {
+    --background-color: #{$c-green-dark};
+    --text-color: #{$c-white-dark};
+
+    &:first-of-type {
+      padding-top: 0;
+    }
+  }
+
+  &.color--white {
+    --background-color: #{$c-white-dark};
+    --text-color: #{$c-green-dark};
+    --translucent: #{$c-translucent-light};
+  }
+
+  @include bp($bp-tablet-vertical) {
+    &.cols--2 > .section__inner,
+    &.cols--3 > .section__inner {
+      max-width: none;
+    }
+  }
+
+  > div {
+    max-width: 50rem;
+  }
+}
+
+section.color--green + section.color--green,
+section.color--white + section.color--white {
+  padding-top: 0;
+}
+
+main.scroll section:last-of-type {
+  @include bp($bp-tablet-horizontal) {
+    margin-bottom: $gutter-small;
+  }
+}

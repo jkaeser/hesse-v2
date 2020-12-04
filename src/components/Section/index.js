@@ -1,18 +1,18 @@
 import React from "react"
 import PropTypes from "prop-types"
 
-import './columns.css'
-import './section.css'
+import './columns.scss'
+import './section.scss'
 
 const Section = ({cols, color, children}) => {
   const classes = [
-    cols !== '1' ? 'cols cols--' + cols : '',
     'color--' + color,
-    color !== 'green' ? 'full-width' : '',
+    cols !== '1' ? 'cols cols--' + cols : '',
+    'full-width',
   ]
 
   return (
-    <section className={classes.join(' ')}>
+    <section className={classes.join(' ').trim()}>
       <div>
         {children}
       </div>

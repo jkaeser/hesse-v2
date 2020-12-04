@@ -21,7 +21,7 @@ const IndexPage = () => (
       <p>
         When I'm not building websites, you can find me playing the drums in a band called <a href="https://dwellermusic.com/">Dweller</a>. I might also be playing <a href="https://mtg.gamepedia.com/Commander_(format)">Commander</a>. Or eating ice cream.
       </p>
-      <ul className="contact-links">
+      <ul className="contact-links no-list">
         <li className="contact-link">
           <span className="contact-link__label">Email:</span>
           <a href="mailto:jakaeser44@gmail.com">jakaeser44@gmail.com</a>

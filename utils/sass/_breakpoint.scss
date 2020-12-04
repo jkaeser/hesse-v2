@@ -1,0 +1,16 @@
+$bp-phone-sm: 360px;
+$bp-phone-lg: 540px;
+$bp-tablet-vertical: 768px;
+$bp-tablet-horizontal: 1024px;
+$bp-desktop: 1200px;
+
+@mixin bp($breakpoint) {
+  $this: &;
+  @at-root {
+    @media (min-width: $breakpoint) {
+      #{$this} {
+        @content;
+      }
+    }
+  }
+}

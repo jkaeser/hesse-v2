@@ -1,0 +1,236 @@
+@import '../../../utils/sass/all';
+@import './styles/animation';
+@import './styles/utility';
+@import './styles/fonts';
+
+:root {
+  font-family: 'Lato', sans-serif;
+  font-size: 16px;
+  --background-color: #{$c-green-dark};
+  --text-color: #{$c-white};
+  --translucent: #{$c-translucent};
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after  {
+  box-sizing: inherit;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -moz-font-feature-settings: "kern", "liga", "clig", "calt";
+  -ms-font-feature-settings: "kern", "liga", "clig", "calt";
+  -webkit-font-feature-settings: "kern", "liga", "clig", "calt";
+  font-feature-settings: "kern", "liga", "clig", "calt";
+  transition: $transition;
+  margin: 0;
+  background-color: var(--background-color);
+}
+
+html,
+body,
+body > div,
+body > div > div,
+.site-wrapper {
+  height: 100%;
+}
+
+.site-wrapper {
+  position: relative;
+  font-weight: 300;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  padding: 0 $gutter-small;
+
+  @include bp($bp-tablet-horizontal) {
+    padding: 0 $gutter-mid 0 $gutter-large;
+  }
+}
+
+.contrast,
+.contrast section {
+  --background-color: #{$c-white-dark} !important;
+  --text-color: #{$c-black} !important;
+  --translucent: #{$c-translucent-light} !important;
+}
+
+svg {
+  path {
+    fill: var(--text-color);
+  }
+}
+
+.hue-rotate {
+  filter: hue-rotate(180deg);
+  animation: 6s linear 0s infinite alternate hue-rotate;
+}
+
+main {
+  padding-top: 20vh;
+  transition: $transition;
+
+  @include bp($bp-tablet-horizontal) {
+    padding-top: 25vh;
+  }
+
+  &.scroll ~ footer {
+    @include bp($bp-tablet-horizontal) {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 1;
+      background-color: var(--background-color);
+      padding-left: $gutter-large;
+    }
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 400;
+  margin: 0 0 1rem 0;
+}
+
+h1 {
+  font-size: 2rem;
+  text-shadow: 2px 2px var(--translucent);
+
+  &.page-title {
+    font-size: 3rem;
+    margin-bottom: 3rem;
+
+    &::first-letter {
+      letter-spacing: 2px;
+      background: var(--text-color);
+      color: var(--background-color);
+      padding: .5rem 1.25rem;
+      margin-right: .25rem;
+      font-weight: 600;
+      text-shadow: none;
+      box-shadow: 4px 4px 0 0 var(--translucent);
+    }
+  }
+}
+
+a {
+  color: var(--text-color);
+  text-decoration: none;
+  position: relative;
+  font-weight: 400;
+  transition: $transition;
+  background-image: linear-gradient(to right, var(--translucent) 0, var(--translucent) 100%);
+  background-position: .25em .75em;
+  background-size: 100% 75%;
+  background-repeat: no-repeat;
+
+  &:hover,
+  &:focus {
+    background-position: initial;
+    background-size: 100% 100%;
+  }
+
+  &:focus {
+    outline: 0;
+    box-shadow: 0 1px 0 0 var(--text-color);
+  }
+}
+
+p {
+  margin: 0;
+  font-size: 1.125rem;
+  line-height: 1.5;
+
+  + p {
+    margin-top: .5rem;
+  }
+}
+
+ul {
+  margin: 1rem 0;
+  padding-left: 1.1rem;
+
+  &.no-list {
+    padding: 0;
+    list-style: none;
+  }
+
+  ul {
+    margin: .5rem 0 1rem;
+  }
+}
+
+li {
+  + li {
+    margin-top: .5rem;
+  }
+}
+
+.contact-link__label {
+  display: inline-block;
+  margin-right: .5rem;
+}
+
+button,
+.button {
+  display: inline-block;
+  padding: .5rem 1.25rem;
+  color: var(--text-color);
+  background: var(--background-color);
+  border: 1px solid var(--text-color);
+  font-weight: 400;
+  font-size: .8rem;
+  letter-spacing: 1px;
+  transition: $transition;
+  cursor: pointer;
+
+  &:hover,
+  &:focus {
+    background: var(--translucent);
+    outline: none;
+  }
+
+  &:focus {
+    text-decoration: underline;
+    box-shadow: none;
+  }
+
+  &::before {
+    content: none;
+  }
+
+  + button,
+  + .button, {
+    margin-left: 1rem;
+  }
+}
+
+.modes {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+
+  button {
+    width: 3rem;
+    height: 3rem;
+    padding: .75rem;
+    font-size: .65rem;
+    box-shadow: 4px 4px var(--translucent);
+
+    &:nth-of-type(2).active svg {
+      animation: 6s linear 0s infinite rotate;
+    }
+
+    + button {
+      margin-left: 0;
+      border-top: 0;
+    }
+  }
+}

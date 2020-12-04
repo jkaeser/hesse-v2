@@ -6,7 +6,7 @@ const Button = ({ children, path, className }) => {
   const classes = [
     `button`,
     className
-  ].join(' ');
+  ].join(' ').trim();
 
   // The Link component does not work well for external resources or files.
   if (
