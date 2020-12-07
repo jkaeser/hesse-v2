@@ -60,15 +60,15 @@ body > div > div,
   --translucent: #{$c-translucent-light} !important;
 }
 
+.hue-rotate {
+  filter: hue-rotate(180deg);
+  animation: 6s linear 0s infinite alternate hue-rotate;
+}
+
 svg {
   path {
     fill: var(--text-color);
   }
-}
-
-.hue-rotate {
-  filter: hue-rotate(180deg);
-  animation: 6s linear 0s infinite alternate hue-rotate;
 }
 
 main {
