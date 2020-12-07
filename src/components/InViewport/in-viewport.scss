@@ -1,9 +1,14 @@
+@import '../../../utils/sass/all';
+
 .observer {
+  @include transition(.5s);
+
   margin: 2rem 0;
   opacity: 0;
-  transition: all .5s ease;
-}
+  transform: translateY(1rem);
 
-.observer.active {
-  opacity: 1;
+  &.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

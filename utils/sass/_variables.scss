@@ -1,11 +1,14 @@
 $c-green-dark: #475b5a;
 $c-white: #feffff;
-$c-white-dark: #fefeff;
+$c-white-dark: #f2f2f2;
 $c-black: #000000;
+$c-gold: #B7A932;
 $c-translucent: rgba(1,1,1,.15);
 $c-translucent-light: rgba(1,1,1,.075);
+$c-translucent-white: rgba(255,255,255,.2);
 
-$transition: all .2s ease;
+$transition-timing: .2s;
+$transition-curve: ease;
 
 $gutter-large: 10rem;
 $gutter-mid: 4rem;

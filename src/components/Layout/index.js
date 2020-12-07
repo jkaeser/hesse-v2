@@ -1,4 +1,4 @@
-import React from "react"
+import React, { createRef } from "react"
 import PropTypes from "prop-types"
 import Helmet from "react-helmet"
 
@@ -78,6 +78,44 @@ class Layout extends React.Component {
         </main>
         <Footer />
       </div>
+    )
+  }
+}
+
+class Starfield extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.canvasRef = createRef();
+  }
+
+  componentDidMount() {
+    const canvas = this.canvasRef.current;
+    const context = canvas.getContext('2d');
+    const stars = (canvas.offsetWidth * canvas.offsetHeight) / 600;
+    const colorrange = [0,60,240];
+
+    function getRandom(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    for (var i = 0; i < stars; i++) {
+      const x = Math.random() * canvas.offsetWidth;
+      const y = Math.random() * canvas.offsetHeight;
+      const radius = Math.random() * 1.2;
+      const hue = colorrange[getRandom(0,colorrange.length - 1)];
+      const sat = getRandom(50,100);
+
+      context.beginPath();
+      context.arc(x, y, radius, 0, 360);
+      context.fillStyle = "hsl(" + hue + ", " + sat + "%, 90%)";
+      context.fill();
+    }
+  };
+
+  render() {
+    return (
+      <canvas className="starfield" ref={this.canvasRef} {...this.props}/>
     )
   }
 }

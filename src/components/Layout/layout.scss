@@ -3,6 +3,8 @@
 @import './styles/utility';
 @import './styles/fonts';
 
+@import './styles/space';
+
 :root {
   font-family: 'Lato', sans-serif;
   font-size: 16px;
@@ -22,13 +24,14 @@ html {
 }
 
 body {
+  @include transition;
+
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -moz-font-feature-settings: "kern", "liga", "clig", "calt";
   -ms-font-feature-settings: "kern", "liga", "clig", "calt";
   -webkit-font-feature-settings: "kern", "liga", "clig", "calt";
   font-feature-settings: "kern", "liga", "clig", "calt";
-  transition: $transition;
   margin: 0;
   background-color: var(--background-color);
 }
@@ -72,8 +75,9 @@ svg {
 }
 
 main {
+  @include transition;
+
   padding-top: 20vh;
-  transition: $transition;
 
   @include bp($bp-tablet-horizontal) {
     padding-top: 25vh;
@@ -119,11 +123,12 @@ h1 {
 }
 
 a {
+  @include transition;
+
   color: var(--text-color);
   text-decoration: none;
   position: relative;
   font-weight: 400;
-  transition: $transition;
   background-image: linear-gradient(to right, var(--translucent) 0, var(--translucent) 100%);
   background-position: .25em .75em;
   background-size: 100% 75%;
@@ -178,6 +183,8 @@ li {
 
 button,
 .button {
+  @include transition;
+
   display: inline-block;
   padding: .5rem 1.25rem;
   color: var(--text-color);
@@ -186,7 +193,6 @@ button,
   font-weight: 400;
   font-size: .8rem;
   letter-spacing: 1px;
-  transition: $transition;
   cursor: pointer;
 
   &:hover,
