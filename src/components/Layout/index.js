@@ -4,7 +4,7 @@ import Helmet from "react-helmet"
 
 import Footer from "../Footer"
 
-import "./layout.scss"
+import "./styles/all.scss"
 
 class Layout extends React.Component {
   constructor(props) {

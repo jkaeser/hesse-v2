@@ -1,0 +1,38 @@
+.modes {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  z-index: $z-index-overlay;
+  background-color: var(--background-color);
+
+  @include bp($bp-tablet-horizontal) {
+    flex-direction: column;
+  }
+
+  button {
+    width: 3rem;
+    height: 3rem;
+    padding: .75rem;
+    font-size: .65rem;
+    box-shadow: 4px 4px var(--translucent);
+
+    &.active {
+      background-color: var(--translucent);
+    }
+
+    &.button--hue-rotate.active svg {
+      animation: 12s linear 0s infinite rotate;
+    }
+
+    + button {
+      margin-left: 0;
+      border-left: 0;
+
+      @include bp($bp-tablet-horizontal) {
+        border-left: 1px solid currentColor;
+        border-top: 0;
+      }
+    }
+  }
+}

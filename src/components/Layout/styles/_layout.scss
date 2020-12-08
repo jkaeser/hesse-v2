@@ -1,10 +1,3 @@
-@import '../../../utils/sass/all';
-@import './styles/animation';
-@import './styles/utility';
-@import './styles/fonts';
-
-@import './styles/space';
-
 :root {
   font-family: 'Lato', sans-serif;
   font-size: 16px;
@@ -89,7 +82,7 @@ main {
       bottom: 0;
       left: 0;
       right: 0;
-      z-index: 1;
+      z-index: $z-index-foreground;
       background-color: var(--background-color);
       padding-left: $gutter-large;
     }
@@ -213,30 +206,5 @@ button,
   + button,
   + .button, {
     margin-left: 1rem;
-  }
-}
-
-.modes {
-  position: fixed;
-  top: 0;
-  left: 0;
-  display: flex;
-  flex-direction: column;
-
-  button {
-    width: 3rem;
-    height: 3rem;
-    padding: .75rem;
-    font-size: .65rem;
-    box-shadow: 4px 4px var(--translucent);
-
-    &.button--hue-rotate.active svg {
-      animation: 12s linear 0s infinite rotate;
-    }
-
-    + button {
-      margin-left: 0;
-      border-top: 0;
-    }
   }
 }
