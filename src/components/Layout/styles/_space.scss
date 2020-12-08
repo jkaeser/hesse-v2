@@ -8,18 +8,27 @@
 
 .space {
   --background-color: #{$c-black} !important;
-}
 
-.space section {
-  @include text-mask($c-black);
+  main,
+  footer {
+    @include text-mask($c-black);
 
-  --background-color: transparent !important;
+    z-index: 1;
+    position: relative;
+  }
 
-  z-index: 1;
-}
+  section,
+  footer {
+    --background-color: transparent !important;
+  }
 
-.space .starfield {
-  opacity: 1;
+  h1 {
+    text-shadow: inherit;
+  }
+
+  .starfield {
+    opacity: 1;
+  }
 }
 
 .starfield {

@@ -64,6 +64,10 @@ class Layout extends React.Component {
     return (
       <div className='site-wrapper'>
         <Helmet bodyAttributes={{ class: this.state.activeMode }} />
+        <Starfield
+          width={this.state.windowSize.width}
+          height={this.state.windowSize.height}
+        />
         <main className={classes.join(' ').trim()}>
           <div className="modes">
           {this.state.modes.map((mode, index) => {
@@ -86,10 +90,6 @@ class Layout extends React.Component {
             )
           })}
           </div>
-          <Starfield
-            width={this.state.windowSize.width}
-            height={this.state.windowSize.height}
-          />
           {this.props.children}
         </main>
         <Footer />
