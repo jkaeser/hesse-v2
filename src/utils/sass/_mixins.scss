@@ -1,0 +1,42 @@
+@mixin full-width {
+  margin-left: $gutter-small * -1;
+  margin-right: $gutter-small * -1;
+  padding-left: $gutter-small;
+  padding-right: $gutter-small;
+
+  @include bp($bp-tablet-horizontal) {
+    margin-left: $gutter-large * -1;
+    margin-right: $gutter-mid * -1;
+    padding-left: $gutter-large;
+    padding-right: $gutter-mid;
+  }
+}
+
+@mixin transition($timing: $transition-timing) {
+  transition: all $timing $transition-curve, outline 0s linear, text-shadow 0s linear;
+}
+
+@mixin text-mask($color, $blur: 1px) {
+  text-shadow:
+    0px 0px $blur $color,
+    0px -1px $blur $color,
+    0px -2px $blur $color,
+    0px 1px $blur $color,
+    0px 2px $blur $color,
+    -1px 0px $blur $color,
+    -1px -1px $blur $color,
+    -1px 1px $blur $color,
+    1px 0px $blur $color,
+    1px -1px $blur $color,
+    1px 1px $blur $color,
+    -2px 0px $blur $color,
+    -2px -1px $blur $color,
+    -2px -2px $blur $color,
+    -2px 1px $blur $color,
+    -2px 2px $blur $color,
+    2px 0px $blur $color,
+    2px -1px $blur $color,
+    2px -2px $blur $color,
+    2px 1px $blur $color,
+    2px 2px $blur $color;
+}

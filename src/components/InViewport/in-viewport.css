@@ -1,9 +1,0 @@
-.observer {
-  margin: 2rem 0;
-  opacity: 0;
-  transition: all .5s ease;
-}
-
-.observer.active {
-  opacity: 1;
-}

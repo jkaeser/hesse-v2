@@ -1,0 +1,27 @@
+@import '../../utils/sass/all';
+
+.cols {
+  column-gap: $gutter-small;
+}
+
+.cols h1,
+.cols h2,
+.cols h3,
+.cols h4,
+.cols h5,
+.cols h6 {
+  column-span: all;
+  margin-bottom: $gutter-small;
+}
+
+.cols--2 {
+  @include bp($bp-tablet-vertical) {
+    column-count: 2;
+  }
+}
+
+.cols--3 {
+  @include bp($bp-tablet-vertical) {
+    column-count: 3;
+  }
+}

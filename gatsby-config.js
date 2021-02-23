@@ -1,7 +1,7 @@
 module.exports = {
   siteMetadata: {
     title: `John Kaeser`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
+    description: `John Kaeser is a front end web developer based in Philadelphia, PA, USA.`,
     author: `John Kaeser`,
   },
   plugins: [
@@ -25,9 +25,10 @@ module.exports = {
         background_color: `#475b5a`,
         theme_color: `#475b5a`,
         display: `minimal-ui`,
-        icon: `src/images/triforce.png`, // This path is relative to the root of the site.
+        icon: `src/images/triforce--white.png`,
       },
     },
+    `gatsby-plugin-sass`,
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
@@ -38,10 +39,7 @@ module.exports = {
         exclude: [],
         pageTransitionDelay: 0,
         defer: false,
-      },
-    },
-    // this (optional) plugin enables Progressive Web App + Offline functionality
-    // To learn more, visit: https://gatsby.dev/offline
-    // `gatsby-plugin-offline`,
-  ],
+      }
+    }
+  ]
 }
