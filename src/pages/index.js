@@ -19,10 +19,10 @@ const IndexPage = () => (
           I'm a web developer in Philadelphia, PA, currently working at <a href="https://www.zivtech.com/">Zivtech</a>.
         </p>
         <p>
-          Lately I've been rebuilding <a href="https://www.ias.edu/">The Institute for Advanced Studies'</a> website in Drupal 8 after supporting their current site for over two and a half years. Previously, I led the front end development of <a href="https://us.fertility.com/">Fertility.com</a>. Some other sites I've worked on include <a href="https://vaccinemakers.org/">The Vaccine Makers Project</a>, <a href="https://www.lsac.org/">The Law School Admissions Council</a>, and <a href="https://clarifi.org/">Clarifi</a>.
+          Recently I built <a href="https://www.pgpf.org/understanding-the-coronavirus-crisis/coronavirus-funding-state-by-state#funding-map">an interactive heat map</a> for the Peter G. Peterson Foundation. Before that I was heavily involved in rebuilding <a href="https://www.ias.edu/">The Institute for Advanced Studies'</a> website in Drupal 8. A few other sites I've contributed to include <a href="https://us.fertility.com/">Fertility.com</a>, <a href="https://vaccinemakers.org/">The Vaccine Makers Project</a>, and <a href="https://www.lsac.org/">The Law School Admissions Council</a>.
         </p>
         <p>
-          When I'm not building websites, you can find me playing the drums in a band called <a href="https://dwellermusic.com/">Dweller</a>. I might also be playing <a href="https://mtg.gamepedia.com/Commander_(format)">Commander</a>. Or eating ice cream.
+          When I'm not building for the web, you can find me playing the drums in a band called <a href="https://dwellermusic.com/">Dweller</a>. I might also be playing <a href="https://mtg.gamepedia.com/Commander_(format)">Commander</a>. Or eating ice cream.
         </p>
         <ul className="contact-links no-list">
           <li className="contact-link">
