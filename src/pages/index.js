@@ -16,7 +16,7 @@ const IndexPage = () => (
       <h1>Hi, I'm John.</h1>
       <InViewport>
         <p>
-          I'm a web developer in Philadelphia, PA, currently working at <a href="https://www.zivtech.com/">Zivtech</a>.
+          I'm a web developer in Philadelphia, PA, currently working at <a href="https://www.lullabot.com/">Lullabot</a>.
         </p>
         <p>
           Recently I built <a href="https://www.pgpf.org/understanding-the-coronavirus-crisis/coronavirus-funding-state-by-state#funding-map">an interactive heat map</a> for the Peter G. Peterson Foundation. Before that I was heavily involved in rebuilding <a href="https://www.ias.edu/">The Institute for Advanced Studies'</a> website in Drupal 8. A few other sites I've contributed to include <a href="https://us.fertility.com/">Fertility.com</a>, <a href="https://vaccinemakers.org/">The Vaccine Makers Project</a>, and <a href="https://www.lsac.org/">The Law School Admissions Council</a>.
