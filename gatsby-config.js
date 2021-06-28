@@ -28,18 +28,6 @@ module.exports = {
         icon: `src/images/triforce--white.png`,
       },
     },
-    `gatsby-plugin-sass`,
-    {
-      resolve: `gatsby-plugin-google-analytics`,
-      options: {
-        trackingId: 'UA-177271091-1',
-        head: true,
-        anonymize: true,
-        respectDNT: true,
-        exclude: [],
-        pageTransitionDelay: 0,
-        defer: false,
-      }
-    }
+    `gatsby-plugin-sass`
   ]
 }
