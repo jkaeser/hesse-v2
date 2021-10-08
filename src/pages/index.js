@@ -3,7 +3,7 @@ import React from "react"
 import Layout from "components/Layout"
 import Button from "components/Button"
 import Section from "components/Section"
-import SEO from "components/Seo"
+import Seo from "components/Seo"
 
 import InViewport from "components/InViewport"
 
@@ -11,7 +11,7 @@ import resume from "files/JohnKaeser-Resume.pdf"
 
 const IndexPage = () => (
   <Layout>
-    <SEO title="Home" />
+    <Seo title="Home" />
     <Section>
       <h1>Hi, I'm John.</h1>
       <InViewport>
