@@ -1,0 +1,41 @@
+@import '../../../utils/sass/all';
+
+.art-code {
+  position: relative;
+
+  p,
+  &__code {
+    font-size: .75rem;
+  }
+
+  &__code {
+    background-color: var(--translucent);
+    cursor: pointer;
+
+    &:hover,
+    &:focus-visible {
+      outline: none;
+      text-decoration: underline;
+    }
+  }
+
+  &__popup {
+    @include transition(.15s);
+
+    font-size: .7rem;
+    position: absolute;
+    top: calc(100% + .25rem);
+    left: 0;
+    opacity: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 800;
+    visibility: hidden;
+
+    &.active {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+}

@@ -49,6 +49,21 @@ body > #___gatsby > div,
   }
 }
 
+.skip-link {
+  @include visually-hidden;
+
+  &:focus-visible {
+    @include visually-hidden-off;
+
+    position: absolute;
+    background: var(--translucent);
+    padding: 1rem;
+    left: 0;
+    right: 0;
+    text-align: center;
+  }
+}
+
 .contrast,
 .contrast section {
   --background-color: #{$c-white-dark} !important;
@@ -116,27 +131,7 @@ h1 {
 }
 
 a {
-  @include transition;
-
-  color: var(--text-color);
-  text-decoration: none;
-  position: relative;
-  font-weight: 400;
-  background-image: linear-gradient(to right, var(--translucent) 0, var(--translucent) 100%);
-  background-position: .25em .75em;
-  background-size: 100% 75%;
-  background-repeat: no-repeat;
-
-  &:hover,
-  &:focus {
-    background-position: initial;
-    background-size: 100% 100%;
-  }
-
-  &:focus {
-    outline: 0;
-    box-shadow: 0 1px 0 0 var(--text-color);
-  }
+  @include link;
 }
 
 p {
@@ -204,7 +199,7 @@ button,
   }
 
   + button,
-  + .button, {
+  + .button {
     margin-left: 1rem;
   }
 }

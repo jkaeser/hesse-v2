@@ -2,6 +2,10 @@
 
 .cols {
   column-gap: $gutter-small;
+
+  > div {
+    max-width: 50rem;
+  }
 }
 
 .cols h1,

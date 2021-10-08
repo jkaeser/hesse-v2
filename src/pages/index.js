@@ -19,7 +19,7 @@ const IndexPage = () => (
           I'm a web developer in Philadelphia, PA, currently working at <a href="https://www.lullabot.com/">Lullabot</a>.
         </p>
         <p>
-          Recently I've been contributing to IBM's <a href="https://github.com/carbon-design-system/carbon-for-ibm-dotcom">Carbon for IBM.com component library</a>. Before that I built <a href="https://www.pgpf.org/understanding-the-coronavirus-crisis/coronavirus-funding-state-by-state#funding-map">an interactive heat map</a> for the Peter G. Peterson Foundation and was heavily involved in rebuilding <a href="https://www.ias.edu/">The Institute for Advanced Studies'</a> website in Drupal 8.
+          Recently I've been contributing to IBM's <a href="https://github.com/carbon-design-system/carbon-for-ibm-dotcom">Carbon for IBM.com component library</a>. Before that I built <a href="https://www.pgpf.org/understanding-the-coronavirus-crisis/coronavirus-funding-state-by-state#funding-map">an interactive choropleth map</a> for the Peter G. Peterson Foundation and was heavily involved in rebuilding <a href="https://www.ias.edu/">The Institute for Advanced Studies'</a> website in Drupal 8.
         </p>
         <p>
           When I'm not building for the web, you can find me playing the drums in a band called <a href="https://dwellermusic.com/">Dweller</a>. I might also be playing <a href="https://mtg.gamepedia.com/Commander_(format)">Commander</a>. Or eating ice cream.

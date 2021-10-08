@@ -41,7 +41,9 @@
     "start": "npm run develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
+    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
+    "fetch-data-mckinnon": "> src/data/cards-mckinnon.json && curl https://api.scryfall.com/cards/search?q=unique%3A\"art\"+game%3A\"paper\"+artist%3A\"mckinnon\"+order%3A\"released\" > src/data/cards-mckinnon.json",
+    "fetch-data-sorin": "> src/data/cards-markov.json && curl https://api.scryfall.com/cards/search?q=unique%3A\"art\"+name%3A\"sorin\"+type%3A\"planeswalker\"+order%3A\"released\" > src/data/cards-markov.json"
   },
   "repository": {
     "type": "git",

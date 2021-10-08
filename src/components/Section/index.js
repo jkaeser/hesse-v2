@@ -6,9 +6,9 @@ import './section.scss'
 
 const Section = ({cols, color, children}) => {
   const classes = [
-    `color--${color}`,
-    cols !== '1' ? `cols cols--${cols}` : '',
     'full-width',
+    `color--${color}`,
+    cols !== '0' ? `cols cols--${cols}` : '',
   ]
 
   return (
@@ -22,7 +22,7 @@ const Section = ({cols, color, children}) => {
 
 Section.propTypes = {
   color: PropTypes.oneOf(['green', 'white']),
-  cols: PropTypes.oneOf(['1', '2', '3']),
+  cols: PropTypes.oneOf(['0', '1', '2', '3']),
 }
 Section.defaultProps = {
   color: 'green',
