@@ -1,7 +1,8 @@
-import React, { createRef, createContext } from "react"
+import React, { createContext } from "react"
 import PropTypes from "prop-types"
 import Helmet from "react-helmet"
 
+import Starfield from "../Starfield"
 import Footer from "../Footer"
 
 import "./styles/all.scss"
@@ -118,59 +119,6 @@ class Layout extends React.Component {
           <Footer />
         </div>
       </ModeContext.Provider>
-    )
-  }
-}
-
-// @TODO: Figure out how to update this once Layout mounts.
-// This component relies on Layout's size, but it mounts first and therefore
-// makes zero stars.
-class Starfield extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.canvasRef = createRef();
-    this.state = {
-      height: 0,
-      width: 0,
-    }
-  }
-
-  componentDidUpdate() {
-    const canvas = this.canvasRef.current;
-    const context = canvas.getContext('2d');
-    const starCount = Math.floor((window.innerWidth * window.innerHeight) / 600);
-    const colorRange = [0, 60, 240];
-
-    function getRandom(min, max) {
-      return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
-
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    for (var i = 0; i < starCount; i++) {
-      const x = Math.random() * canvas.offsetWidth;
-      const y = Math.random() * canvas.offsetHeight;
-      const radius = Math.random() * 1.2;
-      const hue = colorRange[getRandom(0, colorRange.length - 1)];
-      const sat = getRandom(50, 100);
-
-      context.beginPath();
-      context.arc(x, y, radius, 0, 360);
-      context.fillStyle = `hsl(${hue}, ${sat}%, 90%)`;
-      context.fill();
-    }
-  };
-
-  handleChange() {
-    this.setState({...this.props})
-  }
-
-  render() {
-    return (
-      <canvas
-        className="starfield"
-        ref={this.canvasRef}
-        {...this.props}/>
     )
   }
 }
