@@ -1,6 +1,5 @@
-import React, {useState, useContext} from "react"
+import React, {useState} from "react"
 import PropTypes from "prop-types"
-import { ModeContext } from "../Layout"
 
 import ArtCode from "./ArtCode"
 
@@ -11,17 +10,50 @@ const CardCollection = ({title, dataCards, dataCollected}) => {
   const [ hideCollected, setHideCollected ] = useState(false);
   const [ showArtIds, setShowArtIds ] = useState(false);
 
-  const context = useContext(ModeContext);
-
   const collectionId = title.toLowerCase().replaceAll(' ', '-').trim();
   const totalCardCount = dataCards.data.length;
   const collectedCardCount = dataCollected.data.length;
-  const collectedPercentage = Math.round((collectedCardCount / totalCardCount) * 100);
-  const circumference = 125.66;
+
+  const renderPieChart = () => {
+    const chart = {
+      dimensionX: 50,
+      dimensionY: 50,
+      radius: 48,
+      percentageFull: Math.round((collectedCardCount / totalCardCount) * 100),
+    }
+    chart.circumference = 2 * Math.PI * (chart.radius / 2);
+
+    return (
+      <svg
+          aria-hidden="true"
+          height="40"
+          width="40"
+          viewBox="0 0 100 100"
+        >
+          <circle
+            r={chart.radius}
+            cx={chart.dimensionX}
+            cy={chart.dimensionY}
+            fill="var(--translucent)"
+            stroke="var(--text-color)"
+            stroke-width="1"
+          />
+          <circle
+            r={chart.radius / 2}
+            cx={chart.dimensionX}
+            cy={chart.dimensionY}
+            fill="transparent"
+            stroke="var(--text-color)"
+            stroke-width="50"
+            stroke-dasharray={`${Math.round((chart.percentageFull * chart.circumference) / 100)} ${chart.circumference}`}
+            transform="rotate(-90) translate(-98)"
+          />
+        </svg>
+    )
+  }
 
   const cardInCollection = (card) => {
     return dataCollected.data.find(collectedCard =>
-      card.name === collectedCard.name &&
       card.illustration_id === collectedCard.illustration_id)
   };
 
@@ -55,15 +87,7 @@ const CardCollection = ({title, dataCards, dataCollected}) => {
   return (
     <details className="card-collection">
       <summary>
-        <svg
-          aria-hidden="true"
-          height="40"
-          width="40"
-          viewBox="0 0 100 100"
-        >
-          <circle r="48" cx="50" cy="50" fill="transparent" stroke={context.textColor} stroke-width="1" />
-          <circle r="24" cx="50" cy="50" fill="transparent" stroke={context.textColor} stroke-width="50" stroke-dasharray={`${Math.round((collectedPercentage * circumference) / 100)} ${circumference}`} transform="rotate(-90) translate(-98)" />
-        </svg>
+        { renderPieChart() }
         <div>
           <h2 className="card-collection__title">{title}</h2>
           <span className="card-collection__subtitle">
@@ -144,7 +168,6 @@ CardCollection.propTypes = {
   }),
   dataCollected: PropTypes.shape({
     data: PropTypes.arrayOf(PropTypes.shape({
-      name: PropTypes.string,
       illustration_id: PropTypes.string
     })),
   })
@@ -156,7 +179,6 @@ CardCollection.defaultProps = {
   dataCollected: { data:
     [
       {
-        name: '',
         illustration_id: ''
       }
     ]

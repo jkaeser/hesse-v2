@@ -1,4 +1,4 @@
-import React, { createContext } from "react"
+import React from "react"
 import PropTypes from "prop-types"
 import Helmet from "react-helmet"
 
@@ -7,14 +7,11 @@ import Footer from "../Footer"
 
 import "./styles/all.scss"
 
-export const ModeContext = createContext('');
-
 class Layout extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       activeMode: 'default',
-      context: {},
       windowSize: {
         width: 0,
         height: 0
@@ -46,35 +43,22 @@ class Layout extends React.Component {
     }
   ];
 
-  setContextColors() {
-    const styles = getComputedStyle(document.body);
-    this.setState({
-      context: {
-        textColor: styles.getPropertyValue('--text-color').trim(),
-        backgroundColor: styles.getPropertyValue('--background-color').trim(),
-        translucentColor: styles.getPropertyValue('--translucent').trim(),
-      }
-    })
-  }
-
   componentDidMount() {
-    this.setState({
+    this.setState(() => ({
       windowSize: {
         width: window.innerWidth,
         height: window.innerHeight
       },
-      activeMode: window.sessionStorage.getItem('jkSiteMode')
-    })
-    this.setContextColors();
+      activeMode: window.sessionStorage.getItem('jkSiteMode'),
+    }));
   }
 
   switchMode(mode) {
     const newMode = this.state.activeMode === mode ? 'default' : mode;
     this.setState(() => ({
-      activeMode: newMode
+      activeMode: newMode,
     }));
     window.sessionStorage.setItem('jkSiteMode', newMode);
-    this.setContextColors();
   }
 
   render() {
@@ -83,42 +67,40 @@ class Layout extends React.Component {
     ]
 
     return (
-      <ModeContext.Provider value={this.state.context}>
-        <div className='site-wrapper'>
-          <Helmet bodyAttributes={{ class: this.state.activeMode }} />
-          <Starfield
-            width={this.state.windowSize.width}
-            height={this.state.windowSize.height}
-          />
-          <a class="skip-link" href="#main">Skip to main content</a>
-          <main className={classes.join(' ').trim()}>
-            <div className="modes">
-            {this.modes.map((mode, index) => {
-              const classes = [
-                `button--${mode.name}`,
-                this.state.activeMode === mode.name ? 'active' : ''
-              ]
-              return (
-                <button
-                  key={index}
-                  className={classes.join(' ').trim()}
-                  onClick={() => this.switchMode(mode.name)}
-                  aria-pressed={this.state.activeMode === mode.name ? 'true' : 'false'}
-                >
-                  <span className="visually-hidden">
-                    {`Toggle ${mode.name} mode.`}
-                  </span>
-                  {mode.svg}
-                </button>
-              )
-            })}
-            </div>
-            <span id="main"></span>
-            {this.props.children}
-          </main>
-          <Footer />
-        </div>
-      </ModeContext.Provider>
+      <div className='site-wrapper'>
+        <Helmet bodyAttributes={{ class: this.state.activeMode }} />
+        <Starfield
+          width={this.state.windowSize.width}
+          height={this.state.windowSize.height}
+        />
+        <a class="skip-link" href="#main">Skip to main content</a>
+        <main className={classes.join(' ').trim()}>
+          <div className="modes">
+          {this.modes.map((mode, index) => {
+            const classes = [
+              `button--${mode.name}`,
+              this.state.activeMode === mode.name ? 'active' : ''
+            ]
+            return (
+              <button
+                key={index}
+                className={classes.join(' ').trim()}
+                onClick={() => this.switchMode(mode.name)}
+                aria-pressed={this.state.activeMode === mode.name ? 'true' : 'false'}
+              >
+                <span className="visually-hidden">
+                  {`Toggle ${mode.name} mode.`}
+                </span>
+                {mode.svg}
+              </button>
+            )
+          })}
+          </div>
+          <span id="main"></span>
+          {this.props.children}
+        </main>
+        <Footer />
+      </div>
     )
   }
 }
