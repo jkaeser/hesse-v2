@@ -8,11 +8,11 @@ const ArtCode = ({id}) => {
 
   const handleInteraction = (e, id) => {
     const validKeys = [
-      13, // enter/return
-      32, // spacebar
+      "Enter",
+      "Space"
     ];
     if (
-      (e.type === "keydown" && validKeys.indexOf(e.keyCode) !== -1) ||
+      (e.type === "keydown" && validKeys.indexOf(e.code) !== -1) ||
       e.type === "click"
     ) {
       e.preventDefault();
