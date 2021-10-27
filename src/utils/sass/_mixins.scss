@@ -13,7 +13,7 @@
 }
 
 @mixin transition($timing: $transition-timing) {
-  transition: all $timing $transition-curve, outline 0s linear, text-shadow 0s linear;
+  transition: all $timing $transition-curve, outline 0s linear, outline-offset 0s linear, text-shadow 0s linear;
 }
 
 @mixin visually-hidden {
