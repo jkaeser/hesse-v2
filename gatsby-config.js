@@ -25,7 +25,7 @@ module.exports = {
         background_color: `#475b5a`,
         theme_color: `#475b5a`,
         display: `minimal-ui`,
-        icon: `src/images/triforce--white.png`,
+        icon: `src/images/triforce.png`,
       },
     },
     `gatsby-plugin-sass`
