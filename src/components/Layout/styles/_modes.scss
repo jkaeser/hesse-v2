@@ -11,6 +11,8 @@
   }
 
   button {
+    @include transition;
+
     width: 3rem;
     height: 3rem;
     padding: .75rem;
@@ -19,6 +21,8 @@
 
     &.active {
       background-color: var(--translucent);
+      outline: 2px solid var(--text-color);
+      outline-offset: -2px;
     }
 
     &.button--hue-rotate.active svg {

@@ -85,6 +85,7 @@ class Layout extends React.Component {
               <button
                 key={index}
                 className={classes.join(' ').trim()}
+                title={`${mode.name} mode`}
                 onClick={() => this.switchMode(mode.name)}
                 aria-pressed={this.state.activeMode === mode.name ? 'true' : 'false'}
               >
