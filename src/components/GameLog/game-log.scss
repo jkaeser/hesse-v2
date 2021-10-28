@@ -1,0 +1,48 @@
+@import '../../utils/sass/all';
+
+.deck-info {
+  border: 1px solid var(--text-color);
+  border-radius: 10px;
+  padding: 1rem;
+
+  h2 {
+    svg {
+      margin-left: .15em;
+
+      &:first-of-type {
+        margin-left: .5em;
+      }
+    }
+  }
+}
+
+table {
+  border-spacing: 0;
+  border-collapse: collapse;
+
+  tr:nth-of-type(odd) {
+    background-color: var(--translucent);
+  }
+
+  th,
+  td {
+    border: 1px solid var(--text-color);
+    padding: .5em .75em;
+    text-align: left;
+    font-size: $font-size-smallish;
+
+    &.win,
+    &.loss {
+      font-weight: 500;
+    }
+
+    &.win {
+      background-color: var(--win-bg);
+      color: var(--win-text);
+    }
+    &.loss {
+      background-color: var(--loss-bg);
+      color: var(--loss-text);
+    }
+  }
+}

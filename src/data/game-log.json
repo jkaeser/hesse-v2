@@ -1,0 +1,63 @@
+{
+  "data": {
+    "decks": [
+      {
+        "id": 1,
+        "commander": "Marchesa, the Black Rose",
+        "color_identity": "UBR",
+        "colors": {
+          "white": false,
+          "blue": true,
+          "black": true,
+          "red": true,
+          "green": false
+        },
+        "status": "active"
+      },
+      {
+        "id": 2,
+        "commander": "Xyris, the Writhing Storm",
+        "color_identity": "URG",
+        "colors": {
+          "white": false,
+          "blue": true,
+          "black": false,
+          "red": true,
+          "green": true
+        },
+        "status": "active"
+      },
+      {
+        "id": 3,
+        "commander": "Volrath, the Shapestealer",
+        "color_identity": "UBG",
+        "colors": {
+          "white": false,
+          "blue": true,
+          "black": true,
+          "red": false,
+          "green": true
+        },
+        "status": "active"
+      }
+    ],
+    "games": [
+      {
+        "id": "10-26-2021--01",
+        "date": "10-26-2021",
+        "deck_id": 1,
+        "result": "win",
+        "player_count": 4,
+        "summary": "Slow start for Marchesa, especially after Yasharn hit the battlefield and shut off the whole deck. However, Marchesa found the combo pieces to secure the win the turn after another player removed Yasharn."
+      },
+      {
+        "id": "10-26-2021--02",
+        "date": "10-26-2021",
+        "deck_id": 3,
+        "result": "loss",
+        "player_count": 4,
+        "summary": "Could never really get anything going. Drew a handful of interaction, but nothing to draw more cards. Got stuck when a board wipe removed all my relevant creatures. Eventually lost to Golos gates combo."
+      }
+    ]
+  }
+}
