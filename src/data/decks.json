@@ -11,7 +11,10 @@
         "red": true,
         "green": false
       },
-      "status": "active"
+      "status": "active",
+      "urls": {
+        "tappedOut": "https://tappedout.net/mtg-decks/i-got-royalty-inside-my-dna/"
+      }
     },
     {
       "id": 2,
@@ -24,7 +27,10 @@
         "red": true,
         "green": true
       },
-      "status": "active"
+      "status": "active",
+      "urls": {
+        "tappedOut": "https://tappedout.net/mtg-decks/xyris-attac/"
+      }
     },
     {
       "id": 3,
@@ -37,7 +43,10 @@
         "red": false,
         "green": true
       },
-      "status": "active"
+      "status": "active",
+      "urls": {
+        "tappedOut": "https://tappedout.net/mtg-decks/what-about-second-volrath/"
+      }
     },
     {
       "id": 4,
@@ -50,7 +59,10 @@
         "red": true,
         "green": false
       },
-      "status": "active"
+      "status": "active",
+      "urls": {
+        "tappedOut": "https://tappedout.net/mtg-decks/osgir-the-enhanced/"
+      }
     },
     {
       "id": 5,
@@ -63,7 +75,10 @@
         "red": true,
         "green": false
       },
-      "status": "active"
+      "status": "active",
+      "urls": {
+        "tappedOut": "https://tappedout.net/mtg-decks/08-02-21-saheeli-the-gifted/"
+      }
     },
     {
       "id": 6,
@@ -76,7 +91,10 @@
         "red": true,
         "green": true
       },
-      "status": "active"
+      "status": "active",
+      "urls": {
+        "tappedOut": "https://tappedout.net/mtg-decks/goading-bloodweavers/"
+      }
     },
     {
       "id": 7,
@@ -89,7 +107,10 @@
         "red": false,
         "green": false
       },
-      "status": "retired"
+      "status": "retired",
+      "urls": {
+        "tappedOut": "https://tappedout.net/mtg-decks/the-shapes-of-things-to-come/"
+      }
     },
     {
       "id": 8,
@@ -102,7 +123,10 @@
         "red": false,
         "green": false
       },
-      "status": "retired"
+      "status": "retired",
+      "urls": {
+        "tappedOut": "https://tappedout.net/mtg-decks/precious-children/"
+      }
     }
   ]
 }

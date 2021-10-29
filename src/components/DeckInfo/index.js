@@ -3,57 +3,32 @@ import React, { useState } from "react"
 import Datum from "components/Datum"
 import FilterRow from "components/FilterRow"
 
+import {
+  getWins,
+  getLosses,
+  getWinLossRatio,
+  sortGamesByDate
+} from "utils/js/game-utils"
+
+import {
+  getStreakType,
+  getStreakCount,
+  getLatestGame
+} from "utils/js/deck-utils"
+
 import "./deck-info.scss"
 
 const DeckInfo = ({ deck, games }) => {
-  const gamesPlayed = games
-    .filter(game => game.deck_id === deck.id)
-    .sort((a, b) => new Date(b.date) - new Date(a.date));
-  const wins = gamesPlayed.filter(game => game.result === 'win');
-  const losses = gamesPlayed.filter(game => game.result === 'loss');
-  const ratio = Number(wins.length / losses.length).toPrecision(2);
+  sortGamesByDate(games);
 
-  const getStreakCount = (iterator = 0) => {
-    if (gamesPlayed[iterator + 1]) {
-      let game1 = gamesPlayed[iterator];
-      let game2 = gamesPlayed[iterator + 1];
+  const wins = getWins(games);
+  const losses = getLosses(games);
+  const ratio = getWinLossRatio(games);
+  const streakType = getStreakType(games);
+  const streakCount = getStreakCount(games);
+  const latestGame = getLatestGame(games);
 
-      if (game1.result === game2.result) {
-        iterator++;
-        return getStreakCount(iterator);
-      }
-    }
-
-    return iterator === 0 ? null : iterator + 1;
-  }
-
-  const getStreak = () => {
-    let streak = null;
-    if (gamesPlayed[0].result === gamesPlayed[1].result) {
-      switch(gamesPlayed[0].result) {
-        case 'win':
-          streak = 'winning';
-          break;
-        case 'loss':
-          streak = 'losing'
-          break;
-        default:
-          break;
-      }
-    }
-    return streak;
-  }
-
-  const isRetired = () => (
-    deck.status === 'retired'
-  );
-  const getLatestGame = () => (
-    gamesPlayed.length > 0
-      ? gamesPlayed[0].date
-      : null
-  )
-
-  const renderSvg = (color) => (
+  const renderColorSvg = (color) => (
     <svg
       viewBox="0 0 100 100"
       xmlns="http://www.w3.org/2000/svg"
@@ -72,7 +47,7 @@ const DeckInfo = ({ deck, games }) => {
 
   const classes = [
     'deck',
-    isRetired() ? 'deck--retired' : '',
+    `deck--${deck.status}`,
   ];
 
   return (
@@ -82,7 +57,7 @@ const DeckInfo = ({ deck, games }) => {
           <div className="visually-hidden">{deck.color_identity}</div>
           <div role="presentation">
             {Object.keys(deck.colors).map((color) => (
-              deck.colors[color] ? renderSvg(color) : null
+              deck.colors[color] ? renderColorSvg(color) : null
             ))}
           </div>
         </div>
@@ -90,21 +65,33 @@ const DeckInfo = ({ deck, games }) => {
           {deck.commander}
         </h3>
         <div className="deck__metadata">
-          {getLatestGame() &&
+          {latestGame &&
             <div className="deck__latest-game">
               <svg viewBox="0 0 80 75" xmlns="http://www.w3.org/2000/svg"><g id="Layer_2"><g id="Layer_3"><path d="M53.4,10.4V4.7h-3v5.7h-8.5V4.7h-3v5.7h-9.1V4.7h-3v5.7H5.4v59.9h69.1V10.4H53.4z M26.8,13.4V19h3v-5.7H39V19h3v-5.7h8.5 V19h3v-5.7h18.1v44.2H8.4V13.4H26.8z M8.4,67.3v-6.7h63.1v6.7L8.4,67.3z"/><rect height="5.7" width="5.7" x="22.6" y="30"/><rect height="5.7" width="5.7" x="37.1" y="30"/><rect height="5.7" width="5.7" x="51.7" y="30"/><rect height="5.7" width="5.7" x="22.6" y="44.6"/><rect height="5.7" width="5.7" x="37.1" y="44.6"/><rect height="5.7" width="5.7" x="51.7" y="44.6"/></g></g></svg>
               <span className="deck__latest-game-label">
-                Last played on {getLatestGame()}
+                Last played on {latestGame}
                 </span>
             </div>
           }
-          {getStreak() &&
+          {streakType &&
             <div className="deck__streak">
               <svg viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg"><polygon points="22.5,10 16.8,10 20.8,0.1 10.9,0.1 7.5,16.7 11.4,16.7   9.2,29.9 "/></svg>
-              <span className={`deck__streak-label ${getStreak()}`}>
-                {getStreakCount()} game {getStreak()} streak
+              <span className={`deck__streak-label ${streakType}`}>
+                {streakCount} game {streakType} streak
               </span>
             </div>
+          }
+          {
+            deck.urls.tappedOut &&
+            <a
+              className="deck__url"
+              href={deck.urls.tappedOut}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg"><g id="Layer_1"><polygon points="36,3 45.586,3 28.293,20.293 29.707,21.707 47,4.414 47,14 49,14 49,1 36,1  "/><polygon points="42,16 40,16 40,47 3,47 3,10 34,10 34,8 1,8 1,49 42,49  "/></g><g/></svg>
+              TappedOut
+            </a>
           }
         </div>
         <div className="deck__games">
@@ -115,7 +102,7 @@ const DeckInfo = ({ deck, games }) => {
             <Datum number={losses.length} label='losses' />
           </div>
           <div className="deck__played">
-            <Datum number={gamesPlayed.length} label='games played' />
+            <Datum number={games.length} label='games played' />
           </div>
           <div className="deck__ratio">
             <Datum
@@ -146,7 +133,7 @@ export const DeckInfos = ({ decks, games }) => {
 
   return (
     <div className={classes.join(' ').trim()}>
-      <h2 className="decks__title">Decks</h2>
+      <h2 className="decks__title">Deck Performance</h2>
       <FilterRow className="decks__filters">
         <div className="decks__filter-item">
           <input
@@ -161,7 +148,11 @@ export const DeckInfos = ({ decks, games }) => {
       </FilterRow>
       <div className="decks__items">
         {decks.map(deck => (
-          <DeckInfo deck={deck} games={games} key={deck.id} />
+          <DeckInfo
+            deck={deck}
+            games={games.filter(game => game.deck_id === deck.id)}
+            key={deck.id}
+          />
         ))}
       </div>
     </div>

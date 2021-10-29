@@ -2,8 +2,13 @@
 
 .game-log {
   summary {
-    > h2 {
+    h2 {
       margin-bottom: 0;
+    }
+
+    div {
+      font-size: $font-size-small;
+      margin-top: .25rem;
     }
   }
 

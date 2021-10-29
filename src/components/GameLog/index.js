@@ -4,36 +4,46 @@ import Datum from "components/Datum"
 import Details from "components/Details"
 import FilterRow from "components/FilterRow"
 
+import formatDate from "utils/js/formatters/date"
+
+import {
+  getWins,
+  getLosses,
+  getWinLossRatio,
+  getPlayerCounts,
+  sortGamesByDate
+} from "utils/js/game-utils"
+
 import "./game-log.scss"
 
 const GameLog = ({ games, decks }) => {
+  // Set player counts before filtering.
+  const playerCounts = getPlayerCounts(games);
+
+  // Sort games before filtering.
+  sortGamesByDate(games);
+
+  // Respect filter options.
   const [ filterCommander, setFilterCommander ] = useState('default');
   const [ filterPlayerCount, setFilterPlayerCount ] = useState('default');
-
-  const playerCounts = games.reduce(
-    (previousValue, game) => {
-      if (previousValue.indexOf(game.player_count) === -1) {
-        previousValue.push(game.player_count);
-      }
-      return previousValue;
-    }, []
-  );
-
-  games.sort((a, b) => new Date(b.date) - new Date(a.date));
-
   if (filterCommander !== 'default') {
     games = games.filter(game => game.deck_id === Number(filterCommander));
   }
   if (filterPlayerCount !== 'default') {
-    games = games.filter(game => game.player_count == Number(filterPlayerCount));
+    games = games.filter(game => game.player_count === Number(filterPlayerCount));
   }
 
-  const wins = games.filter(game => game.result === "win");
-  const losses = games.filter(game => game.result === "loss");
-  const ratio = Number(wins.length / losses.length).toPrecision(2);
+  const wins = getWins(games);
+  const losses = getLosses(games);
+  const ratio = getWinLossRatio(games);
 
   const renderSummary = () => (
-    <h2>Games Played from {games[games.length - 1].date} to {games[0].date}</h2>
+    <div>
+      <h2>Games Played</h2>
+      {games.length > 0 &&
+        <div>{formatDate(games[games.length - 1].date)} to {formatDate(games[0].date)}</div>
+      }
+    </div>
   )
 
   return (
@@ -84,7 +94,7 @@ const GameLog = ({ games, decks }) => {
 
               return (
                 <tr id={game.id} key={game.id}>
-                  <td className="date">{game.date}</td>
+                  <td className="date">{formatDate(game.date)}</td>
                   <td className="commander">{deck.commander}</td>
                   <td className="player-count">{game.player_count}</td>
                   <td className={`result ${game.result}`}>{game.result}</td>
