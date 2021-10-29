@@ -21,6 +21,8 @@ const CardPage = () => (
         decks={deckData.decks}
         games={gameData.games}
       />
+    </Section>
+    <Section cols="0">
       <GameLog
         decks={deckData.decks}
         games={gameData.games}

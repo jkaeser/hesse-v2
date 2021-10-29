@@ -15,11 +15,15 @@ const DeckInfo = ({ deck, games }) => {
 
   const getStreakCount = (iterator = 0) => {
     if (gamesPlayed[iterator + 1]) {
-      if (gamesPlayed[iterator].result === gamesPlayed[iterator + 1].result) {
+      let game1 = gamesPlayed[iterator];
+      let game2 = gamesPlayed[iterator + 1];
+
+      if (game1.result === game2.result) {
         iterator++;
-        getStreakCount(iterator);
+        return getStreakCount(iterator);
       }
     }
+
     return iterator === 0 ? null : iterator + 1;
   }
 
@@ -37,15 +41,7 @@ const DeckInfo = ({ deck, games }) => {
           break;
       }
     }
-    return (
-      <>
-      {streak &&
-        <span className={`streak streak--${streak}`}>
-          {getStreakCount()} game {streak} streak
-        </span>
-      }
-      </>
-    )
+    return streak;
   }
 
   const isRetired = () => (
@@ -54,13 +50,11 @@ const DeckInfo = ({ deck, games }) => {
   const getLatestGame = () => (
     gamesPlayed.length > 0
       ? gamesPlayed[0].date
-      : 'never played'
+      : null
   )
 
   const renderSvg = (color) => (
     <svg
-      height=".6em"
-      width=".6em"
       viewBox="0 0 100 100"
       xmlns="http://www.w3.org/2000/svg"
       key={`${color}`}
@@ -84,21 +78,34 @@ const DeckInfo = ({ deck, games }) => {
   return (
     <article className={classes.join(' ').trim()}>
       <div className="deck__inner">
-        <h3 className="deck__commander">
-          {deck.commander}
-          <span role="presentation">
+        <div className="deck__color-identity">
+          <div className="visually-hidden">{deck.color_identity}</div>
+          <div role="presentation">
             {Object.keys(deck.colors).map((color) => (
               deck.colors[color] ? renderSvg(color) : null
             ))}
-          </span>
+          </div>
+        </div>
+        <h3 className="deck__commander">
+          {deck.commander}
         </h3>
         <div className="deck__metadata">
-          <div className="deck__latest-game">
-            Last played: {getLatestGame()}
-          </div>
-          <div className="deck__streak">
-            {getStreak()}
-          </div>
+          {getLatestGame() &&
+            <div className="deck__latest-game">
+              <svg viewBox="0 0 80 75" xmlns="http://www.w3.org/2000/svg"><g id="Layer_2"><g id="Layer_3"><path d="M53.4,10.4V4.7h-3v5.7h-8.5V4.7h-3v5.7h-9.1V4.7h-3v5.7H5.4v59.9h69.1V10.4H53.4z M26.8,13.4V19h3v-5.7H39V19h3v-5.7h8.5 V19h3v-5.7h18.1v44.2H8.4V13.4H26.8z M8.4,67.3v-6.7h63.1v6.7L8.4,67.3z"/><rect height="5.7" width="5.7" x="22.6" y="30"/><rect height="5.7" width="5.7" x="37.1" y="30"/><rect height="5.7" width="5.7" x="51.7" y="30"/><rect height="5.7" width="5.7" x="22.6" y="44.6"/><rect height="5.7" width="5.7" x="37.1" y="44.6"/><rect height="5.7" width="5.7" x="51.7" y="44.6"/></g></g></svg>
+              <span className="deck__latest-game-label">
+                Last played on {getLatestGame()}
+                </span>
+            </div>
+          }
+          {getStreak() &&
+            <div className="deck__streak">
+              <svg viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg"><polygon points="22.5,10 16.8,10 20.8,0.1 10.9,0.1 7.5,16.7 11.4,16.7   9.2,29.9 "/></svg>
+              <span className={`deck__streak-label ${getStreak()}`}>
+                {getStreakCount()} game {getStreak()} streak
+              </span>
+            </div>
+          }
         </div>
         <div className="deck__games">
           <div className="deck__wins">
@@ -112,7 +119,7 @@ const DeckInfo = ({ deck, games }) => {
           </div>
           <div className="deck__ratio">
             <Datum
-              number={ratio.length}
+              number={ratio}
               label='win/loss ratio'
               dataStyle={{animationDelay: `-${ratio}s` }}
             />

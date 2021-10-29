@@ -1,7 +1,6 @@
 @import '../../utils/sass/all';
 
 .decks {
-  margin-bottom: 2rem;
   border: 1px solid var(--translucent);
 
   &.hide-retired {
@@ -57,28 +56,43 @@
     padding-bottom: 1rem;
   }
 
-  &__commander {
-    margin-bottom: .25rem;
-
+  &__color-identity {
     svg {
-      margin-left: .15em;
+      width: .75em;
+      height: .75em;
 
-      &:first-of-type {
-        margin-left: .5em;
+      + svg {
+        margin-left: .15em;
       }
     }
+  }
+
+  &__commander {
+    margin-bottom: .25rem;
   }
 
   &__metadata {
     margin-bottom: 1rem;
     font-size: $font-size-small;
+
+    > * {
+      display: flex;
+      align-items: center;
+      gap: .5em;
+    }
+
+    svg {
+      height: 1em;
+      width: 1em;
+      fill: var(--text-color);
+    }
   }
 
   &__games {
     display: grid;
     gap: .5rem 1rem;
 
-    @include bp($bp-phone-lg) {
+    @include bp($bp-phone-sm) {
       grid-template-columns: repeat(2, 1fr);
     }
   }

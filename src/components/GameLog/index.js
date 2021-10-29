@@ -12,6 +12,10 @@ const GameLog = ({ games, decks }) => {
 
   games.sort((a, b) => new Date(b.date) - new Date(a.date));
 
+  if (filteredCommander !== 'default') {
+    games = games.filter(game => game.deck_id === Number(filteredCommander));
+  }
+
   const wins = games.filter(game => game.result === "win");
   const losses = games.filter(game => game.result === "loss");
   const ratio = Number(wins.length / losses.length).toPrecision(2);
@@ -23,12 +27,6 @@ const GameLog = ({ games, decks }) => {
   return (
     <Details className="game-log" summary={renderSummary()}>
       <div className="game-log__content">
-        <div className="game-log__data-rollup">
-          <Datum number={games.length} label="total games" />
-          <Datum number={wins.length} label="total wins" />
-          <Datum number={losses.length} label="total losses" />
-          <Datum number={ratio} label="win/loss ratio" />
-        </div>
         <FilterRow className="game-log__filters">
           <div className="game-log__filter-item">
             <select onChange={(e) => setFilteredCommander(e.target.value)}>
@@ -41,6 +39,12 @@ const GameLog = ({ games, decks }) => {
             </select>
           </div>
         </FilterRow>
+        <div className="game-log__data-rollup">
+          <Datum number={games.length} label="total games" />
+          <Datum number={wins.length} label="total wins" />
+          <Datum number={losses.length} label="total losses" />
+          <Datum number={ratio} label="win/loss ratio" />
+        </div>
         <table>
           <thead>
             <tr>
