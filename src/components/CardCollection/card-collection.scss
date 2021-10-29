@@ -26,16 +26,6 @@ $card-width: 146px;
     border-right: 1px solid var(--translucent);
   }
 
-  &__filters {
-    border-bottom: 1px solid var(--translucent);
-    display: flex;
-  }
-
-  &__filter {
-    border-right: 1px solid var(--translucent);
-    padding: .5rem 1rem;
-  }
-
   &__count {
     padding: 1rem 1rem 0;
     font-size: $font-size-small;

@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 
 import Datum from "components/Datum"
+import FilterRow from "components/FilterRow"
 
 import "./deck-info.scss"
 
@@ -56,6 +57,25 @@ const DeckInfo = ({ deck, games }) => {
       : 'never played'
   )
 
+  const renderSvg = (color) => (
+    <svg
+      height=".6em"
+      width=".6em"
+      viewBox="0 0 100 100"
+      xmlns="http://www.w3.org/2000/svg"
+      key={`${color}`}
+    >
+      <circle
+        cx="50"
+        cy="50"
+        r="48"
+        fill={`var(--mtg-${color})`}
+        strokeWidth="4px"
+        stroke="var(--text-color)"
+      />
+    </svg>
+  )
+
   const classes = [
     'deck',
     isRetired() ? 'deck--retired' : '',
@@ -67,23 +87,9 @@ const DeckInfo = ({ deck, games }) => {
         <h3 className="deck__commander">
           {deck.commander}
           <span role="presentation">
-            {Object.keys(deck.colors).map((color) => {
-              if (deck.colors[color]) {
-                return (
-                  <svg height=".6em" width=".6em" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" key={`${deck.id}--${color}`}>
-                    <circle
-                      cx="50"
-                      cy="50"
-                      r="48"
-                      fill={`var(--mtg-${color})`}
-                      strokeWidth="4px"
-                      stroke="var(--text-color)"
-                    />
-                  </svg>
-                )
-              }
-              return null
-            })}
+            {Object.keys(deck.colors).map((color) => (
+              deck.colors[color] ? renderSvg(color) : null
+            ))}
           </span>
         </h3>
         <div className="deck__metadata">
@@ -105,7 +111,11 @@ const DeckInfo = ({ deck, games }) => {
             <Datum number={gamesPlayed.length} label='games played' />
           </div>
           <div className="deck__ratio">
-            <Datum number={ratio.length} label='win/loss ratio' dataStyle={{animationDelay: `-${ratio}s` }} />
+            <Datum
+              number={ratio.length}
+              label='win/loss ratio'
+              dataStyle={{animationDelay: `-${ratio}s` }}
+            />
           </div>
         </div>
       </div>
@@ -126,17 +136,19 @@ export const DeckInfos = ({ decks, games }) => {
 
   return (
     <div className={classes.join(' ').trim()}>
-      <h2>Decks</h2>
-      <form className="decks__filters">
-        <input
-          type="checkbox"
-          id="hide-retired"
-          name="hide-retired"
-          value="hide-retired"
-          onChange={() => setHideRetired(!hideRetired)}
-        />
-        <label htmlFor="hide-retired">Show Retired Decks</label>
-      </form>
+      <h2 className="decks__title">Decks</h2>
+      <FilterRow className="decks__filters">
+        <div className="decks__filter-item">
+          <input
+            type="checkbox"
+            id="hide-retired"
+            name="hide-retired"
+            value="hide-retired"
+            onChange={() => setHideRetired(!hideRetired)}
+          />
+          <label htmlFor="hide-retired">Show Retired Decks</label>
+        </div>
+      </FilterRow>
       <div className="decks__items">
         {decks.map(deck => (
           <DeckInfo deck={deck} games={games} key={deck.id} />

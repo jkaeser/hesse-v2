@@ -2,6 +2,7 @@
 
 .decks {
   margin-bottom: 2rem;
+  border: 1px solid var(--translucent);
 
   &.hide-retired {
     .deck--retired {
@@ -9,13 +10,14 @@
     }
   }
 
-  &__filters {
-    margin-bottom: 1rem;
+  &__title {
+    padding: 1rem;
+    margin-bottom: 0;
   }
 
   &__items {
     display: grid;
-    gap: 1rem;
+    gap: 1px;
 
     @include bp($bp-tablet-vertical) {
       grid-template-columns: repeat(2, 1fr);
@@ -32,8 +34,6 @@
 }
 
 .deck {
-  border: 1px solid var(--text-color);
-  border-radius: 10px;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -102,7 +102,7 @@
   &__status {
     padding-top: .5rem;
     padding-bottom: .5rem;
-    border-top: 1px solid var(--text-color);
+    border-top: 1px solid var(--translucent);
     text-align: center;
     letter-spacing: 1px;
     font-size: $font-size-smaller;

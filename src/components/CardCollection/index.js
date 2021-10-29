@@ -3,6 +3,7 @@ import PropTypes from "prop-types"
 
 import ArtCode from "./ArtCode"
 import Details from "components/Details"
+import FilterRow from "components/FilterRow"
 
 import "./card-collection.scss"
 
@@ -100,7 +101,7 @@ const CardCollection = ({title, dataCards, dataCollected}) => {
   return (
     <Details className="card-collection" summary={renderSummary()}>
       <div className="card-collection__content">
-        <form className="card-collection__filters">
+        <FilterRow className="card-collection__filters">
           <div className="card-collection__filter">
             <input
               type="checkbox"
@@ -121,7 +122,7 @@ const CardCollection = ({title, dataCards, dataCollected}) => {
             />
             <label htmlFor={`show-art-ids--${collectionId}`}>Show Art IDs</label>
           </div>
-        </form>
+        </FilterRow>
         <div className="card-collection__count">
           Displaying {filtered.length} of {totalCardCount} cards
         </div>

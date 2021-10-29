@@ -1,12 +1,15 @@
-import React from "react"
+import React, { useState } from "react"
 // import PropTypes from "prop-types"
 
 import Datum from "components/Datum"
 import Details from "components/Details"
+import FilterRow from "components/FilterRow"
 
 import "./game-log.scss"
 
 const GameLog = ({ games, decks }) => {
+  const [ filteredCommander, setFilteredCommander ] = useState('default');
+
   games.sort((a, b) => new Date(b.date) - new Date(a.date));
 
   const wins = games.filter(game => game.result === "win");
@@ -26,6 +29,18 @@ const GameLog = ({ games, decks }) => {
           <Datum number={losses.length} label="total losses" />
           <Datum number={ratio} label="win/loss ratio" />
         </div>
+        <FilterRow className="game-log__filters">
+          <div className="game-log__filter-item">
+            <select onChange={(e) => setFilteredCommander(e.target.value)}>
+              <option id="default" value="default">- Filter by Commander -</option>
+              {decks.map(deck => (
+                <option id={deck.id} value={deck.id} key={deck.id}>
+                  {deck.commander}
+                </option>
+              ))}
+            </select>
+          </div>
+        </FilterRow>
         <table>
           <thead>
             <tr>
@@ -36,7 +51,14 @@ const GameLog = ({ games, decks }) => {
             </tr>
           </thead>
           <tbody>
-            {games.map(game => {
+            {games
+              .filter(game => (
+                filteredCommander !== 'default'
+                  ? game.deck_id === Number(filteredCommander)
+                  : true
+
+              ))
+              .map(game => {
               const deck = decks.find(deck => deck.id === game.deck_id);
 
               return (
