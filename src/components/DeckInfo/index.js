@@ -1,5 +1,7 @@
 import React, { useState } from "react"
 
+import Datum from "components/Datum"
+
 import "./deck-info.scss"
 
 const DeckInfo = ({ deck, games }) => {
@@ -54,10 +56,6 @@ const DeckInfo = ({ deck, games }) => {
       : 'never played'
   )
 
-  const renderDatum = (number, label, dataStyle = {}) => (
-    <><span className="data" style={dataStyle}>{number}</span> <span className="label">{label}</span></>
-  );
-
   const classes = [
     'deck',
     isRetired() ? 'deck--retired' : '',
@@ -98,16 +96,16 @@ const DeckInfo = ({ deck, games }) => {
         </div>
         <div className="deck__games">
           <div className="deck__wins">
-            {renderDatum(wins.length, 'wins')}
+            <Datum number={wins.length} label='wins' />
           </div>
           <div className="deck__losses">
-            {renderDatum(losses.length, 'losses')}
+            <Datum number={losses.length} label='losses' />
           </div>
           <div className="deck__played">
-            {renderDatum(gamesPlayed.length, 'games played')}
+            <Datum number={gamesPlayed.length} label='games played' />
           </div>
           <div className="deck__ratio">
-            {renderDatum(ratio, "win/loss ratio", {animationDelay: `-${ratio}s` })}
+            <Datum number={ratio.length} label='win/loss ratio' dataStyle={{animationDelay: `-${ratio}s` }} />
           </div>
         </div>
       </div>
@@ -129,15 +127,16 @@ export const DeckInfos = ({ decks, games }) => {
   return (
     <div className={classes.join(' ').trim()}>
       <h2>Decks</h2>
-      <div className="decks__filters">
+      <form className="decks__filters">
         <input
           type="checkbox"
-          name="hide-retired"
           id="hide-retired"
+          name="hide-retired"
+          value="hide-retired"
           onChange={() => setHideRetired(!hideRetired)}
         />
         <label htmlFor="hide-retired">Show Retired Decks</label>
-      </div>
+      </form>
       <div className="decks__items">
         {decks.map(deck => (
           <DeckInfo deck={deck} games={games} key={deck.id} />

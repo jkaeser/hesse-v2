@@ -81,33 +81,7 @@
     @include bp($bp-phone-lg) {
       grid-template-columns: repeat(2, 1fr);
     }
-
-    .data {
-      font-weight: 600;
-      font-size: 2rem;
-      // text-shadow:
-      //   1px 1px 0 var(--text-color),
-      //   1px -1px 0 var(--text-color),
-      //   -1px 1px 0 var(--text-color),
-      //   -1px -1px 0 var(--text-color);
-    }
-
-    .label {
-      font-size: $font-size-smallish;
-    }
   }
-
-  // &__wins {
-  //   .data {
-  //     color: var(--win-bg);
-  //   }
-  // }
-
-  // &__losses {
-  //   .data {
-  //     color: var(--loss-bg);
-  //   }
-  // }
 
   @keyframes color-mix {
     0% {
@@ -119,7 +93,7 @@
   }
 
   &__ratio {
-    .data {
+    .datum__number {
       animation: color-mix 1s linear forwards paused;
       color: currentColor;
     }

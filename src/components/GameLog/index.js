@@ -1,6 +1,9 @@
 import React from "react"
 // import PropTypes from "prop-types"
 
+import Datum from "components/Datum"
+import Details from "components/Details"
+
 import "./game-log.scss"
 
 const GameLog = ({ games, decks }) => {
@@ -10,14 +13,19 @@ const GameLog = ({ games, decks }) => {
   const losses = games.filter(game => game.result === "loss");
   const ratio = Number(wins.length / losses.length).toPrecision(2);
 
+  const renderSummary = () => (
+    <h2>Game Log</h2>
+  )
+
   return (
-    <details className="game-log">
-      <summary><h2>Game Log</h2></summary>
-      <div>
-        <div>Total Games: {games.length}</div>
-        <div>Total Wins: {wins.length}</div>
-        <div>Total Losses: {losses.length}</div>
-        <div>Win/Loss Ratio: {ratio}</div>
+    <Details className="game-log" summary={renderSummary()}>
+      <div className="game-log__content">
+        <div className="game-log__data-rollup">
+          <Datum number={games.length} label="total games" />
+          <Datum number={wins.length} label="total wins" />
+          <Datum number={losses.length} label="total losses" />
+          <Datum number={ratio} label="win/loss ratio" />
+        </div>
         <table>
           <thead>
             <tr>
@@ -43,7 +51,7 @@ const GameLog = ({ games, decks }) => {
           </tbody>
         </table>
       </div>
-    </details>
+    </Details>
   )
 }
 

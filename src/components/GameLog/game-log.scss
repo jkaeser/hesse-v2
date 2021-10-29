@@ -1,33 +1,63 @@
 @import '../../utils/sass/all';
 
-table {
-  border-spacing: 0;
-  border-collapse: collapse;
-
-  tr:nth-of-type(odd) {
-    background-color: var(--translucent);
+.game-log {
+  summary {
+    > h2 {
+      margin-bottom: 0;
+    }
   }
 
-  th,
-  td {
-    border: 1px solid var(--text-color);
-    padding: .5em .75em;
-    text-align: left;
-    font-size: $font-size-smallish;
+  &__content {
+    border: 1px solid var(--translucent);
+    border-top: 0;
+  }
 
-    &.win,
-    &.loss {
-      font-weight: 500;
-      text-shadow: none;
+  &__data-rollup {
+    display: flex;
+    gap: 1rem;
+
+    > * {
+      padding: 1rem;
+
+      &:last-of-type {
+        border-right: 1px solid var(--translucent);
+      }
+
+      + * {
+        border-left: 1px solid var(--translucent);
+      }
+    }
+  }
+
+  table {
+    border-spacing: 0;
+    border-collapse: collapse;
+
+    tr:nth-of-type(odd) {
+      background-color: var(--translucent);
     }
 
-    &.win {
-      background-color: var(--win-bg);
-      color: var(--win-text);
-    }
-    &.loss {
-      background-color: var(--loss-bg);
-      color: var(--loss-text);
+    th,
+    td {
+      border: 1px solid var(--text-color);
+      padding: .5em .75em;
+      text-align: left;
+      font-size: $font-size-smallish;
+
+      &.win,
+      &.loss {
+        font-weight: 500;
+        text-shadow: none;
+      }
+
+      &.win {
+        background-color: var(--win-bg);
+        color: var(--win-text);
+      }
+      &.loss {
+        background-color: var(--loss-bg);
+        color: var(--loss-text);
+      }
     }
   }
 }

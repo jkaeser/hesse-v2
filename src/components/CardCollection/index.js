@@ -2,6 +2,7 @@ import React, {useState} from "react"
 import PropTypes from "prop-types"
 
 import ArtCode from "./ArtCode"
+import Details from "components/Details"
 
 import "./card-collection.scss"
 
@@ -13,6 +14,18 @@ const CardCollection = ({title, dataCards, dataCollected}) => {
   const collectionId = title.toLowerCase().replaceAll(' ', '-').trim();
   const totalCardCount = dataCards.data.length;
   const collectedCardCount = dataCollected.data.length;
+
+  const renderSummary = () => (
+    <>
+    { renderPieChart() }
+    <div>
+      <h2 className="card-collection__title">{title}</h2>
+      <span className="card-collection__subtitle">
+        {`${collectedCardCount}/${totalCardCount} collected`}
+      </span>
+    </div>
+    </>
+  )
 
   const renderPieChart = () => {
     const chart = {
@@ -85,16 +98,7 @@ const CardCollection = ({title, dataCards, dataCollected}) => {
   };
 
   return (
-    <details className="card-collection">
-      <summary>
-        { renderPieChart() }
-        <div>
-          <h2 className="card-collection__title">{title}</h2>
-          <span className="card-collection__subtitle">
-            {`${collectedCardCount}/${totalCardCount} collected`}
-          </span>
-        </div>
-      </summary>
+    <Details className="card-collection" summary={renderSummary()}>
       <div className="card-collection__content">
         <form className="card-collection__filters">
           <div className="card-collection__filter">
@@ -157,7 +161,7 @@ const CardCollection = ({title, dataCards, dataCollected}) => {
           }
         </ul>
       </div>
-    </details>
+    </Details>
   )
 }
 
