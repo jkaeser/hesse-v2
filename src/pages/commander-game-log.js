@@ -4,11 +4,11 @@ import Layout from "components/Layout"
 import Section from "components/Section"
 import Seo from "components/Seo"
 
-import {DeckInfos} from "components/DeckInfo"
+import { DeckInfos } from "components/DeckInfo"
 import GameLog from "components/GameLog"
 
-import { games } from "data/games-played.json"
-import { decks } from "data/decks.json"
+import deckData from "data/decks.json"
+import gameData from "data/games-played.json"
 
 const pageTitle = "Commander Game Log";
 
@@ -18,12 +18,12 @@ const CardPage = () => (
     <Section cols="0">
       <h1>{pageTitle}</h1>
       <DeckInfos
-        decks={decks}
-        games={games}
+        decks={deckData.decks}
+        games={gameData.games}
       />
       <GameLog
-        decks={decks}
-        games={games}
+        decks={deckData.decks}
+        games={gameData.games}
       />
     </Section>
   </Layout>

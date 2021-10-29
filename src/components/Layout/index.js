@@ -73,7 +73,7 @@ class Layout extends React.Component {
           width={this.state.windowSize.width}
           height={this.state.windowSize.height}
         />
-        <a class="skip-link" href="#main">Skip to main content</a>
+        <a className="skip-link" href="#main">Skip to main content</a>
         <main className={classes.join(' ').trim()}>
           <div className="modes">
           {this.modes.map((mode, index) => {

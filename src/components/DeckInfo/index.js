@@ -1,5 +1,4 @@
 import React, { useState } from "react"
-// import PropTypes from "prop-types"
 
 import "./deck-info.scss"
 
@@ -73,13 +72,13 @@ const DeckInfo = ({ deck, games }) => {
             {Object.keys(deck.colors).map((color) => {
               if (deck.colors[color]) {
                 return (
-                  <svg height=".6em" width=".6em" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                  <svg height=".6em" width=".6em" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" key={`${deck.id}--${color}`}>
                     <circle
                       cx="50"
                       cy="50"
                       r="48"
                       fill={`var(--mtg-${color})`}
-                      stroke-width="4px"
+                      strokeWidth="4px"
                       stroke="var(--text-color)"
                     />
                   </svg>
@@ -141,7 +140,7 @@ export const DeckInfos = ({ decks, games }) => {
       </div>
       <div className="decks__items">
         {decks.map(deck => (
-          <DeckInfo deck={deck} games={games} />
+          <DeckInfo deck={deck} games={games} key={deck.id} />
         ))}
       </div>
     </div>

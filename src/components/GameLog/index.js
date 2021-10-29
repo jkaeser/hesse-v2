@@ -19,24 +19,28 @@ const GameLog = ({ games, decks }) => {
         <div>Total Losses: {losses.length}</div>
         <div>Win/Loss Ratio: {ratio}</div>
         <table>
-          <tr>
-            <th className="date">Date</th>
-            <th className="commander">Commander</th>
-            <th className="result">Result</th>
-            <th className="summary">Summary</th>
-          </tr>
-          {games.map(game => {
-            const deck = decks.find(deck => deck.id === game.deck_id);
+          <thead>
+            <tr>
+              <th className="date">Date</th>
+              <th className="commander">Commander</th>
+              <th className="result">Result</th>
+              <th className="summary">Summary</th>
+            </tr>
+          </thead>
+          <tbody>
+            {games.map(game => {
+              const deck = decks.find(deck => deck.id === game.deck_id);
 
-            return (
-              <tr id={game.id}>
-                <td className="date">{game.date}</td>
-                <td className="commander">{deck.commander}</td>
-                <td className={`result ${game.result}`}>{game.result}</td>
-                <td className="summary">{game.summary}</td>
-              </tr>
-            )
-          })}
+              return (
+                <tr id={game.id} key={game.id}>
+                  <td className="date">{game.date}</td>
+                  <td className="commander">{deck.commander}</td>
+                  <td className={`result ${game.result}`}>{game.result}</td>
+                  <td className="summary">{game.summary}</td>
+                </tr>
+              )
+            })}
+          </tbody>
         </table>
       </div>
     </details>
