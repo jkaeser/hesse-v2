@@ -1,0 +1,694 @@
+{
+  "games": [
+    {
+      "id": "6-14-2020--01",
+      "date": "6-14-2020",
+      "deck_id": 1,
+      "result": "win",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "6-14-2020--02",
+      "date": "6-14-2020",
+      "deck_id": 3,
+      "result": "win",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "8-2020--01",
+      "date": "8-2020",
+      "deck_id": 3,
+      "result": "win",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "8-2020--02",
+      "date": "8-2020",
+      "deck_id": 3,
+      "result": "loss",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "8-2020--03",
+      "date": "8-2020",
+      "deck_id": 2,
+      "result": "loss",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "8-2020--04",
+      "date": "8-2020",
+      "deck_id": 8,
+      "result": "loss",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "9-20-2020--01",
+      "date": "9-20-2020",
+      "deck_id": 2,
+      "result": "win",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "9-20-2020--02",
+      "date": "9-20-2020",
+      "deck_id": 1,
+      "result": "win",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "10-13-2020--01",
+      "date": "10-13-2020",
+      "deck_id": 2,
+      "result": "loss",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "10-13-2020--02",
+      "date": "10-13-2020",
+      "deck_id": 2,
+      "result": "loss",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "10-20-2020--01",
+      "date": "10-20-2020",
+      "deck_id": 2,
+      "result": "win",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "10-20-2020--02",
+      "date": "10-20-2020",
+      "deck_id": 3,
+      "result": "loss",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "11-11-20--01",
+      "date": "11-11-20",
+      "deck_id": 2,
+      "result": "win",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "11-11-20--02",
+      "date": "11-11-20",
+      "deck_id": 3,
+      "result": "loss",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "11-17-2020--01",
+      "date": "11-17-2020",
+      "deck_id": 1,
+      "result": "loss",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "11-17-2020--02",
+      "date": "11-17-2020",
+      "deck_id": 1,
+      "result": "win",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "11-24-2020--01",
+      "date": "11-24-2020",
+      "deck_id": 2,
+      "result": "loss",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "11-24-2020--02",
+      "date": "11-24-2020",
+      "deck_id": 8,
+      "result": "loss",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "11-30-2020--01",
+      "date": "11-30-2020",
+      "deck_id": 2,
+      "result": "win",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "12-10-2020--01",
+      "date": "12-10-2020",
+      "deck_id": 3,
+      "result": "loss",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "12-10-2020--02",
+      "date": "12-10-2020",
+      "deck_id": 2,
+      "result": "win",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "12-10-2020--03",
+      "date": "12-10-2020",
+      "deck_id": 8,
+      "result": "loss",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "1-5-2021--01",
+      "date": "1-5-2021",
+      "deck_id": 8,
+      "result": "win",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "1-5-2021--02",
+      "date": "1-5-2021",
+      "deck_id": 2,
+      "result": "loss",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "1-12-2021--01",
+      "date": "1-12-2021",
+      "deck_id": 1,
+      "result": "loss",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "1-12-2021--02",
+      "date": "1-12-2021",
+      "deck_id": 3,
+      "result": "loss",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "1-12-2021--03",
+      "date": "1-12-2021",
+      "deck_id": 1,
+      "result": "loss",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "2-2-2021--01",
+      "date": "2-2-2021",
+      "deck_id": 3,
+      "result": "loss",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "2-2-2021--02",
+      "date": "2-2-2021",
+      "deck_id":	2,
+      "result": "win",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "2-13-2021--01",
+      "date": "2-13-2021",
+      "deck_id": 2,
+      "result": "loss",
+      "player_count": 3
+    },
+    {
+      "id": "3-2-2021--01",
+      "date": "3-2-2021",
+      "deck_id": 8,
+      "result": "loss",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "3-2-2021--02",
+      "date": "3-2-2021",
+      "deck_id": 2,
+      "result": "win",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "3-16-2021--01",
+      "date": "3-16-2021",
+      "deck_id": 5,
+      "result": "loss",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "3-16-2021--02",
+      "date": "3-16-2021",
+      "deck_id": 5,
+      "result": "loss",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "3-16-2021--03",
+      "date": "3-16-2021",
+      "deck_id": 1,
+      "result": "win",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "3-30-2021--01",
+      "date": "3-30-2021",
+      "deck_id": 2,
+      "result": "loss",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "4-6-2021--01",
+      "date": "4-6-2021",
+      "deck_id": 1,
+      "result": "win",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "4-13-2021--01",
+      "date": "4-13-2021",
+      "deck_id": 1,
+      "result": "win",
+      "player_count": 3
+    },
+    {
+      "id": "4-20-2021--01",
+      "date": "4-20-2021",
+      "deck_id": 3,
+      "result": "win",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "4-20-2021--02",
+      "date": "4-20-2021",
+      "deck_id": 5,
+      "result": "win",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "4-27-2021--01",
+      "date": "4-27-2021",
+      "deck_id": 4,
+      "result": "win",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "4-27-2021--02",
+      "date": "4-27-2021",
+      "deck_id": 4,
+      "result": "loss",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "5-4-2021--01",
+      "date": "5-4-2021",
+      "deck_id": 4,
+      "result": "win",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "5-11-2021--01",
+      "date": "5-11-2021",
+      "deck_id": 7,
+      "result": "loss",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "5-11-2021--02",
+      "date": "5-11-2021",
+      "deck_id": 2,
+      "result": "win",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "5-18-2021--01",
+      "date": "5-18-2021",
+      "deck_id": 4,
+      "result": "win",
+      "player_count": 3
+    },
+    {
+      "id": "5-18-2021--02",
+      "date": "5-18-2021",
+      "deck_id": 3,
+      "result": "loss",
+      "player_count": 3
+    },
+    {
+      "id": "5-18-2021--03",
+      "date": "5-18-2021",
+      "deck_id": 1,
+      "result": "loss",
+      "player_count": 3
+    },
+    {
+      "id": "5-25-2021--01",
+      "date": "5-25-2021",
+      "deck_id": 5,
+      "result": "win",
+      "player_count": 3
+    },
+    {
+      "id": "5-25-2021--02",
+      "date": "5-25-2021",
+      "deck_id": 3,
+      "result": "win",
+      "player_count": 3
+    },
+    {
+      "id": "5-29-2021--01",
+      "date": "5-29-2021",
+      "deck_id": 4,
+      "result": "win",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "5-29-2021--02",
+      "date": "5-29-2021",
+      "deck_id": 2,
+      "result": "loss",
+      "player_count": 2
+    },
+    {
+      "id": "5-29-2021--03",
+      "date": "5-29-2021",
+      "deck_id": 2,
+      "result": "win",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "5-29-2021--04",
+      "date": "5-29-2021",
+      "deck_id": 3,
+      "result": "win",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "5-29-2021--05",
+      "date": "5-29-2021",
+      "deck_id": 4,
+      "result": "loss",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "6-8-2021--01",
+      "date": "6-8-2021",
+      "deck_id": 4,
+      "result": "win",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "6-8-2021--02",
+      "date": "6-8-2021",
+      "deck_id": 2,
+      "result": "loss",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "6-11-2021--01",
+      "date": "6-11-2021",
+      "deck_id": 3,
+      "result": "loss",
+      "player_count": 3
+    },
+    {
+      "id": "6-11-2021--02",
+      "date": "6-11-2021",
+      "deck_id": 2,
+      "result": "win",
+      "player_count": 2
+    },
+    {
+      "id": "6-15-2021--01",
+      "date": "6-15-2021",
+      "deck_id": 1,
+      "result": "loss",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "6-15-2021--02",
+      "date": "6-15-2021",
+      "deck_id": 5,
+      "result": "win",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "6-22-2021--01",
+      "date": "6-22-2021",
+      "deck_id": 4,
+      "result": "loss",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "6-22-2021--02",
+      "date": "6-22-2021",
+      "deck_id": 1,
+      "result": "win",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "6-29-2021--01",
+      "date": "6-29-2021",
+      "deck_id": 7,
+      "result": "loss",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "6-29-2021--02",
+      "date": "6-29-2021",
+      "deck_id": 7,
+      "result": "loss",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "7-5-2021--01",
+      "date": "7-5-2021",
+      "deck_id": 6,
+      "result": "loss",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "7-8-2021--01",
+      "date": "7-8-2021",
+      "deck_id": 6,
+      "result": "win",
+      "player_count": 3
+    },
+    {
+      "id": "7-12-2021--01",
+      "date": "7-12-2021",
+      "deck_id": 6,
+      "result": "loss",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "7-12-2021--02",
+      "date": "7-12-2021",
+      "deck_id": 2,
+      "result": "loss",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "8-3-2021--01",
+      "date": "8-3-2021",
+      "deck_id": 3,
+      "result": "loss",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "8-24-2021--01",
+      "date": "8-24-2021",
+      "deck_id": 4,
+      "result": "loss",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "8-24-2021--02",
+      "date": "8-24-2021",
+      "deck_id": 4,
+      "result": "loss",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "8-29-2021--01",
+      "date": "8-29-2021",
+      "deck_id": 6,
+      "result": "win",
+      "player_count": 3
+    },
+    {
+      "id": "8-29-2021--02",
+      "date": "8-29-2021",
+      "deck_id": 2,
+      "result": "win",
+      "player_count": 3
+    },
+    {
+      "id": "8-31-2021--01",
+      "date": "8-31-2021",
+      "deck_id": 1,
+      "result": "win",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "8-31-2021--02",
+      "date": "8-31-2021",
+      "deck_id": 5,
+      "result": "loss",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "8-31-2021--03",
+      "date": "8-31-2021",
+      "deck_id": 3,
+      "result": "win",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "9-14-2021--01",
+      "date": "9-14-2021",
+      "deck_id": 6,
+      "result": "loss",
+      "player_count": 3
+    },
+    {
+      "id": "9-14-2021--02",
+      "date": "9-14-2021",
+      "deck_id": 2,
+      "result": "win",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "9-14-2021--03",
+      "date": "9-14-2021",
+      "deck_id": 1,
+      "result": "win",
+      "player_count": 4,
+      "summary": "Murderous Redcap combo"
+    },
+    {
+      "id": "9-20-2021--01",
+      "date": "9-20-2021",
+      "deck_id": 4,
+      "result": "loss",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "9-20-2021--02",
+      "date": "9-20-2021",
+      "deck_id": 3,
+      "result": "win",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "9-28-2021--01",
+      "date": "9-28-2021",
+      "deck_id": 4,
+      "result": "loss",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "9-28-2021--02",
+      "date": "9-28-2021",
+      "deck_id": 2,
+      "result": "loss",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "10-12-2021--01",
+      "date": "10-12-2021",
+      "deck_id": 6,
+      "result": "loss",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "10-12-2021--02",
+      "date": "10-12-2021",
+      "deck_id": 5,
+      "result": "win",
+      "player_count": 4,
+      "summary": ""
+    },
+    {
+      "id": "10-26-2021--01",
+      "date": "10-26-2021",
+      "deck_id": 1,
+      "result": "win",
+      "player_count": 4,
+      "summary": "Slow start for Marchesa, especially after Yasharn hit the battlefield and shut off the whole deck. Once that was removed, however, we found the combo pieces to win on our next turn."
+    },
+    {
+      "id": "10-26-2021--02",
+      "date": "10-26-2021",
+      "deck_id": 3,
+      "result": "loss",
+      "player_count": 4,
+      "summary": "Could never really get anything going. Drew a handful of interaction, but nothing to draw more cards. Got stuck when a board wipe removed all my relevant creatures. Eventually lost to Golos gates combo."
+    }
+  ]
+}

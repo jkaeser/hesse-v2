@@ -1,0 +1,138 @@
+@import '../../utils/sass/all';
+
+.decks {
+  margin-bottom: 2rem;
+
+  &.hide-retired {
+    .deck--retired {
+      display: none;
+    }
+  }
+
+  &__filters {
+    margin-bottom: 1rem;
+  }
+
+  &__items {
+    display: grid;
+    gap: 1rem;
+
+    @include bp($bp-tablet-vertical) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include bp($bp-tablet-horizontal) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @include bp($bp-desktop) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+}
+
+.deck {
+  border: 1px solid var(--text-color);
+  border-radius: 10px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: var(--translucent);
+
+  &--retired {
+    .deck__status {
+      background-color: $c-translucent-red;
+    }
+  }
+
+  &__inner,
+  &__status {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  &__inner {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  &__commander {
+    margin-bottom: .25rem;
+
+    svg {
+      margin-left: .15em;
+
+      &:first-of-type {
+        margin-left: .5em;
+      }
+    }
+  }
+
+  &__metadata {
+    margin-bottom: 1rem;
+    font-size: $font-size-small;
+  }
+
+  &__games {
+    display: grid;
+    gap: .5rem 1rem;
+
+    @include bp($bp-phone-lg) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .data {
+      font-weight: 600;
+      font-size: 2rem;
+      // text-shadow:
+      //   1px 1px 0 var(--text-color),
+      //   1px -1px 0 var(--text-color),
+      //   -1px 1px 0 var(--text-color),
+      //   -1px -1px 0 var(--text-color);
+    }
+
+    .label {
+      font-size: $font-size-smallish;
+    }
+  }
+
+  // &__wins {
+  //   .data {
+  //     color: var(--win-bg);
+  //   }
+  // }
+
+  // &__losses {
+  //   .data {
+  //     color: var(--loss-bg);
+  //   }
+  // }
+
+  @keyframes color-mix {
+    0% {
+      color: var(--loss-bg);
+    }
+    100% {
+      color: var(--win-bg);
+    }
+  }
+
+  &__ratio {
+    .data {
+      animation: color-mix 1s linear forwards paused;
+      color: currentColor;
+    }
+  }
+
+  &__status {
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+    border-top: 1px solid var(--text-color);
+    text-align: center;
+    letter-spacing: 1px;
+    font-size: $font-size-smaller;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+}

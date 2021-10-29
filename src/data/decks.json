@@ -1,0 +1,108 @@
+{
+  "decks": [
+    {
+      "id": 1,
+      "commander": "Marchesa, the Black Rose",
+      "color_identity": "UBR",
+      "colors": {
+        "white": false,
+        "blue": true,
+        "black": true,
+        "red": true,
+        "green": false
+      },
+      "status": "active"
+    },
+    {
+      "id": 2,
+      "commander": "Xyris, the Writhing Storm",
+      "color_identity": "URG",
+      "colors": {
+        "white": false,
+        "blue": true,
+        "black": false,
+        "red": true,
+        "green": true
+      },
+      "status": "active"
+    },
+    {
+      "id": 3,
+      "commander": "Volrath, the Shapestealer",
+      "color_identity": "UBG",
+      "colors": {
+        "white": false,
+        "blue": true,
+        "black": true,
+        "red": false,
+        "green": true
+      },
+      "status": "active"
+    },
+    {
+      "id": 4,
+      "commander": "Osgir, the Reconstructor",
+      "color_identity": "WR",
+      "colors": {
+        "white": true,
+        "blue": false,
+        "black": false,
+        "red": true,
+        "green": false
+      },
+      "status": "active"
+    },
+    {
+      "id": 5,
+      "commander": "Saheeli, the Gifted",
+      "color_identity": "UR",
+      "colors": {
+        "white": false,
+        "blue": true,
+        "black": false,
+        "red": true,
+        "green": false
+      },
+      "status": "active"
+    },
+    {
+      "id": 6,
+      "commander": "Tymna, the Weaver | Tana, the Bloodsower",
+      "color_identity": "WBRG",
+      "colors": {
+        "white": true,
+        "blue": false,
+        "black": true,
+        "red": true,
+        "green": true
+      },
+      "status": "active"
+    },
+    {
+      "id": 7,
+      "commander": "Orvar, the All-Form",
+      "color_identity": "U",
+      "colors": {
+        "white": false,
+        "blue": true,
+        "black": false,
+        "red": false,
+        "green": false
+      },
+      "status": "retired"
+    },
+    {
+      "id": 8,
+      "commander": "Endrek Sahr, Master Breeder",
+      "color_identity": "B",
+      "colors": {
+        "white": false,
+        "blue": false,
+        "black": true,
+        "red": false,
+        "green": false
+      },
+      "status": "retired"
+    }
+  ]
+}

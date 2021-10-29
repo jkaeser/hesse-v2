@@ -6,9 +6,11 @@ $c-white-dark: #f2f2f2;
 $c-black: #000000;
 $c-gold: #B7A932;
 $c-translucent: rgba(1,1,1,.15);
+$c-translucent-dark: rgba(1,1,1,.35);
 $c-translucent-light: rgba(1,1,1,.075);
 $c-translucent-white: rgba(255,255,255,.2);
 $c-translucent-gold: transparentize($c-gold, .9);
+$c-translucent-red: transparentize($c-red, .7);
 
 $transition-timing: .2s;
 $transition-curve: ease;

@@ -1,21 +1,5 @@
 @import '../../utils/sass/all';
 
-.deck-info {
-  border: 1px solid var(--text-color);
-  border-radius: 10px;
-  padding: 1rem;
-
-  h2 {
-    svg {
-      margin-left: .15em;
-
-      &:first-of-type {
-        margin-left: .5em;
-      }
-    }
-  }
-}
-
 table {
   border-spacing: 0;
   border-collapse: collapse;
@@ -34,6 +18,7 @@ table {
     &.win,
     &.loss {
       font-weight: 500;
+      text-shadow: none;
     }
 
     &.win {
