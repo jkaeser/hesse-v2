@@ -129,6 +129,9 @@ const DeckInfo = ({ deck, games }) => {
       {deck.status !== 'active' &&
         <div className="deck__status">{deck.status}</div>
       }
+      <div className="deck__id">
+        id: {deck.id}
+      </div>
     </article>
   )
 }

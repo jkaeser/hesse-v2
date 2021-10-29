@@ -123,4 +123,11 @@
     font-weight: 500;
     text-transform: uppercase;
   }
+
+  &__id {
+    position: absolute;
+    top: .5rem;
+    right: .5rem;
+    font-size: $font-size-small;
+  }
 }

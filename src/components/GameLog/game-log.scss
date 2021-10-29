@@ -66,7 +66,11 @@
       padding: .5em .75em;
       text-align: left;
       font-size: $font-size-smallish;
-      width: 25%;
+      width: 18%;
+
+      &:last-of-type {
+        width: 28%;
+      }
 
       &.win,
       &.loss {
