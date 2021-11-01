@@ -10,6 +10,7 @@ $c-translucent-dark: rgba(1,1,1,.35);
 $c-translucent-light: rgba(1,1,1,.075);
 $c-translucent-white: rgba(255,255,255,.2);
 $c-translucent-gold: transparentize($c-gold, .9);
+$c-translucent-green: transparentize(#5B9A6E, .6);
 $c-translucent-red: transparentize($c-red, .7);
 
 $transition-timing: .2s;

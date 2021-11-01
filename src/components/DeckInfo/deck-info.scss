@@ -101,7 +101,7 @@
 
   &__games {
     display: grid;
-    gap: .5rem 1rem;
+    gap: 1rem;
 
     @include bp($bp-phone-sm) {
       grid-template-columns: repeat(2, 1fr);

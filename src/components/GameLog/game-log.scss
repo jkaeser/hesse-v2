@@ -48,7 +48,9 @@
 
     tbody {
       tr:nth-of-type(even) {
-        background-color: var(--translucent);
+        td:not(.result) {
+          background-color: var(--translucent);
+        }
       }
     }
 
@@ -80,16 +82,13 @@
       &.win,
       &.loss {
         font-weight: 500;
-        text-shadow: none;
       }
 
       &.win {
-        background-color: var(--win-bg);
-        color: var(--win-text);
+        background-color: $c-translucent-green;
       }
       &.loss {
-        background-color: var(--loss-bg);
-        color: var(--loss-text);
+        background-color: $c-translucent-red;
       }
     }
   }
