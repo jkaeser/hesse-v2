@@ -75,7 +75,7 @@ function SEO({ description, lang, meta, title }) {
 SEO.defaultProps = {
   lang: `en`,
   meta: [],
-  description: ``,
+  description: `John Kaeser is a front end web developer based in Philadelphia, PA, USA.`,
 }
 
 SEO.propTypes = {
