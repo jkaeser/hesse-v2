@@ -1,3 +1,10 @@
+const colorBools = ['White', 'Blue', 'Black', 'Red', 'Green'].map(color => ({
+  title: color,
+  name: color.toLowerCase(),
+  type: 'boolean',
+  fieldset: 'colors'
+}));
+
 export default {
   title: 'Deck',
   name: 'deck',
@@ -13,59 +20,30 @@ export default {
       type: 'string',
       validation: Rule => Rule.required()
     },
-    {
-      title: 'White',
-      name: 'white',
-      type: 'boolean',
-      fieldset: 'colors'
-    },
-    {
-      title: 'Blue',
-      name: 'blue',
-      type: 'boolean',
-      fieldset: 'colors'
-    },
-    {
-      title: 'Black',
-      name: 'black',
-      type: 'boolean',
-      fieldset: 'colors'
-    },
-    {
-      title: 'Red',
-      name: 'red',
-      type: 'boolean',
-      fieldset: 'colors'
-    },
-    {
-      title: 'Green',
-      name: 'green',
-      type: 'boolean',
-      fieldset: 'colors'
-    },
+    ...colorBools,
     {
       title: 'Status',
       name: 'status',
       type: 'string',
-      validation: Rule => Rule.required(),
       options: {
         list: [
           { title: 'Active', value: 'active' },
           { title: 'Retired', value: 'retired' }
         ]
-      }
+      },
+      validation: Rule => Rule.required()
     },
     {
       title: 'Type',
       name: 'type',
       type: 'string',
-      validation: Rule => Rule.required(),
       options: {
         list: [
           { title: 'Player', value: 'player' },
           { title: 'Opponent', value: 'opponent' }
         ]
-      }
+      },
+      validation: Rule => Rule.required()
     },
     {
       title: 'TappedOut.net',
