@@ -1,3 +1,5 @@
+import React from 'react'
+
 export default {
   title: 'Game',
   name: 'game',
@@ -14,6 +16,10 @@ export default {
       name: 'deck',
       type: 'reference',
       to: [{ type: 'deck' }],
+      options: {
+        filter: 'type == $type',
+        filterParams: {type: 'player'}
+      },
       validation: Rule => Rule.required()
     },
     {
@@ -22,7 +28,11 @@ export default {
       type: 'array',
       of: [{
         type: 'reference',
-        to: [{ type: 'deck' }]
+        to: [{ type: 'deck' }],
+        options: {
+          filter: 'type == $type',
+          filterParams: {type: 'opponent'}
+        }
       }]
     },
     {
@@ -48,13 +58,19 @@ export default {
   preview: {
     select: {
       date: 'date',
-      commander: 'deck.commander'
+      commander: 'deck.commander',
+      result: 'result'
     },
     prepare(selection) {
-      const {date, commander} = selection;
+      const {date, commander, result} = selection;
+      const emojis = {
+        win: '🎉',
+        loss: '❌'
+      }
       return {
         title: new Date(date).toLocaleDateString(),
-        subtitle: commander
+        subtitle: commander,
+        media: <span style={{fontSize: '1.5rem'}}>{emojis[result]}</span>
       }
     }
   },

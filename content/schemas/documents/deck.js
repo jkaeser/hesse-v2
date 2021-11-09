@@ -1,3 +1,5 @@
+import React from 'react'
+
 const colors = ['White', 'Blue', 'Black', 'Red', 'Green'].map(color => ({
   title: color,
   value: color.toLowerCase(),
@@ -68,9 +70,14 @@ export default {
     },
     prepare(selection) {
       const { commander, status, type } = selection;
+      const emojis = {
+        player: '🦸',
+        opponent: '🦹'
+      }
       return {
         title: commander,
-        subtitle: `${status.charAt(0).toUpperCase()}${status.slice(1)} ${type} deck`
+        subtitle: `${status.charAt(0).toUpperCase()}${status.slice(1)} ${type} deck`,
+        media: <span style={{fontSize: '1.5rem'}}>{emojis[type]}</span>
       }
     }
   },

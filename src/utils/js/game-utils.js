@@ -11,10 +11,13 @@ export const getWinLossRatio = (games) => (
 )
 
 export const getPlayerCounts = (games) => (
-  games.reduce(
-    (previousValue, game) => {
-      if (previousValue.indexOf(game.player_count) === -1) {
-        previousValue.push(game.player_count);
+  games
+  .map(game => game.opponents.length)
+  .reduce(
+    (previousValue, count) => {
+      const countWithPlayer = count + 1;
+      if (count !== 0 && previousValue.indexOf(countWithPlayer) === -1) {
+        previousValue.push(countWithPlayer);
       }
       return previousValue;
     }, []

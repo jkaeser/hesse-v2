@@ -79,6 +79,20 @@
         width: 28%;
       }
 
+      &.opponents {
+        ul {
+          list-style: none;
+          margin: 0;
+          padding: 0;
+        }
+
+        li {
+          + li {
+            margin-top: .25rem;
+          }
+        }
+      }
+
       &.win,
       &.loss {
         font-weight: 500;

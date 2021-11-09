@@ -30,7 +30,7 @@ const GameLog = ({ games, decks }) => {
     games = games.filter(game => game.deck.id === filterCommander);
   }
   if (filterPlayerCount !== 'default') {
-    games = games.filter(game => game.player_count === filterPlayerCount);
+    games = games.filter(game => game.opponents.length + 1 === Number(filterPlayerCount))
   }
 
   const wins = getWins(games);
@@ -83,7 +83,7 @@ const GameLog = ({ games, decks }) => {
             <tr>
               <th className="date">Date</th>
               <th className="commander">Commander</th>
-              <th className="player-count">Player Count</th>
+              <th className="player-count">Opponents</th>
               <th className="result">Result</th>
               <th className="summary">Summary</th>
             </tr>
@@ -96,7 +96,13 @@ const GameLog = ({ games, decks }) => {
                 <tr id={game.id} key={game.id}>
                   <td className="date">{formatDate(game.date)}</td>
                   <td className="commander">{deck.commander}</td>
-                  <td className="player-count">{game.player_count}</td>
+                  <td className="opponents">
+                    <ul>
+                      {game.opponents.map(opponent => (
+                        <li>{opponent.commander}</li>
+                      ))}
+                    </ul>
+                  </td>
                   <td className={`result ${game.result}`}>{game.result}</td>
                   <td className="summary">{game.summary}</td>
                 </tr>

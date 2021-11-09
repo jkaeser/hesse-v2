@@ -39,6 +39,7 @@ export const query = graphql`
         }
         opponents {
           id
+          commander
         }
         result
         summary
