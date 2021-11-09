@@ -35,6 +35,7 @@ module.exports = {
         icon: `src/images/triforce.png`,
       },
     },
-    `gatsby-plugin-sass`
+    `gatsby-plugin-sass`,
+    `gatsby-plugin-image`
   ]
 }

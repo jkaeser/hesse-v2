@@ -1,6 +1,10 @@
 import formatDate from "utils/js/formatters/date"
 
 export const getStreakCount = (games, iterator = 0) => {
+  if (games.length <= 0 ) {
+    return null;
+  }
+
   if (games[iterator + 1]) {
     let game1 = games[iterator];
     let game2 = games[iterator + 1];
@@ -15,6 +19,10 @@ export const getStreakCount = (games, iterator = 0) => {
 }
 
 export const getStreakType = (games) => {
+  if (games.length <= 0 ) {
+    return null;
+  }
+
   let streak = null;
   if (games[0].result === games[1].result) {
     switch(games[0].result) {

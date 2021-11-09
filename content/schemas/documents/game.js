@@ -44,5 +44,27 @@ export default {
       name: 'summary',
       type: 'text'
     }
+  ],
+  preview: {
+    select: {
+      date: 'date',
+      commander: 'deck.commander'
+    },
+    prepare(selection) {
+      const {date, commander} = selection;
+      return {
+        title: new Date(date).toLocaleDateString(),
+        subtitle: commander
+      }
+    }
+  },
+  orderings: [
+    {
+      title: 'Date Played',
+      name: 'datePlayed',
+      by: [
+        {field: 'date', direction: 'desc'}
+      ]
+    }
   ]
 }

@@ -27,10 +27,10 @@ const GameLog = ({ games, decks }) => {
   const [ filterCommander, setFilterCommander ] = useState('default');
   const [ filterPlayerCount, setFilterPlayerCount ] = useState('default');
   if (filterCommander !== 'default') {
-    games = games.filter(game => game.deck_id === Number(filterCommander));
+    games = games.filter(game => game.deck.id === filterCommander);
   }
   if (filterPlayerCount !== 'default') {
-    games = games.filter(game => game.player_count === Number(filterPlayerCount));
+    games = games.filter(game => game.player_count === filterPlayerCount);
   }
 
   const wins = getWins(games);
@@ -90,7 +90,7 @@ const GameLog = ({ games, decks }) => {
           </thead>
           <tbody>
             {games.map(game => {
-              const deck = decks.find(deck => deck.id === game.deck_id);
+              const deck = decks.find(deck => deck.id === game.deck.id);
 
               return (
                 <tr id={game.id} key={game.id}>
