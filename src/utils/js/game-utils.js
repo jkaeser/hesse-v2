@@ -42,14 +42,13 @@ export const getOpponentDecks = (games) => {
       return [...opponents, ...game.opponents];
     }, [])
     .reduce((acc, opponent) => {
-      if (acc.ids.indexOf(opponent.id) === -1) {
-        acc.ids.push(opponent.id);
-        acc.opponents.push(opponent);
+      if (Object.keys(acc).indexOf(opponent.id) === -1) {
+        acc[opponent.id] = opponent;
       }
       return acc;
-    }, {ids: [], opponents: []});
+    }, {});
 
-  return uniqueOpponents.opponents;
+  return Object.values(uniqueOpponents);
 }
 
 export const sortGamesByDate = (games) => (
