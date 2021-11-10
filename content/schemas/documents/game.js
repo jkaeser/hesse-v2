@@ -1,4 +1,5 @@
 import React from 'react'
+import formatDate from '../../../src/utils/js/formatters/date'
 
 export default {
   title: 'Game',
@@ -69,7 +70,7 @@ export default {
         draw: '🤝'
       }
       return {
-        title: new Date(date).toLocaleDateString(),
+        title: formatDate(date),
         subtitle: commander,
         media: <span style={{fontSize: '1.5rem'}}>{emojis[result]}</span>
       }
