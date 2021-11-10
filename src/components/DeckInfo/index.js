@@ -13,7 +13,8 @@ import {
 import {
   getStreakType,
   getStreakCount,
-  getLatestGame
+  getLatestGame,
+  sortDecksByCommander
 } from "utils/js/deck-utils"
 
 import "./deck-info.scss"
@@ -141,7 +142,7 @@ export const DeckInfos = ({ decks, games }) => {
         </div>
       </FilterRow>
       <div className="decks__items">
-        {decks.map(deck => {
+        {sortDecksByCommander(decks).map(deck => {
           return (
             <DeckInfo
               deck={deck}

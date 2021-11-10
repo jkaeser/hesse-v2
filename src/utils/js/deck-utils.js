@@ -44,3 +44,7 @@ export const getLatestGame = (games) => (
     ? formatDate(games[0].date)
     : null
 )
+
+export const sortDecksByCommander = (decks) => (
+  decks.sort((a, b) => ( a.commander >= b.commander ? 1 : -1))
+)

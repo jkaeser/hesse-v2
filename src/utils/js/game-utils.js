@@ -6,9 +6,12 @@ export const getLosses = (games) => (
   games.filter(game => game.result === 'loss')
 )
 
-export const getWinLossRatio = (games) => (
-  Number(getWins(games).length / getLosses(games).length).toPrecision(2)
-)
+export const getWinLossRatio = (games) => {
+  const wins = getWins(games).length;
+  const losses = getLosses(games).length;
+  const ratio = Number(wins/(losses > 0 ? losses : 1));
+  return ratio < 1 ? ratio.toPrecision(2) : ratio.toPrecision(3)
+}
 
 export const getPlayerCounts = (games) => (
   games
@@ -51,9 +54,5 @@ export const getOpponentDecks = (games) => {
 
 export const sortGamesByDate = (games) => (
   games.sort((a, b) => new Date(b.date) - new Date(a.date))
-)
-
-export const sortDecksByCommander = (decks) => (
-  decks.sort((a, b) => ( a.commander >= b.commander ? 1 : -1))
 )
 

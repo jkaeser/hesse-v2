@@ -12,9 +12,12 @@ import {
   getWinLossRatio,
   getPlayerCounts,
   getOpponentDecks,
-  sortGamesByDate,
-  sortDecksByCommander
+  sortGamesByDate
 } from "utils/js/game-utils"
+
+import {
+  sortDecksByCommander
+} from "utils/js/deck-utils"
 
 import "./game-log.scss"
 
