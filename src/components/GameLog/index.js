@@ -11,7 +11,9 @@ import {
   getLosses,
   getWinLossRatio,
   getPlayerCounts,
-  sortGamesByDate
+  getOpponentDecks,
+  sortGamesByDate,
+  sortDecksByCommander
 } from "utils/js/game-utils"
 
 import "./game-log.scss"
@@ -19,6 +21,7 @@ import "./game-log.scss"
 const GameLog = ({ games, decks }) => {
   // Set player counts before filtering.
   const playerCounts = getPlayerCounts(games);
+  const opponentDecks = getOpponentDecks(games);
 
   // Sort games before filtering.
   sortGamesByDate(games);
@@ -26,11 +29,15 @@ const GameLog = ({ games, decks }) => {
   // Respect filter options.
   const [ filterCommander, setFilterCommander ] = useState('default');
   const [ filterPlayerCount, setFilterPlayerCount ] = useState('default');
+  const [ filterOpponent, setFilterOpponent ] = useState('default');
   if (filterCommander !== 'default') {
     games = games.filter(game => game.deck.id === filterCommander);
   }
   if (filterPlayerCount !== 'default') {
     games = games.filter(game => game.opponents.length + 1 === Number(filterPlayerCount))
+  }
+  if (filterOpponent !== 'default') {
+    games = games.filter(game => game.opponents.map(opponent => opponent.id).indexOf(filterOpponent) !== -1)
   }
 
   const wins = getWins(games);
@@ -53,11 +60,14 @@ const GameLog = ({ games, decks }) => {
           <div className="game-log__filter-item">
             <select onChange={(e) => setFilterCommander(e.target.value)}>
               <option id="default" value="default">- Filter by Commander -</option>
-              {decks.map(deck => (
-                <option id={deck.id} value={deck.id} key={deck.id}>
-                  {deck.commander}
-                </option>
-              ))}
+              {sortDecksByCommander(decks)
+                .filter(deck => deck.type === 'player')
+                .map(deck => (
+                  <option id={deck.id} value={deck.id} key={deck.id}>
+                    {deck.commander}
+                  </option>
+                )
+              )}
             </select>
           </div>
           <div className="game-log__filter-item">
@@ -67,6 +77,16 @@ const GameLog = ({ games, decks }) => {
                 .map(count => (
                 <option id={count} value={count} key={count}>
                   {count}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="game-log__filter-item">
+            <select onChange={(e) => setFilterOpponent(e.target.value)}>
+              <option id="default" value="default">- Filter by Opponent -</option>
+              {sortDecksByCommander(opponentDecks).map(opponent => (
+                <option id={opponent.id} value={opponent.id} key={opponent.id}>
+                  {opponent.commander}
                 </option>
               ))}
             </select>
