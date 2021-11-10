@@ -65,7 +65,8 @@ export default {
       const {date, commander, result} = selection;
       const emojis = {
         win: '🎉',
-        loss: '❌'
+        loss: '☠️',
+        draw: '🤝'
       }
       return {
         title: new Date(date).toLocaleDateString(),
