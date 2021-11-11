@@ -62,7 +62,7 @@ const GameLog = ({ games, decks }) => {
         <FilterRow className="game-log__filters">
           <div className="game-log__filter-item">
             <select onChange={(e) => setFilterCommander(e.target.value)}>
-              <option id="default" value="default">- Filter by Commander -</option>
+              <option value="default">- Filter by Commander -</option>
               {sortDecksByCommander(decks)
                 .filter(deck => deck.type === 'player')
                 .map(deck => (
@@ -75,10 +75,10 @@ const GameLog = ({ games, decks }) => {
           </div>
           <div className="game-log__filter-item">
             <select onChange={(e) => setFilterPlayerCount(e.target.value)}>
-              <option id="default" value="default">- Filter by Player Count -</option>
+              <option value="default">- Filter by Player Count -</option>
               {playerCounts
                 .map(count => (
-                <option id={count} value={count} key={count}>
+                <option value={count} key={`playersfilter-${count}`}>
                   {count}
                 </option>
               ))}
@@ -86,7 +86,7 @@ const GameLog = ({ games, decks }) => {
           </div>
           <div className="game-log__filter-item">
             <select onChange={(e) => setFilterOpponent(e.target.value)}>
-              <option id="default" value="default">- Filter by Opponent -</option>
+              <option value="default">- Filter by Opponent -</option>
               {sortDecksByCommander(opponentDecks).map(opponent => (
                 <option id={opponent.id} value={opponent.id} key={opponent.id}>
                   {opponent.commander}
