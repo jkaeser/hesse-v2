@@ -25,12 +25,12 @@ export class Games {
   get playerCounts() {
     return this.games
       .map(game => game.opponents.length)
-      .reduce((previousValue, count) => {
+      .reduce((playerCounts, count) => {
         const countWithPlayer = count + 1;
-        if (count !== 0 && previousValue.indexOf(countWithPlayer) === -1) {
-          previousValue.push(countWithPlayer);
+        if (count !== 0 && playerCounts.indexOf(countWithPlayer) === -1) {
+          playerCounts.push(countWithPlayer);
         }
-        return previousValue;
+        return playerCounts.sort((a, b) => b - a);
       }, [])
   }
 
@@ -50,11 +50,11 @@ export class Games {
       .reduce((opponents, game) => {
         return [...opponents, ...game.opponents];
       }, [])
-      .reduce((acc, opponent) => {
-        if (Object.keys(acc).indexOf(opponent.id) === -1) {
-          acc[opponent.id] = opponent;
+      .reduce((opponents, opponent) => {
+        if (Object.keys(opponents).indexOf(opponent.id) === -1) {
+          opponents[opponent.id] = opponent;
         }
-        return acc;
+        return opponents;
       }, {})
     );
   }
