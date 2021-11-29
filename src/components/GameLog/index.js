@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { v4 as uuidv4 } from "uuid"
 
 import Datum from "components/Datum"
 import Details from "components/Details"
@@ -122,7 +123,9 @@ const GameLog = ({ games, decks }) => {
                   <td className="opponents">
                     <ul>
                       {game.opponents.map(opponent => (
-                        <li>{opponent.commander}</li>
+                        <li key={`${opponent.commander}-${uuidv4()}`}>
+                          {opponent.commander}
+                        </li>
                       ))}
                     </ul>
                   </td>
