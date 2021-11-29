@@ -9,11 +9,11 @@ import { Games } from "utils/js/game-utils"
 import "./deck-info.scss"
 
 const DeckInfo = ({ deck, games: allGames }) => {
-  const wins = allGames.wins;
-  const losses = allGames.losses;
-  const ratio = allGames.winLossRatio;
-  const streakType = allGames.getStreakType();
-  const streakCount = allGames.getStreakCount();
+  const {count: streakCount, type: streakType} = allGames.getStreak();
+  const streakTypeMap = {
+    win: 'winning',
+    loss: 'losing'
+  };
   const latestGame = formatDate(allGames.latestGame.date);
 
   const renderColorSvg = (color) => (
@@ -62,8 +62,8 @@ const DeckInfo = ({ deck, games: allGames }) => {
           {streakType &&
             <div className="deck__streak">
               <svg viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg"><polygon points="22.5,10 16.8,10 20.8,0.1 10.9,0.1 7.5,16.7 11.4,16.7   9.2,29.9 "/></svg>
-              <span className={`deck__streak-label ${streakType}`}>
-                {streakCount} game {streakType} streak
+              <span className="deck__streak-label">
+                {streakCount} game {streakTypeMap[streakType]} streak
               </span>
             </div>
           }
@@ -82,19 +82,19 @@ const DeckInfo = ({ deck, games: allGames }) => {
         </div>
         <div className="deck__games">
           <div className="deck__wins">
-            <Datum number={wins.length} label='wins' />
+            <Datum number={allGames.wins.length} label='wins' />
           </div>
           <div className="deck__losses">
-            <Datum number={losses.length} label='losses' />
+            <Datum number={allGames.losses.length} label='losses' />
           </div>
           <div className="deck__played">
             <Datum number={allGames.games.length} label='games played' />
           </div>
           <div className="deck__ratio">
             <Datum
-              number={ratio}
+              number={allGames.winLossRatio}
               label='win/loss ratio'
-              dataStyle={{animationDelay: `-${ratio}s` }}
+              dataStyle={{animationDelay: `-${allGames.winLossRatio}s` }}
             />
           </div>
         </div>

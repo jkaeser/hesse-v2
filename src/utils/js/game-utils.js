@@ -142,10 +142,10 @@ export class Games {
   /**
    * @param {number} iterator
    *   A counter used to make this method recursive.
-   * @returns {number}
-   *   A number describing the length of the streak.
+   * @returns {object}
+   *   A object containing the length and type of the streak.
    */
-  getStreakCount(iterator = 0) {
+  getStreak(iterator = 0) {
     if (this.games.length <= 0 ) {
       return null;
     }
@@ -155,33 +155,12 @@ export class Games {
 
       if (game1.result === game2.result) {
         iterator++;
-        return this.getStreakCount(iterator);
+        return this.getStreak(iterator);
       }
     }
-    return iterator === 0 ? null : iterator + 1;
-  }
-
-  /**
-   * @returns {string}
-   *  A string describing the streak.
-   */
-  getStreakType() {
-    if (this.games.length <= 0 ) {
-      return null;
-    }
-    let streak = null;
-    if (this.games[0].result === this.games[1].result) {
-      switch(this.games[0].result) {
-        case 'win':
-          streak = 'winning';
-          break;
-        case 'loss':
-          streak = 'losing'
-          break;
-        default:
-          break;
-      }
-    }
-    return streak;
+    return {
+      count: iterator === 0 ? null : iterator + 1,
+      type: iterator === 0 ? null : this.games[iterator].result
+    };
   }
 }
