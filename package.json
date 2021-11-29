@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "babel-eslint": "^10.1.0",
+    "chart.js": "^3.6.0",
     "eslint": "^8.1.0",
     "gatsby": "^4.0.1",
     "gatsby-alias-imports": "^1.0.4",
