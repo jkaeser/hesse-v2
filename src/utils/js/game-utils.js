@@ -1,27 +1,44 @@
-import formatDate from "utils/js/formatters/date"
-
 export class Games {
   constructor(games) {
     this.games = games.sort((a, b) => new Date(b.date) - new Date(a.date));
   }
 
+  /**
+   * @param {array} games
+   *   An array of game nodes.
+   */
   setGames(games) {
     this.games = games;
   }
 
+  /**
+   * @returns {array}
+   *   An array of game nodes.
+   */
   get wins() {
     return this.games.filter(game => game.result === 'win');
   }
 
+  /**
+   * @returns {array}
+   *   An array of game nodes.
+   */
   get losses() {
     return this.games.filter(game => game.result === 'loss');
   }
 
+  /**
+   * @returns {number}
+   */
   get winLossRatio() {
     const ratio = Number(this.wins.length/(this.losses.length > 0 ? this.losses.length : 1));
     return ratio < 1 ? ratio.toPrecision(2) : ratio.toPrecision(3)
   }
 
+  /**
+   * @returns {array}
+   *   An array of numbers.
+   */
   get playerCounts() {
     return this.games
       .map(game => game.opponents.length)
@@ -34,6 +51,10 @@ export class Games {
       }, [])
   }
 
+  /**
+   * @returns {array}
+   *   An array of strings.
+   */
   get playerCommanders() {
     return this.games
       .map(game => game.deck.commander)
@@ -45,6 +66,10 @@ export class Games {
       }, [])
   }
 
+  /**
+   * @returns {array}
+   *   An array of deck nodes.
+   */
   get opponentDecks() {
     return Object.values(this.games
       .reduce((opponents, game) => {
@@ -59,6 +84,10 @@ export class Games {
     );
   }
 
+  /**
+   * @returns {object}
+   *   An object with keys containing arrays of game nodes.
+   */
   get gamesByColor() {
     return this.games.reduce((byColor, game) => {
       game.deck.colors.forEach(color => {
@@ -68,6 +97,10 @@ export class Games {
     }, {white: [], blue: [], black: [], red: [], green: []})
   }
 
+  /**
+   * @returns {object}
+   *   An object with keys containing arrays of game nodes.
+   */
   get gamesByMonth() {
     return this.games.reduce((byMonth, game) => {
       const date = new Date(game.date);
@@ -81,12 +114,21 @@ export class Games {
     }, {})
   }
 
+  /**
+   * @returns {object}
+   *   A game node.
+   */
   get latestGame() {
-    return this.games.length > 0
-      ? formatDate(this.games[0].date)
-      : null
+    return this.games.length > 0 ? this.games[0] : null
   }
 
+  /**
+   * @param {string} result
+   *   'win' or 'loss'.
+   * @returns {array}
+   *   An array containing objects that describe the number of results in each
+   *   month.
+   */
   getResultsCountByMonth(result = 'win') {
     const resultsByMonth = [];
     Object.entries(this.gamesByMonth).forEach(([month, games]) => {
@@ -100,6 +142,12 @@ export class Games {
     return resultsByMonth.sort((a, b) => a.month - b.month)
   }
 
+  /**
+   * @param {number} iterator
+   *   A counter used to make this method recursive.
+   * @returns {number}
+   *   A number describing the length of the streak.
+   */
   getStreakCount(iterator = 0) {
     if (this.games.length <= 0 ) {
       return null;
@@ -118,6 +166,10 @@ export class Games {
     return iterator === 0 ? null : iterator + 1;
   }
 
+  /**
+   * @returns {string}
+   *  A string describing the streak.
+   */
   getStreakType() {
     if (this.games.length <= 0 ) {
       return null;

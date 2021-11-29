@@ -3,6 +3,7 @@ import React, { useState } from "react"
 import Datum from "components/Datum"
 import FilterRow from "components/FilterRow"
 
+import formatDate from "utils/js/formatters/date"
 import { Games } from "utils/js/game-utils"
 
 import "./deck-info.scss"
@@ -13,7 +14,7 @@ const DeckInfo = ({ deck, games: allGames }) => {
   const ratio = allGames.winLossRatio;
   const streakType = allGames.getStreakType();
   const streakCount = allGames.getStreakCount();
-  const latestGame = allGames.latestGame;
+  const latestGame = formatDate(allGames.latestGame.date);
 
   const renderColorSvg = (color) => (
     <svg
