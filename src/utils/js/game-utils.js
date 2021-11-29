@@ -32,7 +32,7 @@ export class Games {
    */
   get winLossRatio() {
     const ratio = Number(this.wins.length/(this.losses.length > 0 ? this.losses.length : 1));
-    return ratio < 1 ? ratio.toPrecision(2) : ratio.toPrecision(3)
+    return ratio < 1 ? ratio.toPrecision(2) : ratio.toPrecision(3);
   }
 
   /**
@@ -48,7 +48,7 @@ export class Games {
           playerCounts.push(countWithPlayer);
         }
         return playerCounts.sort((a, b) => b - a);
-      }, [])
+      }, []);
   }
 
   /**
@@ -63,7 +63,7 @@ export class Games {
           commanders.push(commander);
         }
         return commanders;
-      }, [])
+      }, []);
   }
 
   /**
@@ -73,12 +73,11 @@ export class Games {
   get opponentDecks() {
     return Object.values(this.games
       .reduce((opponents, game) => {
-        return [...opponents, ...game.opponents];
-      }, [])
-      .reduce((opponents, opponent) => {
-        if (Object.keys(opponents).indexOf(opponent.id) === -1) {
-          opponents[opponent.id] = opponent;
-        }
+        game.opponents.forEach(opponent => {
+          if (Object.keys(opponents).indexOf(opponent.id) === -1) {
+            opponents[opponent.id] = opponent;
+          }
+        });
         return opponents;
       }, {})
     );
@@ -94,7 +93,7 @@ export class Games {
         byColor[color].push(game);
       });
       return byColor;
-    }, {white: [], blue: [], black: [], red: [], green: []})
+    }, {white: [], blue: [], black: [], red: [], green: []});
   }
 
   /**
@@ -111,7 +110,7 @@ export class Games {
       }
       byMonth[dateKey].push(game);
       return byMonth;
-    }, {})
+    }, {});
   }
 
   /**
@@ -119,7 +118,7 @@ export class Games {
    *   A game node.
    */
   get latestGame() {
-    return this.games.length > 0 ? this.games[0] : null
+    return this.games.length > 0 ? this.games[0] : null;
   }
 
   /**
@@ -134,12 +133,10 @@ export class Games {
     Object.entries(this.gamesByMonth).forEach(([month, games]) => {
       resultsByMonth.push({
         month: new Date(month),
-        count: games.filter(game => (
-          game.result === result
-        )).length
+        count: games.filter(game => game.result === result).length
       });
     });
-    return resultsByMonth.sort((a, b) => a.month - b.month)
+    return resultsByMonth.sort((a, b) => a.month - b.month);
   }
 
   /**
@@ -152,7 +149,6 @@ export class Games {
     if (this.games.length <= 0 ) {
       return null;
     }
-
     if (this.games[iterator + 1]) {
       let game1 = this.games[iterator];
       let game2 = this.games[iterator + 1];
@@ -162,7 +158,6 @@ export class Games {
         return this.getStreakCount(iterator);
       }
     }
-
     return iterator === 0 ? null : iterator + 1;
   }
 
@@ -174,7 +169,6 @@ export class Games {
     if (this.games.length <= 0 ) {
       return null;
     }
-
     let streak = null;
     if (this.games[0].result === this.games[1].result) {
       switch(this.games[0].result) {
