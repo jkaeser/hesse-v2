@@ -1,21 +1,26 @@
 export const mtgColors = {
-  White: {
+  white: {
+    label: 'White',
     foreground: 'rgb(249,250,244)',
     background: 'rgb(248,231,185)',
   },
-  Blue: {
+  blue: {
+    label: 'Blue',
     foreground: 'rgb(14,104,171)',
     background: 'rgb(179,206,234)',
   },
-  Black: {
+  black: {
+    label: 'Black',
     foreground: 'rgb(21,11,0)',
     background: 'rgb(166,159,157)',
   },
-  Red: {
+  red: {
+    label: 'Red',
     foreground: 'rgb(211,32,42)',
     background: 'rgb(235,159,130)',
   },
-  Green: {
+  green: {
+    label: 'Green',
     foreground: 'rgb(0,115,62)',
     background: 'rgb(196,211,202)',
   },

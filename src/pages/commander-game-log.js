@@ -7,30 +7,32 @@ import Seo from "components/Seo"
 
 import { DeckInfos } from "components/DeckInfo"
 import GameLog from "components/GameLog"
-import { ChartBase, ChartsWrapper } from "../components/Chart"
+import { ChartBase, ChartsWrapper } from "components/Chart"
 
-import { mtgColors } from "../utils/js/variables"
-import { Games} from "../utils/js/game-utils"
-import { Decks } from "../utils/js/deck-utils"
+import { mtgColors } from "utils/js/variables"
+import { Games} from "utils/js/game-utils"
+import { Decks } from "utils/js/deck-utils"
 
 const pageTitle = "Commander Game Log";
 
 const GameLogPage = ({ data }) => {
+  const allGames = new Games(data.allSanityGame.nodes);
+  const allDecks = new Decks(data.allSanityDeck.nodes);
+  const playerDecks = new Decks(allDecks.decks.filter(deck => deck.type === 'player'));
+
   const chartDeckColors = <ChartBase
     title='Deck Colors'
     config={{
       type: 'pie',
       data: {
-        labels: Object.keys(mtgColors),
+        labels: Object.values(mtgColors).map(color => color.label),
         datasets: [{
-          data: Object.values(
-            data.allSanityDeck.nodes
-              .filter(deck => deck.type === 'player')
-              .map(deck => deck.colors)
-              .reduce((colorCounts, colors) => {
-                colors.forEach(color => { colorCounts[color]++ });
-                return colorCounts;
-              }, {white: 0, blue: 0, black: 0, red: 0, green: 0})
+          data: Object.values(playerDecks.decks
+            .map(deck => deck.colors)
+            .reduce((colorCounts, colors) => {
+              colors.forEach(color => { colorCounts[color]++ });
+              return colorCounts;
+            }, {white: 0, blue: 0, black: 0, red: 0, green: 0})
           ),
           backgroundColor: Object.values(mtgColors).map(color => color.foreground),
           borderWidth: .5
@@ -47,10 +49,6 @@ const GameLogPage = ({ data }) => {
     }}
   />
 
-  const allGames = new Games(data.allSanityGame.nodes);
-  const allDecks = new Decks(data.allSanityDeck.nodes);
-  const playerDecks = new Decks(allDecks.decks.filter(deck => deck.type === 'player'));
-
   const winPercentages = [];
   Object.entries(allGames.gamesByColor).forEach(entry => {
     const [color, games] = entry;
@@ -65,12 +63,12 @@ const GameLogPage = ({ data }) => {
     config={{
       type: 'bar',
       data: {
-        labels: Object.keys(mtgColors),
+        labels: winPercentages.map(group => mtgColors[group.color].label),
         datasets: [{
           data: winPercentages.map(group =>
             `${Math.floor(group.percentage * 100)}`
           ),
-          backgroundColor: Object.values(mtgColors).map(color => color.foreground),
+          backgroundColor: winPercentages.map(group => mtgColors[group.color].foreground),
           borderWidth: 1,
           borderColor: 'white'
         }],
