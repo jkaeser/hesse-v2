@@ -7,52 +7,46 @@ import FilterRow from "components/FilterRow"
 
 import formatDate from "utils/js/formatters/date"
 
-import {
-  getWins,
-  getLosses,
-  getWinLossRatio,
-  getPlayerCounts,
-  getOpponentDecks,
-  sortGamesByDate
-} from "utils/js/game-utils"
-
-import {
-  sortDecksByCommander
-} from "utils/js/deck-utils"
+import { Games } from "utils/js/game-utils"
+import { Decks } from "utils/js/deck-utils"
 
 import "./game-log.scss"
 
-const GameLog = ({ games, decks }) => {
-  // Set player counts before filtering.
-  const playerCounts = getPlayerCounts(games);
-  const opponentDecks = getOpponentDecks(games);
+const GameLog = ({ games: allGames, decks: allDecks }) => {
+  let filteredGames = new Games(allGames.games);
+  const opponentDecks = new Decks(allGames.opponentDecks);
+  const playerDecks = new Decks(allDecks.decks.filter(deck =>
+    deck.type === 'player'
+  ));
 
-  // Sort games before filtering.
-  sortGamesByDate(games);
+  // Set player counts before filtering.
+  const playerCounts = allGames.playerCounts;
 
   // Respect filter options.
   const [ filterCommander, setFilterCommander ] = useState('default');
   const [ filterPlayerCount, setFilterPlayerCount ] = useState('default');
   const [ filterOpponent, setFilterOpponent ] = useState('default');
   if (filterCommander !== 'default') {
-    games = games.filter(game => game.deck.id === filterCommander);
+    filteredGames.setGames(filteredGames.games.filter(game =>
+      game.deck.id === filterCommander
+    ));
   }
   if (filterPlayerCount !== 'default') {
-    games = games.filter(game => game.opponents.length + 1 === Number(filterPlayerCount))
+    filteredGames.setGames(filteredGames.games.filter(game =>
+      game.opponents.length + 1 === Number(filterPlayerCount)
+    ));
   }
   if (filterOpponent !== 'default') {
-    games = games.filter(game => game.opponents.map(opponent => opponent.id).indexOf(filterOpponent) !== -1)
+    filteredGames.setGames(filteredGames.games.filter(game =>
+      game.opponents.map(opponent => opponent.id).indexOf(filterOpponent) !== -1
+    ));
   }
-
-  const wins = getWins(games);
-  const losses = getLosses(games);
-  const ratio = getWinLossRatio(games);
 
   const renderSummary = () => (
     <div>
       <h2>Games Played</h2>
-      {games.length > 0 &&
-        <div>{formatDate(games[games.length - 1].date)} to {formatDate(games[0].date)}</div>
+      {filteredGames.games.length > 0 &&
+        <div>{formatDate(filteredGames.games[filteredGames.games.length - 1].date)} to {formatDate(filteredGames.games[0].date)}</div>
       }
     </div>
   )
@@ -64,14 +58,11 @@ const GameLog = ({ games, decks }) => {
           <div className="game-log__filter-item">
             <select onChange={(e) => setFilterCommander(e.target.value)}>
               <option value="default">- Filter by Commander -</option>
-              {sortDecksByCommander(decks)
-                .filter(deck => deck.type === 'player')
-                .map(deck => (
-                  <option id={deck.id} value={deck.id} key={deck.id}>
-                    {deck.commander}
-                  </option>
-                )
-              )}
+              {playerDecks.decks.map(deck => (
+                <option id={deck.id} value={deck.id} key={deck.id}>
+                  {deck.commander}
+                </option>
+              ))}
             </select>
           </div>
           <div className="game-log__filter-item">
@@ -88,7 +79,7 @@ const GameLog = ({ games, decks }) => {
           <div className="game-log__filter-item">
             <select onChange={(e) => setFilterOpponent(e.target.value)}>
               <option value="default">- Filter by Opponent -</option>
-              {sortDecksByCommander(opponentDecks).map(opponent => (
+              {opponentDecks.decks.map(opponent => (
                 <option id={opponent.id} value={opponent.id} key={opponent.id}>
                   {opponent.commander}
                 </option>
@@ -97,10 +88,10 @@ const GameLog = ({ games, decks }) => {
           </div>
         </FilterRow>
         <div className="game-log__data-rollup">
-          <Datum number={games.length} label="total games" />
-          <Datum number={wins.length} label="total wins" />
-          <Datum number={losses.length} label="total losses" />
-          <Datum number={ratio} label="win/loss ratio" />
+          <Datum number={filteredGames.games.length} label="total games" />
+          <Datum number={filteredGames.wins.length} label="total wins" />
+          <Datum number={filteredGames.losses.length} label="total losses" />
+          <Datum number={filteredGames.winLossRatio} label="win/loss ratio" />
         </div>
         <table>
           <thead>
@@ -113,8 +104,8 @@ const GameLog = ({ games, decks }) => {
             </tr>
           </thead>
           <tbody>
-            {games.map(game => {
-              const deck = decks.find(deck => deck.id === game.deck.id);
+            {filteredGames.games.map(game => {
+              const deck = playerDecks.decks.find(deck => deck.id === game.deck.id);
 
               return (
                 <tr id={game.id} key={game.id}>

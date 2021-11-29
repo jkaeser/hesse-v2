@@ -3,31 +3,17 @@ import React, { useState } from "react"
 import Datum from "components/Datum"
 import FilterRow from "components/FilterRow"
 
-import {
-  getWins,
-  getLosses,
-  getWinLossRatio,
-  sortGamesByDate
-} from "utils/js/game-utils"
-
-import {
-  getStreakType,
-  getStreakCount,
-  getLatestGame,
-  sortDecksByCommander
-} from "utils/js/deck-utils"
+import { Games } from "utils/js/game-utils"
 
 import "./deck-info.scss"
 
-const DeckInfo = ({ deck, games }) => {
-  sortGamesByDate(games);
-
-  const wins = getWins(games);
-  const losses = getLosses(games);
-  const ratio = getWinLossRatio(games);
-  const streakType = getStreakType(games);
-  const streakCount = getStreakCount(games);
-  const latestGame = getLatestGame(games);
+const DeckInfo = ({ deck, games: allGames }) => {
+  const wins = allGames.wins;
+  const losses = allGames.losses;
+  const ratio = allGames.winLossRatio;
+  const streakType = allGames.getStreakType();
+  const streakCount = allGames.getStreakCount();
+  const latestGame = allGames.latestGame;
 
   const renderColorSvg = (color) => (
     <svg
@@ -101,7 +87,7 @@ const DeckInfo = ({ deck, games }) => {
             <Datum number={losses.length} label='losses' />
           </div>
           <div className="deck__played">
-            <Datum number={games.length} label='games played' />
+            <Datum number={allGames.games.length} label='games played' />
           </div>
           <div className="deck__ratio">
             <Datum
@@ -119,7 +105,7 @@ const DeckInfo = ({ deck, games }) => {
   )
 }
 
-export const DeckInfos = ({ decks, games }) => {
+export const DeckInfos = ({ games: allGames, decks: allDecks }) => {
   const [ hideRetired, setHideRetired] = useState(true)
 
   const classes = [
@@ -143,11 +129,11 @@ export const DeckInfos = ({ decks, games }) => {
         </div>
       </FilterRow>
       <div className="decks__items">
-        {sortDecksByCommander(decks).map(deck => {
+        {allDecks.decks.map(deck => {
           return (
             <DeckInfo
               deck={deck}
-              games={games.filter(game => game.deck.id === deck.id)}
+              games={new Games(allGames.games.filter(game => game.deck.id === deck.id))}
               key={deck.id}
             />
           )

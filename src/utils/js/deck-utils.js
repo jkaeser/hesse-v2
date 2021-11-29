@@ -1,50 +1,46 @@
-import formatDate from "utils/js/formatters/date"
+// import formatDate from "utils/js/formatters/date"
 
-export const getStreakCount = (games, iterator = 0) => {
-  if (games.length <= 0 ) {
-    return null;
+// export const getStreakCount = (games, iterator = 0) => {
+//   if (games.length <= 0 ) {
+//     return null;
+//   }
+
+//   if (games[iterator + 1]) {
+//     let game1 = games[iterator];
+//     let game2 = games[iterator + 1];
+
+//     if (game1.result === game2.result) {
+//       iterator++;
+//       return getStreakCount(games, iterator);
+//     }
+//   }
+
+//   return iterator === 0 ? null : iterator + 1;
+// }
+
+// export const getStreakType = (games) => {
+//   if (games.length <= 0 ) {
+//     return null;
+//   }
+
+//   let streak = null;
+//   if (games[0].result === games[1].result) {
+//     switch(games[0].result) {
+//       case 'win':
+//         streak = 'winning';
+//         break;
+//       case 'loss':
+//         streak = 'losing'
+//         break;
+//       default:
+//         break;
+//     }
+//   }
+//   return streak;
+// }
+
+export class Decks {
+  constructor(decks) {
+    this.decks = decks.sort((a, b) => ( a.commander >= b.commander ? 1 : -1));
   }
-
-  if (games[iterator + 1]) {
-    let game1 = games[iterator];
-    let game2 = games[iterator + 1];
-
-    if (game1.result === game2.result) {
-      iterator++;
-      return getStreakCount(games, iterator);
-    }
-  }
-
-  return iterator === 0 ? null : iterator + 1;
 }
-
-export const getStreakType = (games) => {
-  if (games.length <= 0 ) {
-    return null;
-  }
-
-  let streak = null;
-  if (games[0].result === games[1].result) {
-    switch(games[0].result) {
-      case 'win':
-        streak = 'winning';
-        break;
-      case 'loss':
-        streak = 'losing'
-        break;
-      default:
-        break;
-    }
-  }
-  return streak;
-}
-
-export const getLatestGame = (games) => (
-  games.length > 0
-    ? formatDate(games[0].date)
-    : null
-)
-
-export const sortDecksByCommander = (decks) => (
-  decks.sort((a, b) => ( a.commander >= b.commander ? 1 : -1))
-)
