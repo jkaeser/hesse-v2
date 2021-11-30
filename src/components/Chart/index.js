@@ -7,10 +7,10 @@ import './chart.scss'
 const fontFamily = "'Lato', sans-serif";
 
 Chart.register(...registerables);
+
 Chart.defaults.color = '#feffff';
 Chart.defaults.backgroundColor = '#feffff';
 Chart.defaults.borderColor = '#feffff';
-
 Chart.defaults.plugins.legend.labels.font = {
   family: fontFamily,
   size: 14.4,

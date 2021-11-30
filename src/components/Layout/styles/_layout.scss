@@ -80,6 +80,7 @@ body > #___gatsby > div,
   --background-color: #{$c-white-dark} !important;
   --text-color: #{$c-black} !important;
   --translucent: #{$c-translucent-light} !important;
+  --translucent-dark: #{$c-translucent-darker};
   --win-bg: #006600 !important;
   --loss-bg: #B30000 !important;
 }

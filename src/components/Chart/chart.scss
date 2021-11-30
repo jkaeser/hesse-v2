@@ -11,7 +11,21 @@
   }
 
   &__canvas-wrapper {
-    padding: 0 1rem 1rem;
+    padding: 1rem;
+  }
+
+  @at-root {
+    .contrast & {
+      background-color: var(--translucent-dark);
+
+      &__title {
+        background-color: var(--background-color);
+      }
+    }
+
+    .space & {
+      background-color: var(--translucent);
+    }
   }
 }
 
