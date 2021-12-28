@@ -75,7 +75,7 @@ class Layout extends React.Component {
         />
         <a className="skip-link" href="#main">Skip to main content</a>
         <main className={classes.join(' ').trim()}>
-          <div className="modes">
+          <div className="mode-switcher">
           {this.modes.map((mode, index) => {
             const classes = [
               `button--${mode.name}`,

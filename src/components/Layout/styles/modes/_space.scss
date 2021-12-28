@@ -1,0 +1,28 @@
+.space {
+  --text-color: #{$c-gold};
+  --translucent: #{$c-translucent-white};
+  --background-color: #{$c-black};
+
+  main,
+  footer {
+    @include text-mask($c-black);
+
+    z-index: $z-index-foreground;
+    position: relative;
+  }
+
+  section.color {
+    --background-color: transparent !important;
+    --text-color: #{$c-gold} !important;
+  }
+
+  h1,
+  select {
+    text-shadow: inherit;
+  }
+
+  .starfield {
+    opacity: 1;
+  }
+}
+
