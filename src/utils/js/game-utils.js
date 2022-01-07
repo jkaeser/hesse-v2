@@ -4,7 +4,7 @@ export class Games {
   }
 
   /**
-   * @param {array} games
+   * @param {Array} games
    *   An array of game nodes.
    */
   setGames(games) {
@@ -12,7 +12,7 @@ export class Games {
   }
 
   /**
-   * @returns {array}
+   * @returns {Array}
    *   An array of game nodes.
    */
   get wins() {
@@ -20,7 +20,7 @@ export class Games {
   }
 
   /**
-   * @returns {array}
+   * @returns {Array}
    *   An array of game nodes.
    */
   get losses() {
@@ -52,7 +52,7 @@ export class Games {
   }
 
   /**
-   * @returns {array}
+   * @returns {Array}
    *   An array of strings.
    */
   get playerCommanders() {
@@ -67,7 +67,7 @@ export class Games {
   }
 
   /**
-   * @returns {array}
+   * @returns {Array}
    *   An array of deck nodes.
    */
   get opponentDecks() {
@@ -84,8 +84,8 @@ export class Games {
   }
 
   /**
-   * @returns {object}
-   *   An object with keys containing arrays of game nodes.
+   * @returns {Object}
+   *   An object containing arrays of game nodes keyed by color.
    */
   get gamesByColor() {
     return this.games.reduce((byColor, game) => {
@@ -97,8 +97,8 @@ export class Games {
   }
 
   /**
-   * @returns {object}
-   *   An object with keys containing arrays of game nodes.
+   * @returns {Object}
+   *   An object containing arrays of game nodes keyed by date.
    */
   get gamesByMonth() {
     return this.games.reduce((byMonth, game) => {
@@ -114,7 +114,7 @@ export class Games {
   }
 
   /**
-   * @returns {object}
+   * @returns {Object}
    *   A game node.
    */
   get latestGame() {
@@ -122,18 +122,35 @@ export class Games {
   }
 
   /**
+   * @returns {Array}
+   */
+  get winPercentagesByColor() {
+    const winPercentages = [];
+    Object.entries(this.gamesByColor).forEach(entry => {
+      const [color, games] = entry;
+      const wins = games.filter(game => game.result === 'win');
+      winPercentages.push({
+        color: color,
+        percentage: wins.length / games.length
+      })
+    });
+
+    return winPercentages;
+  }
+
+  /**
    * @param {string} result
-   *   'win' or 'loss'.
-   * @returns {array}
+   *   'all', 'win', 'loss'.
+   * @returns {Array}
    *   An array containing objects that describe the number of results in each
    *   month.
    */
-  getResultsCountByMonth(result = 'win') {
+  getResultsCountByMonth(result = 'all') {
     const resultsByMonth = [];
     Object.entries(this.gamesByMonth).forEach(([month, games]) => {
       resultsByMonth.push({
         month: new Date(month),
-        count: games.filter(game => game.result === result).length
+        count: result !== 'all' ? games.filter(game => game.result === result).length : games.length
       });
     });
     return resultsByMonth.sort((a, b) => a.month - b.month);
@@ -142,8 +159,8 @@ export class Games {
   /**
    * @param {number} iterator
    *   A counter used to make this method recursive.
-   * @returns {object}
-   *   A object containing the length and type of the streak.
+   * @returns {Object}
+   *   A object that describes the streak.
    */
   getStreak(iterator = 0) {
     if (this.games.length <= 0 ) {

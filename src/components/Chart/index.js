@@ -2,15 +2,17 @@ import React, { useEffect } from "react"
 import { Chart, registerables } from "chart.js"
 import { v4 as uuidv4 } from 'uuid';
 
+import { colors } from '../../utils/js/variables'
+
 import './chart.scss'
 
 const fontFamily = "'Lato', sans-serif";
 
 Chart.register(...registerables);
 
-Chart.defaults.color = '#feffff';
-Chart.defaults.backgroundColor = '#feffff';
-Chart.defaults.borderColor = '#feffff';
+Chart.defaults.color = colors.white;
+Chart.defaults.backgroundColor = colors.white;
+Chart.defaults.borderColor = colors.white;
 Chart.defaults.plugins.legend.labels.font = {
   family: fontFamily,
   size: 14.4,
@@ -22,7 +24,7 @@ Chart.defaults.plugins.tooltip.bodyFont = {
   size: 14.4,
 }
 Chart.defaults.plugins.tooltip.cornerRadius = 0;
-Chart.defaults.borderColor = 'rgba(0, 0, 0, .15)';
+Chart.defaults.borderColor = colors.translucent;
 
 export const ChartBase = ({title, config}) => {
   const id = `chart-${uuidv4()}`;

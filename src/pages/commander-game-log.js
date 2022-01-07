@@ -9,7 +9,7 @@ import { DeckInfos } from "components/DeckInfo"
 import GameLog from "components/GameLog"
 import { ChartBase, ChartsWrapper } from "components/Chart"
 
-import { mtgColors } from "utils/js/variables"
+import { mtgColors, colors } from "utils/js/variables"
 import { Games} from "utils/js/game-utils"
 import { Decks } from "utils/js/deck-utils"
 
@@ -49,15 +49,7 @@ const GameLogPage = ({ data }) => {
     }}
   />
 
-  const winPercentages = [];
-  Object.entries(allGames.gamesByColor).forEach(entry => {
-    const [color, games] = entry;
-    const wins = games.filter(game => game.result === 'win');
-    winPercentages.push({
-      color: color,
-      percentage: wins.length / games.length
-    })
-  });
+  const winPercentages = allGames.winPercentagesByColor;
   const chartWinPercentageByColor = <ChartBase
     title="Win Percentage by Color"
     config={{
@@ -70,7 +62,7 @@ const GameLogPage = ({ data }) => {
           ),
           backgroundColor: winPercentages.map(group => mtgColors[group.color].foreground),
           borderWidth: 1,
-          borderColor: 'white'
+          borderColor: colors.white,
         }],
       },
       options: {
@@ -79,7 +71,7 @@ const GameLogPage = ({ data }) => {
           xAxis: {
             max: 100,
             ticks: {
-              callback: (value, index, ticks) => `${value}%`
+              callback: (value) => `${value}%`
             }
           }
         },
@@ -95,6 +87,17 @@ const GameLogPage = ({ data }) => {
       }
     }}
   />
+
+  const lineChartOptions = {
+    plugins: {
+      legend: {
+        position: 'bottom',
+      },
+      tooltip: {
+        displayColors: false,
+      }
+    }
+  };
 
   const winsByMonth = allGames.getResultsCountByMonth('win');
   const lossesByMonth = allGames.getResultsCountByMonth('loss');
@@ -113,59 +116,82 @@ const GameLogPage = ({ data }) => {
           {
             label: 'Wins',
             data: winsByMonth.map(byMonth => byMonth.count),
-            borderColor: 'green',
-            backgroundColor: 'green',
+            borderColor: colors.green,
+            backgroundColor: colors.green,
             borderWidth: 2,
             pointRadius: 3,
           },
           {
             label: 'Losses',
             data: lossesByMonth.map(byMonth => byMonth.count),
-            borderColor: 'red',
-            backgroundColor: 'red',
+            borderColor: colors.red,
+            backgroundColor: colors.red,
             borderWidth: 2,
             pointRadius: 3,
           }
         ],
       },
-      options: {
-        plugins: {
-          legend: {
-            position: 'bottom',
-          },
-          tooltip: {
-            displayColors: false,
-          }
-        }
-      }
+      options: lineChartOptions,
     }}
   />
 
-  return (<Layout>
-    <Seo title={pageTitle} />
-    <Section cols="0">
-      <h1>{pageTitle}</h1>
-      <DeckInfos
-        decks={playerDecks}
-        games={allGames}
-      />
-    </Section>
-    <Section cols="0">
-      <GameLog
-        decks={allDecks}
-        games={allGames}
-      />
-    </Section>
-    <Section cols="0">
-      <h2>Charts</h2>
-      <ChartsWrapper>
-        {chartDeckColors}
-        {chartWinPercentageByColor}
-        {chartWinLossLine}
-      </ChartsWrapper>
-    </Section>
-  </Layout>
-)}
+  const gamesByMonth = allGames.getResultsCountByMonth();
+  const chartGamesPlayedLine = <ChartBase
+    title="Games Played by Month"
+    config={{
+      type: 'line',
+      data: {
+        labels: gamesByMonth.map(byMonth => (
+          byMonth.month.toLocaleString('default', {
+            month: 'long',
+            year: 'numeric'
+          })
+        )),
+        datasets: [
+          {
+            label: 'Games',
+            data: gamesByMonth.map(byMonth => byMonth.count),
+            borderColor: colors.white,
+            backgroundColor: colors.white,
+            borderWidth: 2,
+            pointRadius: 3,
+          },
+        ],
+      },
+      options: lineChartOptions,
+    }}
+  />
+
+  return (
+    <Layout>
+      <Seo title={pageTitle} />
+      <Section cols="0">
+        <h1>{pageTitle}</h1>
+        <DeckInfos
+          decks={playerDecks}
+          games={allGames}
+        />
+      </Section>
+      <Section cols="0">
+        <GameLog
+          decks={allDecks}
+          games={allGames}
+        />
+      </Section>
+      <Section cols="0">
+        <h2>Charts</h2>
+        <ChartsWrapper>
+          {chartDeckColors}
+          {chartWinPercentageByColor}
+        </ChartsWrapper>
+        <ChartsWrapper>
+          {chartWinLossLine}
+          {chartGamesPlayedLine}
+        </ChartsWrapper>
+      </Section>
+    </Layout>
+  )
+}
 
 export const query = graphql`
   query GameLogPageQuery {

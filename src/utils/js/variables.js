@@ -25,3 +25,11 @@ export const mtgColors = {
     background: 'rgb(196,211,202)',
   },
 }
+
+export const colors = {
+  white: '#feffff',
+  black: '#000000',
+  translucent: 'rgba(1,1,1,.15)',
+  green: '#5B9A6E',
+  red: '#984447',
+}
