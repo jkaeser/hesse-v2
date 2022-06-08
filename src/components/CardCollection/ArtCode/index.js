@@ -3,7 +3,7 @@ import PropTypes from "prop-types"
 
 import "./art-code.scss"
 
-const ArtCode = ({id}) => {
+const ArtCode = ({cardName, id}) => {
   const [clicked, setClicked] = useState(false);
 
   const handleInteraction = (e, id) => {
@@ -36,7 +36,7 @@ const ArtCode = ({id}) => {
         className="art-code__code"
         role="button"
         tabIndex="0"
-        ariaLabel="Copy art ID to clipboard"
+        aria-label={`Copy art ID for ${cardName} to clipboard`}
         onClick={(e) => handleInteraction(e, id)}
         onKeyDown={(e) => handleInteraction(e, id)}
       >
@@ -45,6 +45,7 @@ const ArtCode = ({id}) => {
       <span
         className={popupClasses.join(' ').trim()}
         aria-hidden={!clicked}
+        aria-live="assertive"
       >
         Copied to clipboard
       </span>

@@ -50,7 +50,7 @@ const CardCollection = ({title, dataCards, dataCollected}) => {
             cy={chart.dimensionY}
             fill="var(--translucent)"
             stroke="var(--text-color)"
-            stroke-width="1"
+            strokeWidth="1"
           />
           <circle
             r={chart.radius / 2}
@@ -58,8 +58,8 @@ const CardCollection = ({title, dataCards, dataCollected}) => {
             cy={chart.dimensionY}
             fill="transparent"
             stroke="var(--text-color)"
-            stroke-width="50"
-            stroke-dasharray={`${Math.round((chart.percentageFull * chart.circumference) / 100)} ${chart.circumference}`}
+            strokeWidth="50"
+            strokeDasharray={`${Math.round((chart.percentageFull * chart.circumference) / 100)} ${chart.circumference}`}
             transform="rotate(-90) translate(-98)"
           />
         </svg>
@@ -139,11 +139,12 @@ const CardCollection = ({title, dataCards, dataCollected}) => {
 
               return (
                 <li
+                  key={`card-${cardData.id}`}
                   id={`card-${cardData.id}`}
                   className={classes.join(' ').trim()}
                 >
                   <a href={card.scryfall_uri} target="_blank" rel="noreferrer">
-                    <span class="visually-hidden">{card.name}</span>
+                    <span className="visually-hidden">{card.name}</span>
                     {cardCollected &&
                     <div className="collected-flag">
                       <span>Collected</span>
@@ -154,7 +155,10 @@ const CardCollection = ({title, dataCards, dataCollected}) => {
                     }
                   </a>
                   {showArtIds &&
-                  <ArtCode id={card.illustration_id} />
+                  <ArtCode
+                    cardName={card.name}
+                    id={card.illustration_id}
+                  />
                   }
                 </li>
               )
