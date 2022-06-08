@@ -151,7 +151,14 @@ const CardCollection = ({title, dataCards, dataCollected}) => {
                     </div>
                     }
                     {card.image_status !== 'missing' &&
-                    <img loading="lazy" src={card.image_uris.normal} alt="" />
+                    <img
+                      loading="lazy"
+                      srcset={`
+                        ${card.image_uris.normal} 2x,
+                        ${card.image_uris.small}
+                      `}
+                      alt=""
+                    />
                     }
                   </a>
                   {showArtIds &&
