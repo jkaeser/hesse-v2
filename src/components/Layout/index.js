@@ -46,8 +46,8 @@ class Layout extends React.Component {
   componentDidMount() {
     this.setState(() => ({
       windowSize: {
-        width: window.innerWidth,
-        height: window.innerHeight
+        width: window.outerWidth,
+        height: window.outerHeight
       },
       activeMode: window.sessionStorage.getItem('jkSiteMode'),
     }));
