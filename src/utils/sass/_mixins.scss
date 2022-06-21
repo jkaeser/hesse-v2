@@ -13,7 +13,63 @@
 }
 
 @mixin transition($timing: $transition-timing) {
-  transition: all $timing $transition-curve, outline 0s linear, text-shadow 0s linear;
+  transition: all $timing $transition-curve, outline 0s linear, outline-offset 0s linear, text-shadow 0s linear;
+}
+
+@mixin visually-hidden {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+}
+
+@mixin visually-hidden-off {
+  clip: initial;
+  clip-path: initial;
+  height: initial;
+  width: initial;
+  overflow: initial;
+  position: initial;
+  white-space: initial;
+}
+
+@mixin link-base {
+  @include transition;
+
+  color: var(--text-color);
+  text-decoration: none;
+  position: relative;
+  font-weight: 400;
+  background-image: linear-gradient(to right, var(--translucent-link) 0, var(--translucent-link) 100%);
+  background-position: .25em .75em;
+  background-size: 100% 75%;
+  background-repeat: no-repeat;
+}
+
+@mixin link-hover-or-focus {
+  background-position: initial;
+  background-size: 100% 100%;
+}
+
+@mixin link-focus {
+  outline: 0;
+  box-shadow: 0 1px 0 0 var(--text-color);
+}
+
+@mixin link {
+  @include link-base;
+
+  &:hover,
+  &:focus {
+    @include link-hover-or-focus;
+  }
+
+  &:focus {
+    @include link-focus;
+  }
 }
 
 @mixin text-mask($color, $blur: 1px) {

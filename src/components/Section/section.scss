@@ -1,23 +1,11 @@
 @import '../../utils/sass/all';
 
 section {
-  padding: $gutter-mid 0;
-  background-color: var(--background-color);
-  color: var(--text-color);
+  padding-top: $gutter-small;
+  padding-bottom: $gutter-small;
 
-  &.color--green {
-    --background-color: #{$c-green-dark};
-    --text-color: #{$c-white-dark};
-
-    &:first-of-type {
-      padding-top: 0;
-    }
-  }
-
-  &.color--white {
-    --background-color: #{$c-white-dark};
-    --text-color: #{$c-green-dark};
-    --translucent: #{$c-translucent-light};
+  &:first-of-type:not(.color) {
+    padding-top: 0;
   }
 
   @include bp($bp-tablet-vertical) {
@@ -27,9 +15,20 @@ section {
     }
   }
 
-  > div {
-    max-width: 50rem;
+  &.color {
+    background-color: var(--background-color);
+    color: var(--text-color);
 
+    @media (prefers-color-scheme: light) {
+      &.color--white {
+        --background-color: #{$c-white-dark};
+        --text-color: #{$c-green-darker};
+        --translucent: #{$c-translucent-light};
+      }
+    }
+  }
+
+  > div {
     > *:last-child {
       margin-bottom: 0;
     }

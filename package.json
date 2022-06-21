@@ -9,16 +9,19 @@
   },
   "dependencies": {
     "babel-eslint": "^10.1.0",
+    "chart.js": "^3.6.0",
     "eslint": "^8.1.0",
     "gatsby": "^4.0.1",
     "gatsby-alias-imports": "^1.0.4",
     "gatsby-image": "^3.11.0",
+    "gatsby-plugin-image": "^2.1.0",
     "gatsby-plugin-manifest": "^4.0.0",
     "gatsby-plugin-offline": "^5.0.0",
     "gatsby-plugin-react-helmet": "^5.0.0",
     "gatsby-plugin-sass": "^5.0.0",
     "gatsby-plugin-sharp": "^4.0.1",
     "gatsby-source-filesystem": "^4.0.0",
+    "gatsby-source-sanity": "^7.1.0",
     "gatsby-transformer-sharp": "^4.0.0",
     "graphql": "^15.7.1",
     "prop-types": "^15.7.2",
@@ -41,7 +44,9 @@
     "start": "npm run develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
+    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
+    "fetch-data-mckinnon": "> src/data/cards-mckinnon.json && curl https://api.scryfall.com/cards/search?q=unique%3A\"art\"+game%3A\"paper\"+artist%3A\"mckinnon\"+order%3A\"released\" > src/data/cards-mckinnon.json",
+    "fetch-data-sorin": "> src/data/cards-markov.json && curl https://api.scryfall.com/cards/search?q=unique%3A\"art\"+name%3A\"sorin\"+type%3A\"planeswalker\"+order%3A\"released\" > src/data/cards-markov.json"
   },
   "repository": {
     "type": "git",

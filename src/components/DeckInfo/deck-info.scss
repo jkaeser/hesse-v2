@@ -1,0 +1,136 @@
+@import '../../utils/sass/all';
+
+.decks {
+  border: 1px solid var(--translucent);
+
+  &.hide-retired {
+    .deck--retired {
+      display: none;
+    }
+  }
+
+  &__title {
+    padding: 1rem;
+    margin-bottom: 0;
+  }
+
+  &__items {
+    display: grid;
+    gap: 1px;
+
+    @include bp($bp-tablet-vertical) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include bp($bp-tablet-horizontal) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @include bp($bp-desktop) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+}
+
+.deck {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: var(--translucent);
+
+  &--retired {
+    .deck__status {
+      background-color: $c-translucent-red;
+    }
+  }
+
+  &__inner,
+  &__status {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  &__inner {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  &__color-identity {
+    svg {
+      width: .75em;
+      height: .75em;
+
+      + svg {
+        margin-left: .15em;
+      }
+    }
+  }
+
+  &__commander {
+    margin-bottom: .25rem;
+  }
+
+  &__metadata {
+    margin-bottom: 1rem;
+    font-size: $font-size-small;
+
+    > * {
+      display: flex;
+      align-items: center;
+      gap: .5em;
+    }
+
+    svg {
+      height: 1em;
+      width: 1em;
+      fill: var(--text-color);
+    }
+
+    a {
+      background: none;
+
+      &:hover,
+      &:focus {
+        text-decoration: underline;
+        box-shadow: none;
+      }
+    }
+  }
+
+  &__games {
+    display: grid;
+    gap: 1rem;
+
+    @include bp($bp-phone-sm) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @keyframes color-mix {
+    0% {
+      color: var(--loss-bg);
+    }
+    100% {
+      color: var(--win-bg);
+    }
+  }
+
+  &__ratio {
+    .datum__number {
+      animation: color-mix 1s linear forwards paused;
+      color: currentColor;
+    }
+  }
+
+  &__status {
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+    border-top: 1px solid var(--translucent);
+    text-align: center;
+    letter-spacing: 1px;
+    font-size: $font-size-smaller;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+}

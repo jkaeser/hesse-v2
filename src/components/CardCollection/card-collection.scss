@@ -1,0 +1,136 @@
+@import '../../utils/sass/all';
+
+$card-width: 146px;
+
+* + .card-collection {
+  margin-top: $gutter-small;
+}
+
+.card-collection {
+  > summary {
+    &::after {
+      margin-top: 0;
+    }
+  }
+
+  &__title {
+    margin-bottom: 0;
+  }
+
+  &__subtitle {
+    font-size: $font-size-small;
+  }
+
+  &__content {
+    border-left: 1px solid var(--translucent);
+    border-right: 1px solid var(--translucent);
+  }
+
+  &__count {
+    padding: 1rem 1rem 0;
+    font-size: $font-size-small;
+  }
+
+  &__items {
+    list-style: none;
+    display: grid;
+    gap: 2.25rem 2.5rem;
+    margin: 0;
+    padding: 2rem 1rem 1rem;
+    border-bottom: 1px solid var(--translucent);
+
+    @include bp($bp-phone-lg) {
+      grid-template-columns: repeat(auto-fill, $card-width);
+    }
+  }
+
+  &__item {
+    position: relative;
+    margin: 0;
+
+    &--collected {
+      img {
+        border-color: $c-gold !important;
+      }
+    }
+
+    a {
+      display: inline-block;
+      background: none;
+
+      &:hover,
+      &:focus-visible {
+        box-shadow: 1px 1px 8px 0px var(--translucent);
+        transform: translate(-1px, -2px);
+      }
+
+      &:focus-visible {
+        img {
+          border-color: var(--text-color);
+        }
+      }
+
+      &:focus {
+        box-shadow: none;
+      }
+    }
+
+    img {
+      @include transition;
+
+      border-radius: 8px;
+      border: 1px solid var(--translucent);
+      max-width: 100%;;
+
+      @include bp($bp-phone-lg) {
+        max-width: $card-width;
+      }
+    }
+  }
+
+  + .card-collection {
+    margin-top: $gutter-small;
+  }
+}
+
+.collected-flag {
+  padding: 1rem;
+  background-color: $c-gold;
+  color: $c-white;
+  text-shadow: none;
+  border-radius: 50%;
+  position: absolute;
+  font-size: $font-size-smaller;
+  height: 1rem;
+  width: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  right: -1.5rem;
+  top: -1.5rem;
+  transform: rotate(25deg);
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+  }
+
+  &::before {
+    top: -2px;
+    right: -2px;
+    bottom: -2px;
+    left: -2px;
+    border: 1px solid $c-gold;
+  }
+
+  &::after {
+    top: -4px;
+    right: -4px;
+    bottom: -4px;
+    left: -4px;
+    border: 1px dotted $c-gold;
+  }
+}

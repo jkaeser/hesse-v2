@@ -1,0 +1,28 @@
+@import '../../utils/sass/all';
+
+
+.filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1px;
+  background: var(--translucent);
+  border-top: 1px solid var(--translucent);
+  border-bottom: 1px solid var(--translucent);
+
+  > * {
+    padding: .5rem 1rem;
+    background: var(--background-color);
+  }
+
+  select {
+    padding: .25rem;
+    background-color: inherit;
+    color: inherit;
+    border: 1px solid var(--text-color);
+
+    &:focus-visible {
+      outline: 1px solid var(--text-color);
+      background-color: var(--translucent);
+    }
+  }
+}

@@ -3,7 +3,25 @@
   font-size: 16px;
   --background-color: #{$c-green-dark};
   --text-color: #{$c-white};
+  --translucent-link: #{$c-translucent};
   --translucent: #{$c-translucent};
+  --translucent-dark: #{$c-translucent-dark};
+  --win-bg: #{$c-green};
+  --win-text: #{$c-white};
+  --loss-bg: #{$c-red};
+  --loss-text: #{$c-white};
+
+  --mtg-white: rgb(249,250,244);
+  --mtg-blue: rgb(14,104,171);
+  --mtg-black: rgb(21,11,0);
+  --mtg-red: rgb(211,32,42);
+  --mtg-green: rgb(0,115,62);
+
+  @media (prefers-color-scheme: dark) {
+    --background-color: #{$c-green-darker};
+    --text-color: #{$c-white};
+    --translucent-link: #{$c-translucent-white};
+  }
 }
 
 html {
@@ -49,16 +67,30 @@ body > #___gatsby > div,
   }
 }
 
-.contrast,
-.contrast section {
-  --background-color: #{$c-white-dark} !important;
-  --text-color: #{$c-black} !important;
-  --translucent: #{$c-translucent-light} !important;
+.starfield {
+  opacity: 0;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: $z-index-background;
+  pointer-events: none;
 }
 
-.hue-rotate {
-  filter: hue-rotate(180deg);
-  animation: 6s linear 0s infinite alternate hue-rotate;
+.skip-link {
+  @include visually-hidden;
+
+  &:focus-visible {
+    @include visually-hidden-off;
+
+    position: absolute;
+    background: var(--translucent);
+    padding: 1rem;
+    left: 0;
+    right: 0;
+    text-align: center;
+  }
 }
 
 svg {
@@ -116,27 +148,7 @@ h1 {
 }
 
 a {
-  @include transition;
-
-  color: var(--text-color);
-  text-decoration: none;
-  position: relative;
-  font-weight: 400;
-  background-image: linear-gradient(to right, var(--translucent) 0, var(--translucent) 100%);
-  background-position: .25em .75em;
-  background-size: 100% 75%;
-  background-repeat: no-repeat;
-
-  &:hover,
-  &:focus {
-    background-position: initial;
-    background-size: 100% 100%;
-  }
-
-  &:focus {
-    outline: 0;
-    box-shadow: 0 1px 0 0 var(--text-color);
-  }
+  @include link;
 }
 
 p {
@@ -204,7 +216,7 @@ button,
   }
 
   + button,
-  + .button, {
+  + .button {
     margin-left: 1rem;
   }
 }

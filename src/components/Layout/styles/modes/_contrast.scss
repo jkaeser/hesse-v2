@@ -1,0 +1,21 @@
+.contrast {
+  --background-color: #{$c-white-dark};
+  --text-color: #{$c-black};
+  --translucent: #{$c-translucent-light};
+  --translucent-dark: #{$c-translucent-darker};
+  --win-bg: #006600;
+  --loss-bg: #B30000;
+
+  @media (prefers-color-scheme: light) {
+    section.color {
+      --background-color: #{$c-white-dark} !important;
+      --text-color: #{$c-black} !important;
+    }
+  }
+
+  @media (prefers-color-scheme: dark) {
+    --background-color: #{$c-black-light};
+    --text-color: #{$c-white};
+    --translucent-link: #{$c-translucent-white};
+  }
+}

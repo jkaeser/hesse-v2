@@ -2,6 +2,8 @@
 @import 'animation';
 @import 'utility';
 @import 'fonts';
-@import 'modes';
-@import 'space';
 @import 'layout';
+@import 'mode-switcher';
+@import 'modes/contrast';
+@import 'modes/hue-rotate';
+@import 'modes/space';

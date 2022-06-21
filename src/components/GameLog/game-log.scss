@@ -1,0 +1,109 @@
+@import '../../utils/sass/all';
+
+.game-log {
+  summary {
+    h2 {
+      margin-bottom: 0;
+    }
+
+    div {
+      font-size: $font-size-small;
+      margin-top: .25rem;
+    }
+  }
+
+  &__content {
+    border: 1px solid var(--translucent);
+    border-top: 0;
+  }
+
+  &__data-rollup {
+    display: flex;
+    gap: 1rem;
+    border-bottom: 1px solid var(--translucent);
+
+    > * {
+      padding: 1rem;
+
+      &:last-of-type {
+        border-right: 1px solid var(--translucent);
+      }
+
+      + * {
+        border-left: 1px solid var(--translucent);
+      }
+    }
+  }
+
+  table {
+    border-spacing: 0;
+    border-collapse: collapse;
+    width: 100%;
+
+    thead {
+      tr {
+        background-color: var(--translucent-dark);
+      }
+    }
+
+    tbody {
+      tr:nth-of-type(even) {
+        td:not(.result) {
+          background-color: var(--translucent);
+        }
+      }
+    }
+
+    tr {
+      td,
+      th {
+        &:first-of-type {
+          padding-left: 1rem;
+        }
+
+        &:last-of-type {
+          padding-right: 1rem;
+        }
+      }
+    }
+
+    th,
+    td {
+      border: 1px solid var(--translucent);
+      padding: .5em .75em;
+      text-align: left;
+      font-size: $font-size-smallish;
+      width: 18%;
+
+      &:last-of-type {
+        width: 28%;
+      }
+
+      &.opponents {
+        ul {
+          list-style: none;
+          margin: 0;
+          padding: 0;
+        }
+
+        li {
+          + li {
+            margin-top: .25rem;
+          }
+        }
+      }
+
+      &.win,
+      &.loss {
+        font-weight: 500;
+      }
+
+      &.win {
+        background-color: $c-translucent-green;
+      }
+      &.loss {
+        background-color: $c-translucent-red;
+      }
+    }
+  }
+}
