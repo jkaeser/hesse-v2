@@ -4,17 +4,16 @@ import Datum from "components/Datum"
 import FilterRow from "components/FilterRow"
 
 import formatDate from "utils/js/formatters/date"
-import { Games } from "utils/js/game-utils"
 
 import "./deck-info.scss"
 
-const DeckInfo = ({ deck, games: allGames }) => {
-  const {count: streakCount, type: streakType} = allGames.getStreak();
+const DeckInfo = ({ deck }) => {
+  const {count: streakCount, type: streakType} = deck.streak;
   const streakTypeMap = {
     win: 'winning',
     loss: 'losing'
   };
-  const latestGame = formatDate(allGames.latestGame.date);
+  const latestGame = formatDate(deck.latestGame.date);
 
   const renderColorSvg = (color) => (
     <svg
@@ -82,19 +81,19 @@ const DeckInfo = ({ deck, games: allGames }) => {
         </div>
         <div className="deck__games">
           <div className="deck__wins">
-            <Datum number={allGames.wins.length} label='wins' />
+            <Datum number={deck.wins.length} label='wins' />
           </div>
           <div className="deck__losses">
-            <Datum number={allGames.losses.length} label='losses' />
+            <Datum number={deck.losses.length} label='losses' />
           </div>
           <div className="deck__played">
-            <Datum number={allGames.games.length} label='games played' />
+            <Datum number={deck.gamesPlayed} label='games played' />
           </div>
           <div className="deck__ratio">
             <Datum
-              number={allGames.winLossRatio}
+              number={deck.games.winLossRatio}
               label='win/loss ratio'
-              dataStyle={{animationDelay: `-${allGames.winLossRatio}s` }}
+              dataStyle={{ animationDelay: `-${deck.games.winLossRatio}s` }}
             />
           </div>
         </div>
@@ -106,17 +105,30 @@ const DeckInfo = ({ deck, games: allGames }) => {
   )
 }
 
-export const DeckInfos = ({ games: allGames, decks: allDecks }) => {
-  const [ hideRetired, setHideRetired] = useState(true)
+export const DeckInfos = ({ decks: allDecks }) => {
+  const [ hideRetired, setHideRetired] = useState(true);
+  const [ sorting, setSorting] = useState(null); // this is hacky
 
   const classes = [
     'decks',
     hideRetired ? 'hide-retired' : ''
   ];
 
+  const handleSort = event => {
+    switch (event.target.value) {
+      case 'games-played':
+        allDecks.sortByGamesPlayed();
+        break;
+      default:
+        allDecks.sortByAlphabetical();
+        break;
+    }
+    setSorting(event.target.value);
+  }
+
   return (
     <div className={classes.join(' ').trim()}>
-      <h2 className="decks__title">Deck Performance</h2>
+      <h2 className="decks__title">Decks</h2>
       <FilterRow className="decks__filters">
         <div className="decks__filter-item">
           <input
@@ -128,13 +140,24 @@ export const DeckInfos = ({ games: allGames, decks: allDecks }) => {
           />
           <label htmlFor="hide-retired">Show Retired Decks</label>
         </div>
+        <div className="decks__filter-item">
+          <label htmlFor="sort">Sort by:</label>
+          <select
+            type="checkbox"
+            id="sort"
+            name="sort"
+            onChange={(event) => handleSort(event)}
+          >
+            <option value="alphabetical">Name</option>
+            <option value="games-played">Games Played</option>
+          </select>
+        </div>
       </FilterRow>
       <div className="decks__items">
         {allDecks.decks.map(deck => {
           return (
             <DeckInfo
               deck={deck}
-              games={new Games(allGames.games.filter(game => game.deck.id === deck.id))}
               key={deck.id}
             />
           )

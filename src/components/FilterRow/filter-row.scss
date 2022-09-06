@@ -12,6 +12,8 @@
   > * {
     padding: .5rem 1rem;
     background: var(--background-color);
+    display: flex;
+    align-items: center;
   }
 
   select {
@@ -24,5 +26,9 @@
       outline: 1px solid var(--text-color);
       background-color: var(--translucent);
     }
+  }
+
+  label {
+    padding-inline: .25rem;
   }
 }

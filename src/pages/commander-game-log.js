@@ -17,8 +17,8 @@ const pageTitle = "Commander Game Log";
 
 const GameLogPage = ({ data }) => {
   const allGames = new Games(data.allSanityGame.nodes);
-  const allDecks = new Decks(data.allSanityDeck.nodes);
-  const playerDecks = new Decks(allDecks.decks.filter(deck => deck.type === 'player'));
+  const allDecks = new Decks(data.allSanityDeck.nodes, data.allSanityGame.nodes);
+  const playerDecks = new Decks(allDecks.decks.filter(deck => deck.type === 'player'), data.allSanityGame.nodes);
 
   const chartDeckColors = <ChartBase
     title='Deck Colors'
@@ -169,7 +169,6 @@ const GameLogPage = ({ data }) => {
         <h1>{pageTitle}</h1>
         <DeckInfos
           decks={playerDecks}
-          games={allGames}
         />
       </Section>
       <Section cols="0">
@@ -206,6 +205,7 @@ export const query = graphql`
         }
         opponents {
           id
+          colors
           commander
         }
         result

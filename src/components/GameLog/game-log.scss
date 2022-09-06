@@ -47,6 +47,10 @@
     }
 
     tbody {
+      &.inactive {
+        display: none;
+      }
+
       tr:nth-of-type(even) {
         td:not(.result) {
           background-color: var(--translucent);
@@ -105,5 +109,36 @@
         background-color: $c-translucent-red;
       }
     }
+  }
+
+  &__pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem 0;
+  }
+
+  &__pagination-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__pagination-list-item {
+    &.active button {
+      background: var(--translucent-dark);
+    }
+
+    + .game-log__pagination-list-item {
+      margin-top: 0;
+    }
+  }
+
+  &__table-wrapper {
+    max-height: 800px;
+    overflow: scroll;
   }
 }
