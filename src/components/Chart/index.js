@@ -34,7 +34,7 @@ export const ChartBase = ({title, config}) => {
     return () => {
       chart.destroy()
     }
-  }, [])
+  }, [config, id])
 
   return (
     <div className="chart">

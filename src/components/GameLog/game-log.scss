@@ -118,16 +118,20 @@
     padding: 1rem 0;
   }
 
+  &__pagination-page-identifier {
+    padding-inline: 1rem;
+  }
+
   &__pagination-list {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     margin: 0;
     padding: 0;
     list-style: none;
+    max-width: 100%;
   }
 
   &__pagination-list-item {
+    display: inline-block;
+
     &.active button {
       background: var(--translucent-dark);
     }

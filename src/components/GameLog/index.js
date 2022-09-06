@@ -124,15 +124,22 @@ const GameLog = ({ games: allGames, decks: allDecks }) => {
       <button type="button" aria-label="Previous page" onClick={() => handlePagerClick(Math.max(currentPage - 1, DEFAULT_PAGE_INDEX))}>
         {`< Previous`}
       </button>
-      <ol className="game-log__pagination-list">
-        {filteredGamesPaginated.map((games, index) => (
-          <li className={`game-log__pagination-list-item ${index === currentPage ? 'active' : ''}`}>
-            <button type="button" aria-label={`Go to page ${index + 1}`} onClick={() => handlePagerClick(index)}>
-              {index + 1}
-            </button>
-          </li>
-        ))}
-      </ol>
+      {filteredGamesPaginated.length > 10 &&
+        <div className="game-log__pagination-page-identifier">
+          Page {currentPage + 1} of {filteredGamesPaginated.length}
+        </div>
+      }
+      {filteredGamesPaginated.length <= 10 &&
+        <ol className="game-log__pagination-list">
+          {filteredGamesPaginated.map((games, index) => (
+            <li className={`game-log__pagination-list-item ${index === currentPage ? 'active' : ''}`}>
+              <button type="button" aria-label={`Go to page ${index + 1}`} onClick={() => handlePagerClick(index)}>
+                {index + 1}
+              </button>
+            </li>
+          ))}
+        </ol>
+      }
       <button type="button" aria-label="Next page" onClick={() => handlePagerClick(Math.min(currentPage + 1, filteredGamesPaginated.length - 1))}>
         {`Next >`}
       </button>
