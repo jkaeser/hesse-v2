@@ -1,6 +1,5 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useId } from "react"
 import { Chart, registerables } from "chart.js"
-import { v4 as uuidv4 } from 'uuid';
 
 import { colors } from '../../utils/js/variables'
 
@@ -27,12 +26,15 @@ Chart.defaults.plugins.tooltip.cornerRadius = 0;
 Chart.defaults.borderColor = colors.translucent;
 
 export const ChartBase = ({title, config}) => {
-  const id = `chart-${uuidv4()}`;
+  const id = `chart-${useId()}`;
 
   useEffect(() => {
     const chartEl = document.getElementById(id);
     const chart = new Chart(chartEl, config); // eslint-disable-line
-  })
+    return () => {
+      chart.destroy()
+    }
+  }, [])
 
   return (
     <div className="chart">
