@@ -3,6 +3,7 @@ import schemaTypes from 'all:part:@sanity/base/schema-type'
 
 import deck from './documents/deck'
 import game from './documents/game'
+import player from './documents/player'
 import deckLink from './objects/deckLink'
 
 export default createSchema({
@@ -10,6 +11,7 @@ export default createSchema({
   types: schemaTypes.concat([
     deckLink,
     deck,
-    game
+    game,
+    player
   ]),
 })

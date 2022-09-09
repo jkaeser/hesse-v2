@@ -1,13 +1,17 @@
 import { Games } from "./game-utils"
 
 export class Deck {
-  constructor(id, colors, commander, type, links, status, games) {
+  constructor(id, colors, commander, type, links, status, owner, games) {
     this.id = id;
     this.colors = colors;
     this.commander = commander;
     this.type = type;
     this.links = links;
     this.status = status;
+    this.owner = {
+      ...owner,
+      nameFull: `${owner?.nameFirst} ${owner?.nameLast}`
+    };
     this.games = games;
   }
 
@@ -48,6 +52,7 @@ export class Decks {
           deck.type,
           deck.links,
           deck.status,
+          deck.owner,
           new Games(games.filter(game => game.deck.id === deck.id)))
       });
     this.games = games;

@@ -51,6 +51,12 @@ export default {
       validation: Rule => Rule.required()
     },
     {
+      title: 'Winner',
+      name: 'winner',
+      type: 'reference',
+      to: [{ type: 'deck' }],
+    },
+    {
       title: 'Summary',
       name: 'summary',
       type: 'text'

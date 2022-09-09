@@ -202,11 +202,21 @@ export const query = graphql`
           id
           colors
           commander
+          owner {
+            id
+            nameFirst
+            nameLast
+          }
         }
         opponents {
           id
           colors
           commander
+          owner {
+            id
+            nameFirst
+            nameLast
+          }
         }
         result
         summary
@@ -217,6 +227,11 @@ export const query = graphql`
         id
         colors
         commander
+        owner {
+          id
+          nameFirst
+          nameLast
+        }
         type
         status
         links {
