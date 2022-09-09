@@ -20,15 +20,16 @@ export class Deck {
   }
 
   get wins() {
-    return this.games.wins;
+    return this.games.games.filter(game => game.winner.id === this.id);
   }
 
   get losses() {
-    return this.games.losses;
+    return this.games.games.filter(game => game.winner.id !== this.id);
   }
 
   get winLossRatio() {
-    return this.games.winLossRatio;
+    const ratio = Number(this.wins.length / (this.losses.length > 0 ? this.losses.length : 1));
+    return ratio < 1 ? ratio.toPrecision(2) : ratio.toPrecision(3);
   }
 
   get latestGame() {
@@ -53,7 +54,10 @@ export class Decks {
           deck.links,
           deck.status,
           deck.owner,
-          new Games(games.filter(game => game.deck.id === deck.id)))
+          new Games(games.filter(game => {
+            const deckIds = game.decks.filter(deckInGame => deckInGame).map(deckInGame => deckInGame.id);
+            return deckIds.includes(deck.id);
+          })))
       });
     this.games = games;
   }

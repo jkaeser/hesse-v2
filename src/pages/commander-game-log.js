@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { graphql } from "gatsby"
 
 import Layout from "components/Layout"
@@ -8,6 +8,7 @@ import Seo from "components/Seo"
 import { DeckInfos } from "components/DeckInfo"
 import GameLog from "components/GameLog"
 import { ChartBase, ChartsWrapper } from "components/Chart"
+import FilterRow from "../components/FilterRow";
 
 import { mtgColors, colors } from "utils/js/variables"
 import { Games} from "utils/js/game-utils"
@@ -16,9 +17,21 @@ import { Decks } from "utils/js/deck-utils"
 const pageTitle = "Commander Game Log";
 
 const GameLogPage = ({ data }) => {
+  const allPlayers = data.allSanityPlayer.nodes;
+  const JohnKaeser = allPlayers.find(player => player.nameLast === 'Kaeser');
+  const [playerContext, setPlayerContext] = useState(JohnKaeser.id);
+  // console.log('DEBUG', data.allSanityGame.nodes);
   const allGames = new Games(data.allSanityGame.nodes);
-  const allDecks = new Decks(data.allSanityDeck.nodes, data.allSanityGame.nodes);
-  const playerDecks = new Decks(allDecks.decks.filter(deck => deck.type === 'player'), data.allSanityGame.nodes);
+  const allDecks = new Decks(
+    playerContext !== 'none'
+      ? data.allSanityDeck.nodes.filter(deck => deck.owner.id === playerContext)
+      : data.allSanityDeck.nodes,
+    data.allSanityGame.nodes
+  );
+
+  const handleSelectChange = event => {
+    setPlayerContext(event.target.value);
+  }
 
   const chartDeckColors = <ChartBase
     title='Deck Colors'
@@ -27,7 +40,7 @@ const GameLogPage = ({ data }) => {
       data: {
         labels: Object.values(mtgColors).map(color => color.label),
         datasets: [{
-          data: Object.values(playerDecks.decks
+          data: Object.values(allDecks.decks
             .map(deck => deck.colors)
             .reduce((colorCounts, colors) => {
               colors.forEach(color => { colorCounts[color]++ });
@@ -167,17 +180,27 @@ const GameLogPage = ({ data }) => {
       <Seo title={pageTitle} />
       <Section cols="0">
         <h1>{pageTitle}</h1>
+        <FilterRow>
+          <select id="player" onChange={(event) => handleSelectChange(event)} defaultValue={playerContext}>
+            <option value="none">- Filter By Player -</option>
+            {data.allSanityPlayer.nodes.map(player => (
+              <option value={player.id}>
+                {player.nameFirst} {player.nameLast}
+              </option>
+            ))}
+          </select>
+        </FilterRow>
         <DeckInfos
-          decks={playerDecks}
+          decks={allDecks}
         />
       </Section>
-      <Section cols="0">
+      {/* <Section cols="0">
         <GameLog
           decks={allDecks}
           games={allGames}
         />
-      </Section>
-      <Section cols="0">
+      </Section> */}
+      {/* <Section cols="0">
         <h2>Charts</h2>
         <ChartsWrapper>
           {chartDeckColors}
@@ -187,7 +210,7 @@ const GameLogPage = ({ data }) => {
           {chartWinLossLine}
           {chartGamesPlayedLine}
         </ChartsWrapper>
-      </Section>
+      </Section> */}
     </Layout>
   )
 }
@@ -198,25 +221,15 @@ export const query = graphql`
       nodes {
         id
         date
-        deck {
+        decks {
           id
           colors
           commander
-          owner {
-            id
-            nameFirst
-            nameLast
-          }
         }
-        opponents {
+        winner {
           id
           colors
           commander
-          owner {
-            id
-            nameFirst
-            nameLast
-          }
         }
         result
         summary
@@ -238,6 +251,13 @@ export const query = graphql`
           title
           url
         }
+      }
+    }
+    allSanityPlayer(sort: {fields: [nameFirst], order: ASC}) {
+      nodes {
+        id
+        nameFirst
+        nameLast
       }
     }
   }

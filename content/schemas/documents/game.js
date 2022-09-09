@@ -13,28 +13,19 @@ export default {
       validation: Rule => Rule.required()
     },
     {
-      title: 'Deck',
-      name: 'deck',
-      type: 'reference',
-      to: [{ type: 'deck' }],
-      options: {
-        filter: 'type == $type',
-        filterParams: {type: 'player'}
-      },
-      validation: Rule => Rule.required()
-    },
-    {
-      title: 'Opponents',
-      name: 'opponents',
+      title: 'Decks',
+      name: 'decks',
       type: 'array',
       of: [{
         type: 'reference',
         to: [{ type: 'deck' }],
-        options: {
-          filter: 'type == $type',
-          filterParams: {type: 'opponent'}
-        }
-      }]
+      }],
+    },
+    {
+      title: 'Winner',
+      name: 'winner',
+      type: 'reference',
+      to: [{ type: 'deck' }],
     },
     {
       title: 'Result',
@@ -49,12 +40,6 @@ export default {
         ]
       },
       validation: Rule => Rule.required()
-    },
-    {
-      title: 'Winner',
-      name: 'winner',
-      type: 'reference',
-      to: [{ type: 'deck' }],
     },
     {
       title: 'Summary',

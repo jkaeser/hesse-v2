@@ -41,11 +41,10 @@ export class Games {
    */
   get playerCounts() {
     return this.games
-      .map(game => game.opponents.length)
+      .map(game => game.decks.length)
       .reduce((playerCounts, count) => {
-        const countWithPlayer = count + 1;
-        if (count !== 0 && playerCounts.indexOf(countWithPlayer) === -1) {
-          playerCounts.push(countWithPlayer);
+        if (count !== 0 && playerCounts.indexOf(count) === -1) {
+          playerCounts.push(count);
         }
         return playerCounts.sort((a, b) => b - a);
       }, []);
@@ -55,32 +54,15 @@ export class Games {
    * @returns {Array}
    *   An array of strings.
    */
-  get playerCommanders() {
+  get commanders() {
     return this.games
-      .map(game => game.deck.commander)
-      .reduce((commanders, commander) => {
-        if (commanders.indexOf(commander) === -1) {
-          commanders.push(commander);
+      .map(game => game.decks)
+      .reduce((commanders, deck) => {
+        if (commanders.indexOf(deck.commander) === -1) {
+          commanders.push(deck.commander);
         }
         return commanders;
       }, []);
-  }
-
-  /**
-   * @returns {Array}
-   *   An array of deck nodes.
-   */
-  get opponentDecks() {
-    return Object.values(this.games
-      .reduce((opponents, game) => {
-        game.opponents.forEach(opponent => {
-          if (Object.keys(opponents).indexOf(opponent.id) === -1) {
-            opponents[opponent.id] = opponent;
-          }
-        });
-        return opponents;
-      }, {})
-    );
   }
 
   /**
@@ -89,9 +71,9 @@ export class Games {
    */
   get gamesByColor() {
     return this.games.reduce((byColor, game) => {
-      game.deck.colors.forEach(color => {
+      game.decks.forEach(deck => deck.colors.forEach(color => {
         byColor[color].push(game);
-      });
+      }));
       return byColor;
     }, {white: [], blue: [], black: [], red: [], green: []});
   }
@@ -164,7 +146,7 @@ export class Games {
    */
   getStreak(iterator = 0) {
     if (this.games.length <= 0 ) {
-      return null;
+      return { count: null, type: null };
     }
     if (this.games[iterator + 1]) {
       let game1 = this.games[iterator];

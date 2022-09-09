@@ -13,7 +13,7 @@ const DeckInfo = ({ deck }) => {
     win: 'winning',
     loss: 'losing'
   };
-  const latestGame = formatDate(deck.latestGame.date);
+  const latestGame = deck.latestGame ? formatDate(deck.latestGame.date) : null;
 
   const renderColorSvg = (color) => (
     <svg
@@ -91,9 +91,9 @@ const DeckInfo = ({ deck }) => {
           </div>
           <div className="deck__ratio">
             <Datum
-              number={deck.games.winLossRatio}
+              number={deck.winLossRatio}
               label='win/loss ratio'
-              dataStyle={{ animationDelay: `-${deck.games.winLossRatio}s` }}
+              dataStyle={{ animationDelay: `-${deck.winLossRatio}s` }}
             />
           </div>
         </div>
