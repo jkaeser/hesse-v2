@@ -1,6 +1,12 @@
 export class Games {
-  constructor(games) {
-    this.games = games.sort((a, b) => new Date(b.date) - new Date(a.date));
+  constructor(games, deckContext = null) {
+    this.deckContext = deckContext;
+    if (deckContext) {
+      this.games = games.sort((a, b) => new Date(b.date) - new Date(a.date)).filter(game => game.decks.map(deck => deck.id).includes(deckContext));
+    }
+    else {
+      this.games = games.sort((a, b) => new Date(b.date) - new Date(a.date));
+    }
   }
 
   /**
@@ -16,7 +22,8 @@ export class Games {
    *   An array of game nodes.
    */
   get wins() {
-    return this.games.filter(game => game.result === 'win');
+    const { deckContext } = this;
+    return deckContext ? this.games.filter(game => game.winner.id === deckContext) : this.games;
   }
 
   /**
@@ -24,7 +31,8 @@ export class Games {
    *   An array of game nodes.
    */
   get losses() {
-    return this.games.filter(game => game.result === 'loss');
+    const { deckContext } = this;
+    return deckContext ? this.games.filter(game => game.winner.id !== deckContext) : this.games;
   }
 
   /**

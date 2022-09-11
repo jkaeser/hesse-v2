@@ -22,7 +22,8 @@ const GameLogPage = ({ data }) => {
   const [playerContext, setPlayerContext] = useState(JohnKaeser.id);
   // console.log('DEBUG', data.allSanityGame.nodes);
   const allGames = new Games(data.allSanityGame.nodes);
-  const allDecks = new Decks(
+  const allDecks = new Decks(data.allSanityDeck.nodes, data.allSanityGame.nodes);
+  const playerDecks = new Decks(
     playerContext !== 'none'
       ? data.allSanityDeck.nodes.filter(deck => deck.owner.id === playerContext)
       : data.allSanityDeck.nodes,
@@ -191,16 +192,16 @@ const GameLogPage = ({ data }) => {
           </select>
         </FilterRow>
         <DeckInfos
-          decks={allDecks}
+          decks={playerDecks}
         />
       </Section>
-      {/* <Section cols="0">
+      <Section cols="0">
         <GameLog
           decks={allDecks}
           games={allGames}
         />
-      </Section> */}
-      {/* <Section cols="0">
+      </Section>
+      <Section cols="0">
         <h2>Charts</h2>
         <ChartsWrapper>
           {chartDeckColors}
@@ -210,7 +211,7 @@ const GameLogPage = ({ data }) => {
           {chartWinLossLine}
           {chartGamesPlayedLine}
         </ChartsWrapper>
-      </Section> */}
+      </Section>
     </Layout>
   )
 }
