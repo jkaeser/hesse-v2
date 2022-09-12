@@ -80,17 +80,34 @@ const GameLog = ({ games: allGames, decks: allDecks }) => {
     setCurrentPage(DEFAULT_PAGE_INDEX);
   }
 
-  const deckOptions = allDecks.decks.map(deck => (
+  const deckOptions = allDecks.decks.filter(deck => deck.gamesPlayed).map(deck => (
     <option id={deck.id} value={deck.id} key={deck.id}>
       {deck.commander}
     </option>
   ));
+
+  let opponentOptions = deckOptions;
 
   // Assemble data based on active deck
   let deckActive = null;
   if (filterDeckActive !== DEFAULT_FILTER_VALUE) {
     deckActive = allDecks.decks.find(deck => deck.id === filterDeckActive);
     deckActive.Games.setGames(filteredGames.games);
+    opponentOptions = deckActive.Games.games
+      .reduce((opponents, game) => {
+        const opponentIds = game.decks.filter(deck => deck.id !== deckActive.id);
+        opponentIds.forEach(opponent => {
+          if (!opponents.find(inList => opponent.id === inList.id)) {
+            opponents.push(opponent);
+          }
+        })
+        return opponents;
+      }, [])
+      .map(opponent => (
+        <option id={opponent.id} value={opponent.id} key={opponent.id}>
+          {opponent.commander}
+        </option>
+      ));
   }
 
   // Paginate if necessary.
@@ -183,7 +200,7 @@ const GameLog = ({ games: allGames, decks: allDecks }) => {
               value={filterDeckActive}
               onChange={(e) => handleFilterDeckActive(e.target.value)}
             >
-              <option value="default">- Choose deck context -</option>
+              <option value="default">- Select a deck -</option>
               {deckOptions}
             </select>
           </div>
@@ -194,7 +211,7 @@ const GameLog = ({ games: allGames, decks: allDecks }) => {
                 onChange={(e) => handleFilterDeckOpponent(e.target.value)}
               >
                 <option value="default">- Select an opponent -</option>
-                {deckOptions}
+                {opponentOptions}
               </select>
             </div>
           }

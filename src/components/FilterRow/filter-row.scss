@@ -14,5 +14,7 @@
     background: var(--background-color);
     display: flex;
     align-items: center;
+    max-width: 100%;
+    overflow: hidden;
   }
 }
