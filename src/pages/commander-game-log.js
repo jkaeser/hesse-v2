@@ -43,25 +43,32 @@ const GameLogPage = ({ data }) => {
    * the player's decks have been played in.
    */
   const JohnKaeser = allPlayers.find(player => player.nameLast === 'Kaeser');
-  const [playerContext, setPlayerContext] = useState(JohnKaeser.id);
+  const [playerContext, setPlayerContext] = useState(JohnKaeser);
   const handlePlayerContextChange = event => {
-    setPlayerContext(event.target.value);
+    const { value } = event.target;
+    if (value !== 'none') {
+      setPlayerContext(allPlayers.find(player => player.id === value));
+    }
+    else {
+      setPlayerContext('none');
+    }
   }
   const playerDecks = new Decks(
     playerContext !== 'none'
-      ? baseAllDecks.filter(deck => deck.owner.id === playerContext)
+      ? baseAllDecks.filter(deck => deck.owner.id === playerContext.id)
       : baseAllDecks,
     playerContext !== 'none'
       ? baseAllGames.filter(game => {
         const playerIds = game.decks.map(deck => deck.owner.id);
-        return playerIds.includes(playerContext);
+        return playerIds.includes(playerContext.id);
       })
       : baseAllGames
   );
 
   // Build chart configurations.
+  const possessor = playerContext !== 'none' ? `${playerContext.nameFirst}` : 'Overall Meta';
   const chartDeckColors = <ChartBase
-    title='Deck Colors'
+    title={`${possessor}'s Deck Colors`}
     config={{
       type: 'pie',
       data: {
@@ -91,7 +98,7 @@ const GameLogPage = ({ data }) => {
 
   const winPercentages = playerDecks.winPercentagesByColor;
   const chartWinPercentageByColor = <ChartBase
-    title="Win Percentage by Color"
+    title={`${possessor}'s Win Percentage by Color`}
     config={{
       type: 'bar',
       data: {
@@ -175,12 +182,14 @@ const GameLogPage = ({ data }) => {
   //   }}
   // />
 
-  const gamesByMonth = new Games(baseAllGames.filter(game => {
-    const playerIds = game.decks.map(deck => deck.owner.id);
-    return playerIds.includes(playerContext);
-  })).gamesByMonth;
+  const gamesByMonth = playerContext !== 'none'
+    ? new Games(baseAllGames.filter(game => {
+      const playerIds = game.decks.map(deck => deck.owner.id);
+      return playerIds.includes(playerContext.id);
+    })).gamesByMonth
+    : new Games(baseAllGames).gamesByMonth;
   const chartGamesPlayedLine = <ChartBase
-    title="Games Played by Month"
+    title={`${possessor}'s Games Played by Month`}
     config={{
       type: 'line',
       data: {
@@ -231,8 +240,8 @@ const GameLogPage = ({ data }) => {
       <Section cols="0">
         <h2>Player Info</h2>
         <div className="filter-item">
-          <label htmlFor="playerContext">Player:</label>
-          <select id="playerContext" onChange={(event) => handlePlayerContextChange(event)} value={playerContext}>
+          <label htmlFor="player-context">Player:</label>
+          <select id="player-context" onChange={(event) => handlePlayerContextChange(event)} value={playerContext.id}>
             <option value="none" key="playercontext-none">- None -</option>
             {data.allSanityPlayer.nodes.map(player => (
               <option value={player.id} key={`playercontext-${player.id}`}>
