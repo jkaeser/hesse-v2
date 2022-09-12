@@ -50,20 +50,14 @@ export default {
   preview: {
     select: {
       date: 'date',
-      commander: 'deck.commander',
-      result: 'result'
+      winner: 'winner.commander',
     },
     prepare(selection) {
-      const {date, commander, result} = selection;
-      const emojis = {
-        win: '🎉',
-        loss: '☠️',
-        draw: '🤝'
-      }
+      const {date, winner} = selection;
       return {
         title: formatDate(date),
-        subtitle: commander,
-        media: <span style={{fontSize: '1.5rem'}}>{emojis[result]}</span>
+        subtitle: winner,
+        media: <span style={{fontSize: '1.5rem'}}>👾</span>
       }
     }
   },

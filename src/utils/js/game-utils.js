@@ -86,6 +86,18 @@ export class Games {
     }, {white: [], blue: [], black: [], red: [], green: []});
   }
 
+  get winsByColor() {
+    const gamesToCheck = this.deckContext
+      ? this.games.filter(game => game.winner.id === this.deckContext)
+      : this.games;
+    return gamesToCheck.reduce((byColor, game) => {
+      game.winner.colors.forEach(color => {
+        byColor[color].push(game);
+      });
+      return byColor;
+    }, { white: [], blue: [], black: [], red: [], green: [] });
+  }
+
   /**
    * @returns {Object}
    *   An object containing arrays of game nodes keyed by date.
@@ -115,14 +127,14 @@ export class Games {
    * @returns {Array}
    */
   get winPercentagesByColor() {
+    const { winsByColor } = this;
     const winPercentages = [];
-    Object.entries(this.gamesByColor).forEach(entry => {
-      const [color, games] = entry;
-      const wins = games.filter(game => game.result === 'win');
+
+    Object.keys(winsByColor).forEach(color => {
       winPercentages.push({
         color: color,
-        percentage: wins.length / games.length
-      })
+        percentage: winsByColor[color].length / this.games.length,
+      });
     });
 
     return winPercentages;
@@ -144,30 +156,5 @@ export class Games {
       });
     });
     return resultsByMonth.sort((a, b) => a.month - b.month);
-  }
-
-  /**
-   * @param {number} iterator
-   *   A counter used to make this method recursive.
-   * @returns {Object}
-   *   A object that describes the streak.
-   */
-  getStreak(iterator = 0) {
-    if (this.games.length <= 0 ) {
-      return { count: null, type: null };
-    }
-    if (this.games[iterator + 1]) {
-      let game1 = this.games[iterator];
-      let game2 = this.games[iterator + 1];
-
-      if (game1.result === game2.result) {
-        iterator++;
-        return this.getStreak(iterator);
-      }
-    }
-    return {
-      count: iterator === 0 ? null : iterator + 1,
-      type: iterator === 0 ? null : this.games[iterator].result
-    };
   }
 }

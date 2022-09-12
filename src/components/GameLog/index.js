@@ -47,6 +47,8 @@ const GameLog = ({ games: allGames, decks: allDecks }) => {
       game.winner.id === filterWinner
     ));
   }
+
+  // Handle filter updates.
   const handleFilterDeckActive = (target) => {
     setFilterDeckActive(target);
     if (target === DEFAULT_FILTER_VALUE) {

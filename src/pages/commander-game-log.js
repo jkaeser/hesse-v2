@@ -17,20 +17,36 @@ import { Decks } from "utils/js/deck-utils"
 const pageTitle = "Commander Game Log";
 
 const GameLogPage = ({ data }) => {
+  const [ showLegacyData, setShowLegacyData ] = useState(false);
+  let baseAllGames = data.allSanityGame.nodes;
+  let baseAllDecks = data.allSanityDeck.nodes;
+
+  if (!showLegacyData) {
+    baseAllGames = baseAllGames.filter(game => {
+      const targetDate = new Date('2021-10-12');
+      const compareDate = new Date(game.date);
+      return targetDate.valueOf() < compareDate.valueOf();
+    })
+  }
+
   const allPlayers = data.allSanityPlayer.nodes;
   const JohnKaeser = allPlayers.find(player => player.nameLast === 'Kaeser');
   const [playerContext, setPlayerContext] = useState(JohnKaeser.id);
-  // console.log('DEBUG', data.allSanityGame.nodes);
-  const allGames = new Games(data.allSanityGame.nodes);
-  const allDecks = new Decks(data.allSanityDeck.nodes, data.allSanityGame.nodes);
+  const allGames = new Games(baseAllGames);
+  const allDecks = new Decks(baseAllDecks, baseAllGames);
   const playerDecks = new Decks(
     playerContext !== 'none'
-      ? data.allSanityDeck.nodes.filter(deck => deck.owner.id === playerContext)
-      : data.allSanityDeck.nodes,
-    data.allSanityGame.nodes
+      ? baseAllDecks.filter(deck => deck.owner.id === playerContext)
+      : baseAllDecks,
+    playerContext !== 'none'
+      ? baseAllGames.filter(game => {
+        const playerIds = game.decks.map(deck => deck.owner.id);
+        return playerIds.includes(playerContext);
+      })
+      : baseAllGames
   );
 
-  const handleSelectChange = event => {
+  const handlePlayerContextChange = event => {
     setPlayerContext(event.target.value);
   }
 
@@ -41,7 +57,7 @@ const GameLogPage = ({ data }) => {
       data: {
         labels: Object.values(mtgColors).map(color => color.label),
         datasets: [{
-          data: Object.values(allDecks.decks
+          data: Object.values(playerDecks.decks
             .map(deck => deck.colors)
             .reduce((colorCounts, colors) => {
               colors.forEach(color => { colorCounts[color]++ });
@@ -63,7 +79,7 @@ const GameLogPage = ({ data }) => {
     }}
   />
 
-  const winPercentages = allGames.winPercentagesByColor;
+  const winPercentages = playerDecks.winPercentagesByColor;
   const chartWinPercentageByColor = <ChartBase
     title="Win Percentage by Color"
     config={{
@@ -179,11 +195,29 @@ const GameLogPage = ({ data }) => {
   return (
     <Layout>
       <Seo title={pageTitle} />
+      <h1>{pageTitle}</h1>
+      <FilterRow>
+        <div>
+          <input
+            type="checkbox"
+            id="show-legacy"
+            onChange={() => setShowLegacyData(!showLegacyData)}
+          />
+          <label htmlFor="show-legacy">Show legacy data</label>
+        </div>
+      </FilterRow >
       <Section cols="0">
-        <h1>{pageTitle}</h1>
+        <GameLog
+          decks={allDecks}
+          games={allGames}
+        />
+      </Section>
+      <Section cols="0">
+        <h2>Player Info</h2>
         <FilterRow>
-          <select id="player" onChange={(event) => handleSelectChange(event)} defaultValue={playerContext}>
-            <option value="none">- Filter By Player -</option>
+          <label htmlFor="playerContext">Player:</label>
+          <select id="playerContext" onChange={(event) => handlePlayerContextChange(event)} value={playerContext}>
+            <option value="none">- Select a Player -</option>
             {data.allSanityPlayer.nodes.map(player => (
               <option value={player.id}>
                 {player.nameFirst} {player.nameLast}
@@ -196,13 +230,6 @@ const GameLogPage = ({ data }) => {
         />
       </Section>
       <Section cols="0">
-        <GameLog
-          decks={allDecks}
-          games={allGames}
-        />
-      </Section>
-      <Section cols="0">
-        <h2>Charts</h2>
         <ChartsWrapper>
           {chartDeckColors}
           {chartWinPercentageByColor}
@@ -226,6 +253,11 @@ export const query = graphql`
           id
           colors
           commander
+          owner {
+            id
+            nameFirst
+            nameLast
+          }
         }
         winner {
           id

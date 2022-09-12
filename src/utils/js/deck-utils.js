@@ -12,19 +12,23 @@ export class Deck {
       ...owner,
       nameFull: `${owner?.nameFirst} ${owner?.nameLast}`
     };
-    this.games = games;
+    this.Games = games;
+  }
+
+  get nameWithOwner() {
+    return `${this.commander} (${this.owner.nameFull})`;
   }
 
   get gamesPlayed() {
-    return this.games.games.length;
+    return this.Games.games.length;
   }
 
   get wins() {
-    return this.games.games.filter(game => game.winner.id === this.id);
+    return this.Games.games.filter(game => game.winner.id === this.id);
   }
 
   get losses() {
-    return this.games.games.filter(game => game.winner.id !== this.id);
+    return this.Games.games.filter(game => game.winner.id !== this.id);
   }
 
   get winLossRatio() {
@@ -33,11 +37,37 @@ export class Deck {
   }
 
   get latestGame() {
-    return this.games.latestGame;
+    return this.Games.latestGame;
   }
 
   get streak() {
-    return this.games.getStreak();
+    return this.getStreak();
+  }
+
+  /**
+   * @param {number} iterator
+   *   A counter used to make this method recursive.
+   * @returns {Object}
+   *   A object that describes the streak.
+   */
+  getStreak(iterator = 0, type = false) {
+    const { games } = this.Games;
+    if (games.length <= 0) {
+      return { count: null, type: null };
+    }
+    if (games[iterator + 1]) {
+      let game1Won = games[iterator].winner.id === this.id;
+      let game2Won = games[iterator + 1].winner.id === this.id;
+
+      if (game1Won === game2Won) {
+        iterator++;
+        return this.getStreak(iterator, game1Won);
+      }
+    }
+    return {
+      count: iterator === 0 ? null : iterator + 1,
+      type: iterator === 0 ? null : type ? 'win' : 'loss',
+    };
   }
 }
 
@@ -57,7 +87,7 @@ export class Decks {
           new Games(games.filter(game => {
             const deckIds = game.decks.filter(deckInGame => deckInGame).map(deckInGame => deckInGame.id);
             return deckIds.includes(deck.id);
-          })))
+          }), deck.id))
       });
     this.games = games;
   }
@@ -72,5 +102,33 @@ export class Decks {
     this.decks = this.decks.sort((a, b) => {
       return a.commander >= b.commander ? 1 : -1;
     });
+  }
+
+  get winsByColor() {
+    const winsByColor = this.decks.map(deck => deck.Games.winsByColor);
+    let mergedWins = {};
+    winsByColor.forEach(byColor => {
+      Object.keys(byColor).forEach(color => {
+        if (!mergedWins.hasOwnProperty(color)) {
+          mergedWins[color] = [];
+        }
+        mergedWins[color] = [...mergedWins[color], ...byColor[color]];
+      })
+    });
+    return mergedWins;
+  }
+
+  get winPercentagesByColor() {
+    const { winsByColor } = this;
+    const winPercentages = [];
+
+    Object.keys(winsByColor).forEach(color => {
+      winPercentages.push({
+        color: color,
+        percentage: winsByColor[color].length / this.games.length,
+      });
+    });
+
+    return winPercentages;
   }
 }
