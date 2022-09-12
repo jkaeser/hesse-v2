@@ -15,20 +15,4 @@
     display: flex;
     align-items: center;
   }
-
-  select {
-    padding: .25rem;
-    background-color: inherit;
-    color: inherit;
-    border: 1px solid var(--text-color);
-
-    &:focus-visible {
-      outline: 1px solid var(--text-color);
-      background-color: var(--translucent);
-    }
-  }
-
-  label {
-    padding-inline: .25rem;
-  }
 }

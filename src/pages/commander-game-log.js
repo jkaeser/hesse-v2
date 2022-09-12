@@ -8,13 +8,13 @@ import Seo from "components/Seo"
 import { DeckInfos } from "components/DeckInfo"
 import GameLog from "components/GameLog"
 import { ChartBase, ChartsWrapper } from "components/Chart"
-import FilterRow from "../components/FilterRow";
+import Details from "../components/Details";
 
 import { mtgColors, colors } from "utils/js/variables"
 import { Games} from "utils/js/game-utils"
 import { Decks } from "utils/js/deck-utils"
 
-const pageTitle = "Commander Game Log";
+const pageTitle = "Commander Meta Tracker";
 
 const GameLogPage = ({ data }) => {
   // Create filterable versions of node lists
@@ -208,9 +208,10 @@ const GameLogPage = ({ data }) => {
   return (
     <Layout>
       <Seo title={pageTitle} />
+      <Section>
       <h1>{pageTitle}</h1>
-      <FilterRow>
-        <div>
+      <Details summary="Configuration" mode="small">
+        <div className="container">
           <input
             type="checkbox"
             id="show-legacy"
@@ -218,8 +219,10 @@ const GameLogPage = ({ data }) => {
           />
           <label htmlFor="show-legacy">Show legacy data</label>
         </div>
-      </FilterRow >
+      </Details>
+      </Section>
       <Section cols="0">
+        <h2>Game Log</h2>
         <GameLog
           decks={allDecks}
           games={allGames}
@@ -227,17 +230,17 @@ const GameLogPage = ({ data }) => {
       </Section>
       <Section cols="0">
         <h2>Player Info</h2>
-        <FilterRow>
+        <div className="filter-item">
           <label htmlFor="playerContext">Player:</label>
           <select id="playerContext" onChange={(event) => handlePlayerContextChange(event)} value={playerContext}>
-            <option value="none">- Select a Player -</option>
+            <option value="none">- None -</option>
             {data.allSanityPlayer.nodes.map(player => (
               <option value={player.id}>
                 {player.nameFirst} {player.nameLast}
               </option>
             ))}
           </select>
-        </FilterRow>
+        </div>
         <DeckInfos
           decks={playerDecks}
         />

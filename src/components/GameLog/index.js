@@ -175,7 +175,7 @@ const GameLog = ({ games: allGames, decks: allDecks }) => {
   )
 
   return (
-    <Details className="game-log" summary={renderSummary()}>
+    <Details className="game-log" summary={renderSummary()} open={true}>
       <div className="game-log__content" ref={container}>
         <FilterRow className="game-log__filters">
           <div className="game-log__filter-item">
