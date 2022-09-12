@@ -98,7 +98,7 @@ export class Games {
    *   An object containing arrays of game nodes keyed by date.
    */
   get gamesByMonth() {
-    return this.games.reduce((byMonth, game) => {
+    const gamesByMonth = this.games.reduce((byMonth, game) => {
       const date = new Date(game.date);
       // Setting to the middle of the month helps avoid time zone issues.
       const dateKey = `${date.getUTCFullYear()}-${date.getUTCMonth() + 1}-15`;
@@ -108,23 +108,32 @@ export class Games {
       byMonth[dateKey].push(game);
       return byMonth;
     }, {});
-  }
 
-  /**
-   * @param {string} result
-   *   'all', 'win', 'loss'.
-   * @returns {Array}
-   *   An array containing objects that describe the number of results in each
-   *   month.
-   */
-  getResultsCountByMonth(result = 'all') {
     const resultsByMonth = [];
-    Object.entries(this.gamesByMonth).forEach(([month, games]) => {
+    Object.entries(gamesByMonth).forEach(([month, games]) => {
       resultsByMonth.push({
         month: new Date(month),
-        count: result !== 'all' ? games.filter(game => game.result === result).length : games.length
+        count: games.length
       });
     });
     return resultsByMonth.sort((a, b) => a.month - b.month);
   }
+
+  // /**
+  //  * @param {string} result
+  //  *   'all', 'win', 'loss'.
+  //  * @returns {Array}
+  //  *   An array containing objects that describe the number of results in each
+  //  *   month.
+  //  */
+  // getResultsCountByMonth(result = 'all') {
+  //   const resultsByMonth = [];
+  //   Object.entries(this.gamesByMonth).forEach(([month, games]) => {
+  //     resultsByMonth.push({
+  //       month: new Date(month),
+  //       count: result !== 'all' ? games.filter(game => game.result === result).length : games.length
+  //     });
+  //   });
+  //   return resultsByMonth.sort((a, b) => a.month - b.month);
+  // }
 }

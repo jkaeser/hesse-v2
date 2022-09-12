@@ -139,43 +139,46 @@ const GameLogPage = ({ data }) => {
     }
   };
 
-  const winsByMonth = allGames.getResultsCountByMonth('win');
-  const lossesByMonth = allGames.getResultsCountByMonth('loss');
-  const chartWinLossLine = <ChartBase
-    title="Win/Loss Trends"
-    config={{
-      type: 'line',
-      data: {
-        labels: winsByMonth.map(byMonth => (
-          byMonth.month.toLocaleString('default', {
-            month: 'long',
-            year: 'numeric'
-          })
-        )),
-        datasets: [
-          {
-            label: 'Wins',
-            data: winsByMonth.map(byMonth => byMonth.count),
-            borderColor: colors.green,
-            backgroundColor: colors.green,
-            borderWidth: 2,
-            pointRadius: 3,
-          },
-          {
-            label: 'Losses',
-            data: lossesByMonth.map(byMonth => byMonth.count),
-            borderColor: colors.red,
-            backgroundColor: colors.red,
-            borderWidth: 2,
-            pointRadius: 3,
-          }
-        ],
-      },
-      options: lineChartOptions,
-    }}
-  />
+  // const winsByMonth = allGames.getResultsCountByMonth('win');
+  // const lossesByMonth = allGames.getResultsCountByMonth('loss');
+  // const chartWinLossLine = <ChartBase
+  //   title="Win/Loss Trends"
+  //   config={{
+  //     type: 'line',
+  //     data: {
+  //       labels: winsByMonth.map(byMonth => (
+  //         byMonth.month.toLocaleString('default', {
+  //           month: 'long',
+  //           year: 'numeric'
+  //         })
+  //       )),
+  //       datasets: [
+  //         {
+  //           label: 'Wins',
+  //           data: winsByMonth.map(byMonth => byMonth.count),
+  //           borderColor: colors.green,
+  //           backgroundColor: colors.green,
+  //           borderWidth: 2,
+  //           pointRadius: 3,
+  //         },
+  //         {
+  //           label: 'Losses',
+  //           data: lossesByMonth.map(byMonth => byMonth.count),
+  //           borderColor: colors.red,
+  //           backgroundColor: colors.red,
+  //           borderWidth: 2,
+  //           pointRadius: 3,
+  //         }
+  //       ],
+  //     },
+  //     options: lineChartOptions,
+  //   }}
+  // />
 
-  const gamesByMonth = allGames.getResultsCountByMonth();
+  const gamesByMonth = new Games(baseAllGames.filter(game => {
+    const playerIds = game.decks.map(deck => deck.owner.id);
+    return playerIds.includes(playerContext);
+  })).gamesByMonth;
   const chartGamesPlayedLine = <ChartBase
     title="Games Played by Month"
     config={{
@@ -245,7 +248,7 @@ const GameLogPage = ({ data }) => {
           {chartWinPercentageByColor}
         </ChartsWrapper>
         <ChartsWrapper>
-          {chartWinLossLine}
+          {/* {chartWinLossLine} */}
           {chartGamesPlayedLine}
         </ChartsWrapper>
       </Section>
