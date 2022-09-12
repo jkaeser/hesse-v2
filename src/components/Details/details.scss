@@ -7,6 +7,12 @@ details {
     }
   }
 
+  &.small {
+    > summary {
+      padding: 0.5rem;
+    }
+  }
+
   > summary {
     @include transition;
 

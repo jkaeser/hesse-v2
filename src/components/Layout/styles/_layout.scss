@@ -220,3 +220,38 @@ button,
     margin-left: 1rem;
   }
 }
+
+details {
+  &.small {
+    > .container {
+      padding: .5rem;
+    }
+  }
+
+  > .container {
+    padding: 1rem;
+    border: 1px solid var(--translucent);
+    border-top: 0;
+  }
+}
+
+select {
+  padding: .25rem;
+  background-color: inherit;
+  color: inherit;
+  border: 1px solid var(--text-color);
+  max-width: 100%;
+
+  &:focus-visible {
+    outline: 1px solid var(--text-color);
+    background-color: var(--translucent);
+  }
+}
+
+label {
+  padding-inline: .25rem;
+}
+
+.filter-item {
+  margin-block: 1rem;
+}

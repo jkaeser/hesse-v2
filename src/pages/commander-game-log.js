@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { graphql } from "gatsby"
 
 import Layout from "components/Layout"
@@ -8,20 +8,67 @@ import Seo from "components/Seo"
 import { DeckInfos } from "components/DeckInfo"
 import GameLog from "components/GameLog"
 import { ChartBase, ChartsWrapper } from "components/Chart"
+import Details from "../components/Details";
 
 import { mtgColors, colors } from "utils/js/variables"
 import { Games} from "utils/js/game-utils"
 import { Decks } from "utils/js/deck-utils"
 
-const pageTitle = "Commander Game Log";
+const pageTitle = "Commander Meta Tracker";
 
 const GameLogPage = ({ data }) => {
-  const allGames = new Games(data.allSanityGame.nodes);
-  const allDecks = new Decks(data.allSanityDeck.nodes, data.allSanityGame.nodes);
-  const playerDecks = new Decks(allDecks.decks.filter(deck => deck.type === 'player'), data.allSanityGame.nodes);
+  // Create filterable versions of node lists
+  let baseAllGames = data.allSanityGame.nodes;
+  let baseAllDecks = data.allSanityDeck.nodes;
 
+  // Handle legacy data
+  const [showLegacyData, setShowLegacyData] = useState(false);
+  if (!showLegacyData) {
+    baseAllGames = baseAllGames.filter(game => {
+      const targetDate = new Date('2021-10-12');
+      const compareDate = new Date(game.date);
+      return targetDate.valueOf() < compareDate.valueOf();
+    })
+  }
+
+  // Preserve lists of all nodes.
+  const allGames = new Games(baseAllGames);
+  const allDecks = new Decks(baseAllDecks, baseAllGames);
+  const allPlayers = data.allSanityPlayer.nodes;
+
+  /**
+   * Handle setting player context.
+   *
+   * Only show data for Deck nodes the player owns, and only include Game nodes
+   * the player's decks have been played in.
+   */
+  const JohnKaeser = allPlayers.find(player => player.nameLast === 'Kaeser');
+  const [playerContext, setPlayerContext] = useState(JohnKaeser);
+  const handlePlayerContextChange = event => {
+    const { value } = event.target;
+    if (value !== 'none') {
+      setPlayerContext(allPlayers.find(player => player.id === value));
+    }
+    else {
+      setPlayerContext('none');
+    }
+  }
+  const playerDecks = new Decks(
+    playerContext !== 'none'
+      ? baseAllDecks.filter(deck => deck.owner.id === playerContext.id)
+      : baseAllDecks,
+    playerContext !== 'none'
+      ? baseAllGames.filter(game => {
+        const playerIds = game.decks.map(deck => deck.owner.id);
+        return playerIds.includes(playerContext.id);
+      })
+      : baseAllGames
+  );
+
+  // Build chart configurations.
+  const possessor = playerContext !== 'none' ? `${playerContext.nameFirst}` : 'Overall Meta';
   const chartDeckColors = <ChartBase
-    title='Deck Colors'
+    title={`${possessor}'s Deck Colors`}
     config={{
       type: 'pie',
       data: {
@@ -49,9 +96,9 @@ const GameLogPage = ({ data }) => {
     }}
   />
 
-  const winPercentages = allGames.winPercentagesByColor;
+  const winPercentages = playerDecks.winPercentagesByColor;
   const chartWinPercentageByColor = <ChartBase
-    title="Win Percentage by Color"
+    title={`${possessor}'s Win Percentage by Color`}
     config={{
       type: 'bar',
       data: {
@@ -99,45 +146,50 @@ const GameLogPage = ({ data }) => {
     }
   };
 
-  const winsByMonth = allGames.getResultsCountByMonth('win');
-  const lossesByMonth = allGames.getResultsCountByMonth('loss');
-  const chartWinLossLine = <ChartBase
-    title="Win/Loss Trends"
-    config={{
-      type: 'line',
-      data: {
-        labels: winsByMonth.map(byMonth => (
-          byMonth.month.toLocaleString('default', {
-            month: 'long',
-            year: 'numeric'
-          })
-        )),
-        datasets: [
-          {
-            label: 'Wins',
-            data: winsByMonth.map(byMonth => byMonth.count),
-            borderColor: colors.green,
-            backgroundColor: colors.green,
-            borderWidth: 2,
-            pointRadius: 3,
-          },
-          {
-            label: 'Losses',
-            data: lossesByMonth.map(byMonth => byMonth.count),
-            borderColor: colors.red,
-            backgroundColor: colors.red,
-            borderWidth: 2,
-            pointRadius: 3,
-          }
-        ],
-      },
-      options: lineChartOptions,
-    }}
-  />
+  // const winsByMonth = allGames.getResultsCountByMonth('win');
+  // const lossesByMonth = allGames.getResultsCountByMonth('loss');
+  // const chartWinLossLine = <ChartBase
+  //   title="Win/Loss Trends"
+  //   config={{
+  //     type: 'line',
+  //     data: {
+  //       labels: winsByMonth.map(byMonth => (
+  //         byMonth.month.toLocaleString('default', {
+  //           month: 'long',
+  //           year: 'numeric'
+  //         })
+  //       )),
+  //       datasets: [
+  //         {
+  //           label: 'Wins',
+  //           data: winsByMonth.map(byMonth => byMonth.count),
+  //           borderColor: colors.green,
+  //           backgroundColor: colors.green,
+  //           borderWidth: 2,
+  //           pointRadius: 3,
+  //         },
+  //         {
+  //           label: 'Losses',
+  //           data: lossesByMonth.map(byMonth => byMonth.count),
+  //           borderColor: colors.red,
+  //           backgroundColor: colors.red,
+  //           borderWidth: 2,
+  //           pointRadius: 3,
+  //         }
+  //       ],
+  //     },
+  //     options: lineChartOptions,
+  //   }}
+  // />
 
-  const gamesByMonth = allGames.getResultsCountByMonth();
+  const gamesByMonth = playerContext !== 'none'
+    ? new Games(baseAllGames.filter(game => {
+      const playerIds = game.decks.map(deck => deck.owner.id);
+      return playerIds.includes(playerContext.id);
+    })).gamesByMonth
+    : new Games(baseAllGames).gamesByMonth;
   const chartGamesPlayedLine = <ChartBase
-    title="Games Played by Month"
+    title={`${possessor}'s Games Played by Month`}
     config={{
       type: 'line',
       data: {
@@ -165,26 +217,50 @@ const GameLogPage = ({ data }) => {
   return (
     <Layout>
       <Seo title={pageTitle} />
-      <Section cols="0">
-        <h1>{pageTitle}</h1>
-        <DeckInfos
-          decks={playerDecks}
-        />
+      <Section>
+      <h1>{pageTitle}</h1>
+      <Details summary="Configuration" mode="small">
+        <div className="container">
+          <input
+            type="checkbox"
+            id="show-legacy"
+            onChange={() => setShowLegacyData(!showLegacyData)}
+          />
+          <label htmlFor="show-legacy">Show legacy data</label>
+        </div>
+      </Details>
       </Section>
       <Section cols="0">
+        <h2>Game Log</h2>
         <GameLog
           decks={allDecks}
           games={allGames}
         />
       </Section>
       <Section cols="0">
-        <h2>Charts</h2>
+        <h2>Player Info</h2>
+        <div className="filter-item">
+          <label htmlFor="player-context">Player:</label>
+          <select id="player-context" onChange={(event) => handlePlayerContextChange(event)} value={playerContext.id}>
+            <option value="none" key="playercontext-none">- None -</option>
+            {data.allSanityPlayer.nodes.map(player => (
+              <option value={player.id} key={`playercontext-${player.id}`}>
+                {player.nameFirst} {player.nameLast}
+              </option>
+            ))}
+          </select>
+        </div>
+        <DeckInfos
+          decks={playerDecks}
+        />
+      </Section>
+      <Section cols="0">
         <ChartsWrapper>
           {chartDeckColors}
           {chartWinPercentageByColor}
         </ChartsWrapper>
         <ChartsWrapper>
-          {chartWinLossLine}
+          {/* {chartWinLossLine} */}
           {chartGamesPlayedLine}
         </ChartsWrapper>
       </Section>
@@ -198,12 +274,17 @@ export const query = graphql`
       nodes {
         id
         date
-        deck {
+        decks {
           id
           colors
           commander
+          owner {
+            id
+            nameFirst
+            nameLast
+          }
         }
-        opponents {
+        winner {
           id
           colors
           commander
@@ -217,12 +298,24 @@ export const query = graphql`
         id
         colors
         commander
+        owner {
+          id
+          nameFirst
+          nameLast
+        }
         type
         status
         links {
           title
           url
         }
+      }
+    }
+    allSanityPlayer(sort: {fields: [nameFirst], order: ASC}) {
+      nodes {
+        id
+        nameFirst
+        nameLast
       }
     }
   }

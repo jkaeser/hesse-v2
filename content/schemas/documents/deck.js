@@ -52,6 +52,13 @@ export default {
       validation: Rule => Rule.required()
     },
     {
+      title: 'Owner',
+      name: 'owner',
+      type: 'reference',
+      to: [{ type: 'player' }],
+      validation: Rule => Rule.required()
+    },
+    {
       title: 'Links',
       name: 'links',
       type: 'array',
@@ -66,17 +73,19 @@ export default {
     select: {
       commander: 'commander',
       status: 'status',
-      type: 'type'
+      type: 'type',
+      nameFirst: 'owner.nameFirst',
+      nameLast: 'owner.nameLast',
     },
     prepare(selection) {
-      const { commander, status, type } = selection;
+      const { commander, status, type, nameFirst, nameLast } = selection;
       const emojis = {
         player: '🦸',
         opponent: '🦹'
       }
       return {
         title: commander,
-        subtitle: `${status.charAt(0).toUpperCase()}${status.slice(1)} ${type} deck`,
+        subtitle: `${nameFirst} ${nameLast} (${status})`,
         media: <span style={{fontSize: '1.5rem'}}>{emojis[type]}</span>
       }
     }

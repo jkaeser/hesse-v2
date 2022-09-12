@@ -12,40 +12,15 @@ export class Games {
   }
 
   /**
-   * @returns {Array}
-   *   An array of game nodes.
-   */
-  get wins() {
-    return this.games.filter(game => game.result === 'win');
-  }
-
-  /**
-   * @returns {Array}
-   *   An array of game nodes.
-   */
-  get losses() {
-    return this.games.filter(game => game.result === 'loss');
-  }
-
-  /**
-   * @returns {number}
-   */
-  get winLossRatio() {
-    const ratio = Number(this.wins.length/(this.losses.length > 0 ? this.losses.length : 1));
-    return ratio < 1 ? ratio.toPrecision(2) : ratio.toPrecision(3);
-  }
-
-  /**
    * @returns {array}
    *   An array of numbers.
    */
   get playerCounts() {
     return this.games
-      .map(game => game.opponents.length)
+      .map(game => game.decks.length)
       .reduce((playerCounts, count) => {
-        const countWithPlayer = count + 1;
-        if (count !== 0 && playerCounts.indexOf(countWithPlayer) === -1) {
-          playerCounts.push(countWithPlayer);
+        if (count !== 0 && playerCounts.indexOf(count) === -1) {
+          playerCounts.push(count);
         }
         return playerCounts.sort((a, b) => b - a);
       }, []);
@@ -55,32 +30,35 @@ export class Games {
    * @returns {Array}
    *   An array of strings.
    */
-  get playerCommanders() {
+  get decks() {
     return this.games
-      .map(game => game.deck.commander)
-      .reduce((commanders, commander) => {
-        if (commanders.indexOf(commander) === -1) {
-          commanders.push(commander);
-        }
-        return commanders;
-      }, []);
+      .map(game => game.decks)
+      .reduce((allDecks, decks) => {
+        decks.forEach(deck => {
+          if (!allDecks.find(prevDeck => prevDeck.id === deck.id)) {
+            allDecks.push(deck);
+          }
+        });
+        return allDecks;
+      }, [])
+      .sort((a, b) => {
+        return a.commander >= b.commander ? 1 : -1;
+      });
   }
 
   /**
    * @returns {Array}
-   *   An array of deck nodes.
+   *   An array of Deck nodes.
    */
-  get opponentDecks() {
-    return Object.values(this.games
-      .reduce((opponents, game) => {
-        game.opponents.forEach(opponent => {
-          if (Object.keys(opponents).indexOf(opponent.id) === -1) {
-            opponents[opponent.id] = opponent;
-          }
-        });
-        return opponents;
-      }, {})
-    );
+  get winners() {
+    return this.games
+      .map(game => game.winner)
+      .reduce((winners, winner) => {
+        if (!winners.find(prevWinner => prevWinner.id === winner.id)) {
+          winners.push(winner)
+        }
+        return winners;
+      }, []);
   }
 
   /**
@@ -89,28 +67,11 @@ export class Games {
    */
   get gamesByColor() {
     return this.games.reduce((byColor, game) => {
-      game.deck.colors.forEach(color => {
+      game.decks.forEach(deck => deck.colors.forEach(color => {
         byColor[color].push(game);
-      });
+      }));
       return byColor;
     }, {white: [], blue: [], black: [], red: [], green: []});
-  }
-
-  /**
-   * @returns {Object}
-   *   An object containing arrays of game nodes keyed by date.
-   */
-  get gamesByMonth() {
-    return this.games.reduce((byMonth, game) => {
-      const date = new Date(game.date);
-      // Setting to the middle of the month helps avoid time zone issues.
-      const dateKey = `${date.getUTCFullYear()}-${date.getUTCMonth() + 1}-15`;
-      if (!byMonth.hasOwnProperty(dateKey)) {
-        byMonth[dateKey] = [];
-      }
-      byMonth[dateKey].push(game);
-      return byMonth;
-    }, {});
   }
 
   /**
@@ -122,62 +83,59 @@ export class Games {
   }
 
   /**
+   * @returns {Object}
+   *   An object containing arrays of game nodes keyed by color.
+   */
+  get winsByColor() {
+    return this.games.reduce((byColor, game) => {
+      game.winner.colors.forEach(color => {
+        byColor[color].push(game);
+      });
+      return byColor;
+    }, { white: [], blue: [], black: [], red: [], green: [] });
+  }
+
+  /**
    * @returns {Array}
+   *   An array of objects describing the percentage of wins by color.
    */
   get winPercentagesByColor() {
+    const { winsByColor } = this;
     const winPercentages = [];
-    Object.entries(this.gamesByColor).forEach(entry => {
-      const [color, games] = entry;
-      const wins = games.filter(game => game.result === 'win');
+
+    Object.keys(winsByColor).forEach(color => {
       winPercentages.push({
         color: color,
-        percentage: wins.length / games.length
-      })
+        percentage: winsByColor[color].length / this.games.length,
+      });
     });
 
     return winPercentages;
   }
 
   /**
-   * @param {string} result
-   *   'all', 'win', 'loss'.
-   * @returns {Array}
-   *   An array containing objects that describe the number of results in each
-   *   month.
+   * @returns {Object}
+   *   An object containing arrays of game nodes keyed by date.
    */
-  getResultsCountByMonth(result = 'all') {
+  get gamesByMonth() {
+    const gamesByMonth = this.games.reduce((byMonth, game) => {
+      const date = new Date(game.date);
+      // Setting to the middle of the month helps avoid time zone issues.
+      const dateKey = `${date.getUTCFullYear()}-${date.getUTCMonth() + 1}-15`;
+      if (!byMonth.hasOwnProperty(dateKey)) {
+        byMonth[dateKey] = [];
+      }
+      byMonth[dateKey].push(game);
+      return byMonth;
+    }, {});
+
     const resultsByMonth = [];
-    Object.entries(this.gamesByMonth).forEach(([month, games]) => {
+    Object.entries(gamesByMonth).forEach(([month, games]) => {
       resultsByMonth.push({
         month: new Date(month),
-        count: result !== 'all' ? games.filter(game => game.result === result).length : games.length
+        count: games.length
       });
     });
     return resultsByMonth.sort((a, b) => a.month - b.month);
-  }
-
-  /**
-   * @param {number} iterator
-   *   A counter used to make this method recursive.
-   * @returns {Object}
-   *   A object that describes the streak.
-   */
-  getStreak(iterator = 0) {
-    if (this.games.length <= 0 ) {
-      return null;
-    }
-    if (this.games[iterator + 1]) {
-      let game1 = this.games[iterator];
-      let game2 = this.games[iterator + 1];
-
-      if (game1.result === game2.result) {
-        iterator++;
-        return this.getStreak(iterator);
-      }
-    }
-    return {
-      count: iterator === 0 ? null : iterator + 1,
-      type: iterator === 0 ? null : this.games[iterator].result
-    };
   }
 }

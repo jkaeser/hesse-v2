@@ -1,50 +1,121 @@
 import React, { useState, useRef } from "react"
-import { v4 as uuidv4 } from "uuid"
 
 import Datum from "components/Datum"
 import Details from "components/Details"
 import FilterRow from "components/FilterRow"
 
 import formatDate from "utils/js/formatters/date"
-
 import { Games } from "utils/js/game-utils"
-import { Decks } from "utils/js/deck-utils"
 
 import "./game-log.scss"
 
 const GameLog = ({ games: allGames, decks: allDecks }) => {
   const container = useRef(null);
-  let filteredGames = new Games(allGames.games);
-  const opponentDecks = new Decks(allGames.opponentDecks, allGames.games);
-  const playerDecks = new Decks(allDecks.decks.filter(deck =>
-    deck.type === 'player'
-  ), allGames.games);
-
+  let filteredGames = new Games(allGames.games)
+  const DEFAULT_FILTER_VALUE = 'default';
   const DEFAULT_PAGE_INDEX = 0;
   const PAGE_LENGTH = 10;
   const [currentPage, setCurrentPage] = useState(DEFAULT_PAGE_INDEX);
 
-  // Set player counts before filtering.
-  const playerCounts = allGames.playerCounts;
-
   // Respect filter options.
-  const [ filterCommander, setFilterCommander ] = useState('default');
-  const [ filterPlayerCount, setFilterPlayerCount ] = useState('default');
-  const [ filterOpponent, setFilterOpponent ] = useState('default');
-  if (filterCommander !== 'default') {
+  const [ filterDeckActive, setFilterDeckActive ] = useState(DEFAULT_FILTER_VALUE);
+  const [ filterDeckOpponent, setFilterDeckOpponent ] = useState(DEFAULT_FILTER_VALUE);
+  const [ filterPlayerCount, setFilterPlayerCount ] = useState(DEFAULT_FILTER_VALUE);
+  const [ filterWinner, setFilterWinner ] = useState(DEFAULT_FILTER_VALUE);
+
+  const filterByDeck = deckId => {
     filteredGames.setGames(filteredGames.games.filter(game =>
-      game.deck.id === filterCommander
+      game.decks.map(deck => deck.id).includes(deckId)
     ));
   }
-  if (filterPlayerCount !== 'default') {
+  [filterDeckActive, filterDeckOpponent].forEach(filter => {
+    if (filter !== DEFAULT_FILTER_VALUE) filterByDeck(filter);
+  });
+
+  if (filterPlayerCount !== DEFAULT_FILTER_VALUE) {
     filteredGames.setGames(filteredGames.games.filter(game =>
-      game.opponents.length + 1 === Number(filterPlayerCount)
+      game.decks.length === Number(filterPlayerCount)
     ));
   }
-  if (filterOpponent !== 'default') {
+  if (filterWinner !== DEFAULT_FILTER_VALUE) {
     filteredGames.setGames(filteredGames.games.filter(game =>
-      game.opponents.map(opponent => opponent.id).indexOf(filterOpponent) !== -1
+      game.winner.id === filterWinner
     ));
+  }
+
+  // Handle filter updates.
+  const handleFilterDeckActive = (target) => {
+    setFilterDeckActive(target);
+    if (target === DEFAULT_FILTER_VALUE) {
+      setFilterDeckOpponent(DEFAULT_FILTER_VALUE);
+    }
+    setCurrentPage(DEFAULT_PAGE_INDEX);
+  }
+  const handleFilterDeckOpponent = (target) => {
+    setFilterDeckOpponent(target);
+    setCurrentPage(DEFAULT_PAGE_INDEX);
+  }
+
+  const handleFilterPlayerCount = (target) => {
+    setFilterPlayerCount(target);
+    setCurrentPage(DEFAULT_PAGE_INDEX);
+  }
+
+  const handleFilterWinner = (target) => {
+    setFilterWinner(target);
+    setCurrentPage(DEFAULT_PAGE_INDEX);
+  }
+
+  const handleFilterReset = () => {
+    setFilterDeckActive(DEFAULT_FILTER_VALUE);
+    setFilterDeckOpponent(DEFAULT_FILTER_VALUE);
+    setFilterPlayerCount(DEFAULT_FILTER_VALUE);
+    setFilterWinner(DEFAULT_FILTER_VALUE);
+    setCurrentPage(DEFAULT_PAGE_INDEX);
+  }
+
+  let deckOptions = new Games(allGames.games).decks;
+  let opponentOptions = new Games(allGames.games).decks;
+  let playerCounts = allGames.playerCounts;
+  let winnerOptions = new Games(allGames.games).winners;
+
+  // Assemble data based on active deck.
+  let deckActive = null;
+  if (filterDeckActive !== DEFAULT_FILTER_VALUE) {
+    deckActive = allDecks.decks.find(deck => deck.id === filterDeckActive);
+    deckActive.Games.setGames(filteredGames.games);
+
+    // Tailor opponent options.
+    opponentOptions = allGames.games
+      .filter(game => {
+        const deckIds = game.decks.map(deck => deck.id);
+        return deckIds.includes(deckActive.id);
+      })
+      .reduce((opponents, game) => {
+        const opponentIds = game.decks.filter(deck => deck.id !== deckActive.id);
+        opponentIds.forEach(opponent => {
+          if (!opponents.find(inList => opponent.id === inList.id)) {
+            opponents.push(opponent);
+          }
+        })
+        return opponents;
+      }, []);
+
+    // Tailor player counts.
+    playerCounts = new Games(allGames.games
+      .filter(game => {
+        const deckIds = game.decks.map(deck => deck.id);
+        return deckIds.includes(deckActive.id);
+      })
+    ).playerCounts;
+
+    // Tailor winner options.
+    winnerOptions = new Games(allGames.games
+      .filter(game => {
+        const deckIds = game.decks.map(deck => deck.id);
+        return deckIds.includes(deckActive.id);
+      })
+    ).winners;
   }
 
   // Paginate if necessary.
@@ -59,21 +130,6 @@ const GameLog = ({ games: allGames, decks: allDecks }) => {
       filteredGamesPaginated.push(gamesCopy.splice(0, PAGE_LENGTH));
       stop = gamesCopy.length <= 0;
     }
-  }
-
-  const handleFilterCommander = (target) => {
-    setFilterCommander(target);
-    setCurrentPage(DEFAULT_PAGE_INDEX);
-  }
-
-  const handleFilterPlayerCount = (target) => {
-    setFilterPlayerCount(target);
-    setCurrentPage(DEFAULT_PAGE_INDEX);
-  }
-
-  const handleFilterOpponent = (target) => {
-    setFilterOpponent(target);
-    setCurrentPage(DEFAULT_PAGE_INDEX);
   }
 
   const handlePagerClick = (index) => {
@@ -94,28 +150,24 @@ const GameLog = ({ games: allGames, decks: allDecks }) => {
     <tbody
       data-page-index={`${index}`}
       className={`${index === currentPage ? 'active' : 'inactive'}`}
+      key={`tbody-${index}`}
     >
-      {games.map(game => {
-        const deck = playerDecks.decks.find(deck => deck.id === game.deck.id);
-
-        return (
-          <tr id={game.id} key={game.id}>
-            <td className="date">{formatDate(game.date)}</td>
-            <td className="commander">{deck.commander}</td>
-            <td className="opponents">
-              <ul>
-                {game.opponents.map(opponent => (
-                  <li key={`${opponent.commander}-${uuidv4()}`}>
-                    {opponent.commander}
-                  </li>
-                ))}
-              </ul>
-            </td>
-            <td className={`result ${game.result}`}>{game.result}</td>
-            <td className="summary">{game.summary}</td>
-          </tr>
-        )
-      })}
+      {games.map(game => (
+        <tr id={game.id} key={game.id}>
+          <td className="date">{formatDate(game.date)}</td>
+          <td className="players">
+            <ul>
+              {game.decks.map(deck => (
+                <li key={`${deck.commander}-${deck.id}`}>
+                  {deck.commander}
+                </li>
+              ))}
+            </ul>
+          </td>
+          <td className="winner">{game.winner.commander}</td>
+          <td className="summary">{game.summary}</td>
+        </tr>
+      ))}
     </tbody>
   )
 
@@ -132,7 +184,7 @@ const GameLog = ({ games: allGames, decks: allDecks }) => {
       {filteredGamesPaginated.length <= 10 &&
         <ol className="game-log__pagination-list">
           {filteredGamesPaginated.map((games, index) => (
-            <li className={`game-log__pagination-list-item ${index === currentPage ? 'active' : ''}`}>
+            <li className={`game-log__pagination-list-item ${index === currentPage ? 'active' : ''}`} key={`pagination-page-${index}`}>
               <button type="button" aria-label={`Go to page ${index + 1}`} onClick={() => handlePagerClick(index)}>
                 {index + 1}
               </button>
@@ -147,56 +199,97 @@ const GameLog = ({ games: allGames, decks: allDecks }) => {
   )
 
   return (
-    <Details className="game-log" summary={renderSummary()}>
+    <Details className="game-log" summary={renderSummary()} open={true}>
       <div className="game-log__content" ref={container}>
         <FilterRow className="game-log__filters">
+
           <div className="game-log__filter-item">
-            <select onChange={(e) => handleFilterCommander(e.target.value)}>
-              <option value="default">- Filter by Commander -</option>
-              {playerDecks.decks.map(deck => (
-                <option id={deck.id} value={deck.id} key={deck.id}>
+            <select
+              value={filterDeckActive}
+              onChange={(e) => handleFilterDeckActive(e.target.value)}
+            >
+              <option value="default" key="deckfilter-default">
+                - Select a deck -
+              </option>
+              {deckOptions.map(deck => (
+                <option value={deck.id} key={`deckfilter-${deck.id}`}>
                   {deck.commander}
                 </option>
               ))}
             </select>
           </div>
+
+          {filterDeckActive !== DEFAULT_FILTER_VALUE &&
+            <div className="game-log__filter-item">
+              <select
+                value={filterDeckOpponent}
+                onChange={(e) => handleFilterDeckOpponent(e.target.value)}
+              >
+                <option value="default" key="opponentfilter-default">
+                  - Select an opponent -
+                </option>
+                {opponentOptions.map(opponent => (
+                  <option value={opponent.id} key={`opponentfilter-${opponent.id}`}>
+                    {opponent.commander}
+                  </option>
+                ))}
+              </select>
+            </div>
+          }
+
           <div className="game-log__filter-item">
-            <select onChange={(e) => handleFilterPlayerCount(e.target.value)}>
-              <option value="default">- Filter by Player Count -</option>
-              {playerCounts
-                .map(count => (
-                <option value={count} key={`playersfilter-${count}`}>
+            <select
+              value={filterPlayerCount}
+              onChange={(e) => handleFilterPlayerCount(e.target.value)}
+            >
+              <option value="default" key="playercountfilter-default">
+                - Filter by Player Count -
+              </option>
+              {playerCounts.map(count => (
+                <option value={count} key={`playercountfilter-${count}`}>
                   {count}
                 </option>
               ))}
             </select>
           </div>
+
           <div className="game-log__filter-item">
-            <select onChange={(e) => handleFilterOpponent(e.target.value)}>
-              <option value="default">- Filter by Opponent -</option>
-              {opponentDecks.decks.map(opponent => (
-                <option id={opponent.id} value={opponent.id} key={opponent.id}>
-                  {opponent.commander}
+            <select
+              value={filterWinner}
+              onChange={(e) => handleFilterWinner(e.target.value)}
+            >
+              <option value="default" key="winnerfilter-default">
+                - Filter by Winner -
+              </option>
+              {winnerOptions.map(deck => (
+                <option value={deck.id} key={`winnerfilter-${deck.id}`}>
+                  {deck.commander}
                 </option>
               ))}
             </select>
           </div>
+
+          <div className="game-log__filter-item">
+            <button type="button" aria-label="Reset all filters" onClick={() => handleFilterReset()}>Reset</button>
+          </div>
+
         </FilterRow>
-        <div className="game-log__data-rollup">
-          <Datum number={filteredGames.games.length} label="total games" />
-          <Datum number={filteredGames.wins.length} label="total wins" />
-          <Datum number={filteredGames.losses.length} label="total losses" />
-          <Datum number={filteredGames.winLossRatio} label="win/loss ratio" />
-        </div>
+        {deckActive &&
+          <div className="game-log__data-rollup">
+            <Datum number={deckActive.gamesPlayed} label="total games" />
+            <Datum number={deckActive.wins.length} label="total wins" />
+            <Datum number={deckActive.losses.length} label="total losses" />
+            <Datum number={deckActive.winLossRatio} label="win/loss ratio" />
+          </div>
+        }
         {needsPagination && renderPager()}
         <div className="game-log__table-wrapper">
           <table>
             <thead>
               <tr>
                 <th className="date">Date</th>
-                <th className="commander">Commander</th>
-                <th className="player-count">Opponents</th>
-                <th className="result">Result</th>
+                <th className="decks">Decks</th>
+                <th className="winner">Winner</th>
                 <th className="summary">Summary</th>
               </tr>
             </thead>

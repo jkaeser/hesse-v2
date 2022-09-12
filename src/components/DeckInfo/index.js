@@ -13,7 +13,7 @@ const DeckInfo = ({ deck }) => {
     win: 'winning',
     loss: 'losing'
   };
-  const latestGame = formatDate(deck.latestGame.date);
+  const latestGame = deck.latestGame ? formatDate(deck.latestGame.date) : null;
 
   const renderColorSvg = (color) => (
     <svg
@@ -91,9 +91,9 @@ const DeckInfo = ({ deck }) => {
           </div>
           <div className="deck__ratio">
             <Datum
-              number={deck.games.winLossRatio}
+              number={deck.winLossRatio}
               label='win/loss ratio'
-              dataStyle={{ animationDelay: `-${deck.games.winLossRatio}s` }}
+              dataStyle={{ animationDelay: `-${deck.winLossRatio}s` }}
             />
           </div>
         </div>
@@ -114,16 +114,22 @@ export const DeckInfos = ({ decks: allDecks }) => {
     hideRetired ? 'hide-retired' : ''
   ];
 
-  const handleSort = event => {
-    switch (event.target.value) {
+  const handleSort = value => {
+    switch (value) {
       case 'games-played':
         allDecks.sortByGamesPlayed();
+        break;
+      case 'win-loss-ratio':
+        allDecks.sortByWinLossRatio();
         break;
       default:
         allDecks.sortByAlphabetical();
         break;
     }
-    setSorting(event.target.value);
+  }
+
+  if (sorting) {
+    handleSort(sorting);
   }
 
   return (
@@ -146,10 +152,11 @@ export const DeckInfos = ({ decks: allDecks }) => {
             type="checkbox"
             id="sort"
             name="sort"
-            onChange={(event) => handleSort(event)}
+            onChange={(event) => setSorting(event.target.value)}
           >
             <option value="alphabetical">Name</option>
             <option value="games-played">Games Played</option>
+            <option value="win-loss-ratio">Win/Loss Ratio</option>
           </select>
         </div>
       </FilterRow>
