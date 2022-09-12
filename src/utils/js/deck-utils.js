@@ -15,31 +15,56 @@ export class Deck {
     this.Games = games;
   }
 
+  /**
+   * @returns {string}
+   */
   get nameWithOwner() {
     return `${this.commander} (${this.owner.nameFull})`;
   }
 
+  /**
+   * @returns {number}
+   */
   get gamesPlayed() {
     return this.Games.games.length;
   }
 
+  /**
+   * @returns {Array}
+   *   An array of game nodes.
+   */
   get wins() {
     return this.Games.games.filter(game => game.winner.id === this.id);
   }
 
+  /**
+   * @returns {Array}
+   *   An array of game nodes.
+   */
   get losses() {
     return this.Games.games.filter(game => game.winner.id !== this.id);
   }
 
+  /**
+   * @returns {number}
+   */
   get winLossRatio() {
     const ratio = Number(this.wins.length / (this.losses.length > 0 ? this.losses.length : 1));
     return ratio < 1 ? ratio.toPrecision(2) : ratio.toPrecision(3);
   }
 
+  /**
+   * @returns {Object}
+   *   A game node.
+   */
   get latestGame() {
     return this.Games.latestGame;
   }
 
+  /**
+   * @returns {Array}
+   *   An array of game nodes.
+   */
   get streak() {
     return this.getStreak();
   }
@@ -92,15 +117,21 @@ export class Decks {
     this.games = games;
   }
 
+  sortByAlphabetical() {
+    this.decks = this.decks.sort((a, b) => {
+      return a.commander >= b.commander ? 1 : -1;
+    });
+  }
+
   sortByGamesPlayed() {
     this.decks = this.decks.sort((a, b) => {
       return b.gamesPlayed - a.gamesPlayed;
     });
   }
 
-  sortByAlphabetical() {
+  sortByWinLossRatio() {
     this.decks = this.decks.sort((a, b) => {
-      return a.commander >= b.commander ? 1 : -1;
+      return b.winLossRatio >= a.winLossRatio ? 1 : -1;
     });
   }
 
