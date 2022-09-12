@@ -104,8 +104,14 @@ export class Decks {
     });
   }
 
+  /**
+   * @returns {Object}
+   *   An object full of game nodes keyed by deck color.
+   */
   get winsByColor() {
-    const winsByColor = this.decks.map(deck => deck.Games.winsByColor);
+    const winsByColor = this.decks.map(deck => {
+      return new Games(deck.Games.games.filter(game => game.winner.id === deck.id)).winsByColor;
+    });
     let mergedWins = {};
     winsByColor.forEach(byColor => {
       Object.keys(byColor).forEach(color => {

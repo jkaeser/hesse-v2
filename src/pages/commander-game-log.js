@@ -17,10 +17,12 @@ import { Decks } from "utils/js/deck-utils"
 const pageTitle = "Commander Game Log";
 
 const GameLogPage = ({ data }) => {
-  const [ showLegacyData, setShowLegacyData ] = useState(false);
+  // Create filterable versions of node lists
   let baseAllGames = data.allSanityGame.nodes;
   let baseAllDecks = data.allSanityDeck.nodes;
 
+  // Handle legacy data
+  const [showLegacyData, setShowLegacyData] = useState(false);
   if (!showLegacyData) {
     baseAllGames = baseAllGames.filter(game => {
       const targetDate = new Date('2021-10-12');
@@ -29,11 +31,22 @@ const GameLogPage = ({ data }) => {
     })
   }
 
-  const allPlayers = data.allSanityPlayer.nodes;
-  const JohnKaeser = allPlayers.find(player => player.nameLast === 'Kaeser');
-  const [playerContext, setPlayerContext] = useState(JohnKaeser.id);
+  // Preserve lists of all nodes.
   const allGames = new Games(baseAllGames);
   const allDecks = new Decks(baseAllDecks, baseAllGames);
+  const allPlayers = data.allSanityPlayer.nodes;
+
+  /**
+   * Handle setting player context.
+   *
+   * Only show data for Deck nodes the player owns, and only include Game nodes
+   * the player's decks have been played in.
+   */
+  const JohnKaeser = allPlayers.find(player => player.nameLast === 'Kaeser');
+  const [playerContext, setPlayerContext] = useState(JohnKaeser.id);
+  const handlePlayerContextChange = event => {
+    setPlayerContext(event.target.value);
+  }
   const playerDecks = new Decks(
     playerContext !== 'none'
       ? baseAllDecks.filter(deck => deck.owner.id === playerContext)
@@ -46,10 +59,7 @@ const GameLogPage = ({ data }) => {
       : baseAllGames
   );
 
-  const handlePlayerContextChange = event => {
-    setPlayerContext(event.target.value);
-  }
-
+  // Build chart configurations.
   const chartDeckColors = <ChartBase
     title='Deck Colors'
     config={{

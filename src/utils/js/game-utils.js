@@ -1,12 +1,6 @@
 export class Games {
-  constructor(games, deckContext = null) {
-    this.deckContext = deckContext;
-    if (deckContext) {
-      this.games = games.sort((a, b) => new Date(b.date) - new Date(a.date)).filter(game => game.decks.map(deck => deck.id).includes(deckContext));
-    }
-    else {
-      this.games = games.sort((a, b) => new Date(b.date) - new Date(a.date));
-    }
+  constructor(games) {
+    this.games = games.sort((a, b) => new Date(b.date) - new Date(a.date));
   }
 
   /**
@@ -15,32 +9,6 @@ export class Games {
    */
   setGames(games) {
     this.games = games;
-  }
-
-  /**
-   * @returns {Array}
-   *   An array of game nodes.
-   */
-  get wins() {
-    const { deckContext } = this;
-    return deckContext ? this.games.filter(game => game.winner.id === deckContext) : this.games;
-  }
-
-  /**
-   * @returns {Array}
-   *   An array of game nodes.
-   */
-  get losses() {
-    const { deckContext } = this;
-    return deckContext ? this.games.filter(game => game.winner.id !== deckContext) : this.games;
-  }
-
-  /**
-   * @returns {number}
-   */
-  get winLossRatio() {
-    const ratio = Number(this.wins.length/(this.losses.length > 0 ? this.losses.length : 1));
-    return ratio < 1 ? ratio.toPrecision(2) : ratio.toPrecision(3);
   }
 
   /**
@@ -86,16 +54,43 @@ export class Games {
     }, {white: [], blue: [], black: [], red: [], green: []});
   }
 
+  /**
+   * @returns {Object}
+   *   A game node.
+   */
+  get latestGame() {
+    return this.games.length > 0 ? this.games[0] : null;
+  }
+
+  /**
+   * @returns {Object}
+   *   An object containing arrays of game nodes keyed by color.
+   */
   get winsByColor() {
-    const gamesToCheck = this.deckContext
-      ? this.games.filter(game => game.winner.id === this.deckContext)
-      : this.games;
-    return gamesToCheck.reduce((byColor, game) => {
+    return this.games.reduce((byColor, game) => {
       game.winner.colors.forEach(color => {
         byColor[color].push(game);
       });
       return byColor;
     }, { white: [], blue: [], black: [], red: [], green: [] });
+  }
+
+  /**
+   * @returns {Array}
+   *   An array of objects describing the percentage of wins by color.
+   */
+  get winPercentagesByColor() {
+    const { winsByColor } = this;
+    const winPercentages = [];
+
+    Object.keys(winsByColor).forEach(color => {
+      winPercentages.push({
+        color: color,
+        percentage: winsByColor[color].length / this.games.length,
+      });
+    });
+
+    return winPercentages;
   }
 
   /**
@@ -113,31 +108,6 @@ export class Games {
       byMonth[dateKey].push(game);
       return byMonth;
     }, {});
-  }
-
-  /**
-   * @returns {Object}
-   *   A game node.
-   */
-  get latestGame() {
-    return this.games.length > 0 ? this.games[0] : null;
-  }
-
-  /**
-   * @returns {Array}
-   */
-  get winPercentagesByColor() {
-    const { winsByColor } = this;
-    const winPercentages = [];
-
-    Object.keys(winsByColor).forEach(color => {
-      winPercentages.push({
-        color: color,
-        percentage: winsByColor[color].length / this.games.length,
-      });
-    });
-
-    return winPercentages;
   }
 
   /**

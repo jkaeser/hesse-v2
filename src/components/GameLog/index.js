@@ -10,6 +10,7 @@ import { Games } from "utils/js/game-utils"
 import { Decks } from "utils/js/deck-utils"
 
 import "./game-log.scss"
+import { Deck } from "../../utils/js/deck-utils"
 
 const GameLog = ({ games: allGames, decks: allDecks }) => {
   const container = useRef(null);
@@ -86,9 +87,10 @@ const GameLog = ({ games: allGames, decks: allDecks }) => {
   ));
 
   // Assemble data based on active deck
-  let dataRollup = null;
+  let deckActive = null;
   if (filterDeckActive !== DEFAULT_FILTER_VALUE) {
-    dataRollup = new Games(filteredGames.games, filterDeckActive);
+    deckActive = allDecks.decks.find(deck => deck.id === filterDeckActive);
+    deckActive.Games.setGames(filteredGames.games);
   }
 
   // Paginate if necessary.
@@ -227,12 +229,12 @@ const GameLog = ({ games: allGames, decks: allDecks }) => {
             <button type="button" aria-label="Reset all filters" onClick={() => handleFilterReset()}>Reset</button>
           </div>
         </FilterRow>
-        {dataRollup &&
+        {deckActive &&
           <div className="game-log__data-rollup">
-            <Datum number={dataRollup.games.length} label="total games" />
-            <Datum number={dataRollup.wins.length} label="total wins" />
-            <Datum number={dataRollup.losses.length} label="total losses" />
-            <Datum number={dataRollup.winLossRatio} label="win/loss ratio" />
+            <Datum number={deckActive.gamesPlayed} label="total games" />
+            <Datum number={deckActive.wins.length} label="total wins" />
+            <Datum number={deckActive.losses.length} label="total losses" />
+            <Datum number={deckActive.winLossRatio} label="win/loss ratio" />
           </div>
         }
         {needsPagination && renderPager()}
