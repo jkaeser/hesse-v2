@@ -20,9 +20,6 @@ const GameLog = ({ games: allGames, decks: allDecks }) => {
   const PAGE_LENGTH = 10;
   const [currentPage, setCurrentPage] = useState(DEFAULT_PAGE_INDEX);
 
-  // Set player counts before filtering.
-  const playerCounts = allGames.playerCounts;
-
   // Respect filter options.
   const [ filterDeckActive, setFilterDeckActive ] = useState(DEFAULT_FILTER_VALUE);
   const [ filterDeckOpponent, setFilterDeckOpponent ] = useState(DEFAULT_FILTER_VALUE);
@@ -87,13 +84,21 @@ const GameLog = ({ games: allGames, decks: allDecks }) => {
   ));
 
   let opponentOptions = deckOptions;
+  let playerCounts = allGames.playerCounts;
+  let winnerOptions = allDecks.decks;
 
-  // Assemble data based on active deck
+  // Assemble data based on active deck.
   let deckActive = null;
   if (filterDeckActive !== DEFAULT_FILTER_VALUE) {
     deckActive = allDecks.decks.find(deck => deck.id === filterDeckActive);
     deckActive.Games.setGames(filteredGames.games);
-    opponentOptions = deckActive.Games.games
+
+    // Tailor opponent options.
+    opponentOptions = allGames.games
+      .filter(game => {
+        const deckIds = game.decks.map(deck => deck.id);
+        return deckIds.includes(deckActive.id);
+      })
       .reduce((opponents, game) => {
         const opponentIds = game.decks.filter(deck => deck.id !== deckActive.id);
         opponentIds.forEach(opponent => {
@@ -108,6 +113,22 @@ const GameLog = ({ games: allGames, decks: allDecks }) => {
           {opponent.commander}
         </option>
       ));
+
+    // Tailor player counts.
+    playerCounts = new Games(allGames.games
+      .filter(game => {
+        const deckIds = game.decks.map(deck => deck.id);
+        return deckIds.includes(deckActive.id);
+      })
+    ).playerCounts;
+
+    // Tailor winner options.
+    winnerOptions = new Games(allGames.games
+      .filter(game => {
+        const deckIds = game.decks.map(deck => deck.id);
+        return deckIds.includes(deckActive.id);
+      })
+    ).winners;
   }
 
   // Paginate if necessary.
@@ -235,7 +256,7 @@ const GameLog = ({ games: allGames, decks: allDecks }) => {
               onChange={(e) => handleFilterWinner(e.target.value)}
             >
               <option value="default">- Filter by Winner -</option>
-              {allDecks.decks.map(deck => (
+              {winnerOptions.map(deck => (
                 <option id={deck.id} value={deck.id} key={deck.id}>
                   {deck.commander}
                 </option>

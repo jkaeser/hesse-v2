@@ -42,6 +42,21 @@ export class Games {
   }
 
   /**
+   * @returns {Array}
+   *   An array of Deck nodes.
+   */
+  get winners() {
+    return this.games
+      .map(game => game.winner)
+      .reduce((winners, winner) => {
+        if (!winners.find(prevWinner => prevWinner.id === winner.id)) {
+          winners.push(winner)
+        }
+        return winners;
+      }, []);
+  }
+
+  /**
    * @returns {Object}
    *   An object containing arrays of game nodes keyed by color.
    */
