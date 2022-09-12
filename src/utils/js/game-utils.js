@@ -30,15 +30,20 @@ export class Games {
    * @returns {Array}
    *   An array of strings.
    */
-  get commanders() {
+  get decks() {
     return this.games
       .map(game => game.decks)
-      .reduce((commanders, deck) => {
-        if (commanders.indexOf(deck.commander) === -1) {
-          commanders.push(deck.commander);
-        }
-        return commanders;
-      }, []);
+      .reduce((allDecks, decks) => {
+        decks.forEach(deck => {
+          if (!allDecks.find(prevDeck => prevDeck.id === deck.id)) {
+            allDecks.push(deck);
+          }
+        });
+        return allDecks;
+      }, [])
+      .sort((a, b) => {
+        return a.commander >= b.commander ? 1 : -1;
+      });
   }
 
   /**
@@ -133,22 +138,4 @@ export class Games {
     });
     return resultsByMonth.sort((a, b) => a.month - b.month);
   }
-
-  // /**
-  //  * @param {string} result
-  //  *   'all', 'win', 'loss'.
-  //  * @returns {Array}
-  //  *   An array containing objects that describe the number of results in each
-  //  *   month.
-  //  */
-  // getResultsCountByMonth(result = 'all') {
-  //   const resultsByMonth = [];
-  //   Object.entries(this.gamesByMonth).forEach(([month, games]) => {
-  //     resultsByMonth.push({
-  //       month: new Date(month),
-  //       count: result !== 'all' ? games.filter(game => game.result === result).length : games.length
-  //     });
-  //   });
-  //   return resultsByMonth.sort((a, b) => a.month - b.month);
-  // }
 }

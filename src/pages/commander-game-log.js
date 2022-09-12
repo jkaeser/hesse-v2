@@ -233,9 +233,9 @@ const GameLogPage = ({ data }) => {
         <div className="filter-item">
           <label htmlFor="playerContext">Player:</label>
           <select id="playerContext" onChange={(event) => handlePlayerContextChange(event)} value={playerContext}>
-            <option value="none">- None -</option>
+            <option value="none" key="playercontext-none">- None -</option>
             {data.allSanityPlayer.nodes.map(player => (
-              <option value={player.id}>
+              <option value={player.id} key={`playercontext-${player.id}`}>
                 {player.nameFirst} {player.nameLast}
               </option>
             ))}
