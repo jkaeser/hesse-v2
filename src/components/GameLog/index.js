@@ -133,8 +133,10 @@ const GameLog = ({ games: allGames, decks: allDecks }) => {
   }
 
   const handlePagerClick = (index) => {
-    setCurrentPage(index);
-    window.scrollTo(0, window.scrollY + container.current.getBoundingClientRect().top);
+    if (currentPage !== index) {
+      setCurrentPage(index);
+      window.scrollTo(0, window.scrollY + container.current.getBoundingClientRect().top);
+    }
   }
 
   const renderSummary = () => (
