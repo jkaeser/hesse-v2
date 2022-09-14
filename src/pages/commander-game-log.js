@@ -289,7 +289,6 @@ export const query = graphql`
           colors
           commander
         }
-        result
         summary
       }
     }
@@ -303,7 +302,6 @@ export const query = graphql`
           nameFirst
           nameLast
         }
-        type
         status
         links {
           title
