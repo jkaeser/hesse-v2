@@ -180,7 +180,7 @@ const GameLog = ({ games: allGames, decks: allDecks }) => {
       key={`mobile-page-${index}`}
     >
       {games.map(game => (
-        <div className="mobile-game">
+        <div className="mobile-game" key={`mobile-game-${game.id}`}>
           <div className="mobile-game__datum">
             <span className="mobile-game__datum-label">
               Date:

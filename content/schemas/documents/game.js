@@ -28,20 +28,6 @@ export default {
       to: [{ type: 'deck' }],
     },
     {
-      title: 'Result',
-      name: 'result',
-      type: 'string',
-      options: {
-        layout: 'radio',
-        list: [
-          { title: 'Win', value: 'win' },
-          { title: 'Loss', value: 'loss' },
-          { title: 'Draw', value: 'draw' }
-        ]
-      },
-      validation: Rule => Rule.required()
-    },
-    {
       title: 'Summary',
       name: 'summary',
       type: 'text'
