@@ -305,7 +305,7 @@ const GameLog = ({ games: allGames, decks: allDecks }) => {
               </option>
               {deckOptions.map(deck => (
                 <option value={deck.id} key={`deckfilter-${deck.id}`}>
-                  {deck.commander}
+                  {`${deck.commander} (${deck.owner.nameFirst} ${deck.owner.nameLast})`}
                 </option>
               ))}
             </select>
@@ -322,7 +322,7 @@ const GameLog = ({ games: allGames, decks: allDecks }) => {
                 </option>
                 {opponentOptions.map(opponent => (
                   <option value={opponent.id} key={`opponentfilter-${opponent.id}`}>
-                    {opponent.commander}
+                    {`${opponent.commander} (${opponent.owner.nameFirst} ${opponent.owner.nameLast})`}
                   </option>
                 ))}
               </select>
@@ -355,7 +355,7 @@ const GameLog = ({ games: allGames, decks: allDecks }) => {
               </option>
               {winnerOptions.map(deck => (
                 <option value={deck.id} key={`winnerfilter-${deck.id}`}>
-                  {deck.commander}
+                  {`${deck.commander} (${deck.owner.nameFirst} ${deck.owner.nameLast})`}
                 </option>
               ))}
             </select>

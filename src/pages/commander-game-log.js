@@ -288,6 +288,11 @@ export const query = graphql`
           id
           colors
           commander
+          owner {
+            id
+            nameFirst
+            nameLast
+          }
         }
         summary
       }
