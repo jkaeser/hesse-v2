@@ -133,8 +133,10 @@ const GameLog = ({ games: allGames, decks: allDecks }) => {
   }
 
   const handlePagerClick = (index) => {
-    setCurrentPage(index);
-    window.scrollTo(0, window.scrollY + container.current.getBoundingClientRect().top);
+    if (currentPage !== index) {
+      setCurrentPage(index);
+      window.scrollTo(0, window.scrollY + container.current.getBoundingClientRect().top);
+    }
   }
 
   const renderSummary = () => (
@@ -171,11 +173,73 @@ const GameLog = ({ games: allGames, decks: allDecks }) => {
     </tbody>
   )
 
+  const renderPageMobile = (games, index) => (
+    <div
+      data-page-index={`${index}`}
+      className={`game-log__mobile-page ${index === currentPage ? 'active' : 'inactive'}`}
+      key={`mobile-page-${index}`}
+    >
+      {games.map(game => (
+        <div className="mobile-game" key={`mobile-game-${game.id}`}>
+          <div className="mobile-game__datum">
+            <span className="mobile-game__datum-label">
+              Date:
+            </span>
+            <span className="mobile-game__datum-value">
+              {formatDate(game.date)}
+            </span>
+          </div>
+          <div className="mobile-game__datum">
+            <span className="mobile-game__datum-label">Decks:</span>
+            <div className="mobile-game__datum-value">
+              <ul>
+                {game.decks.map(deck => (
+                  <li key={`${deck.commander}-${deck.id}`}>
+                    {deck.commander}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+          <div className="mobile-game__datum">
+            <span className="mobile-game__datum-label">
+              Winner:
+            </span>
+            <span className="mobile-game__datum-value">
+              {game.winner.commander}
+            </span>
+          </div>
+          <div className="mobile-game__datum">
+            <span className="mobile-game__datum-label">
+              Summary:
+            </span>
+            <span className="mobile-game__datum-value">
+              {game.summary}
+            </span>
+          </div>
+        </div>
+      ))}
+    </div>
+  )
+
   const renderPager = () => (
     <div className="game-log__pagination">
       <button type="button" aria-label="Previous page" onClick={() => handlePagerClick(Math.max(currentPage - 1, DEFAULT_PAGE_INDEX))}>
         {`< Previous`}
       </button>
+
+      <select
+        className="game-log__pagination-mobile-pager"
+        onChange={(event) => handlePagerClick(Number(event.target.value))}
+        value={currentPage}
+      >
+        {filteredGamesPaginated.map((games, index) => (
+          <option value={index} key={`pagination-mobile-page-${index}`}>
+            {index + 1}
+          </option>
+        ))}
+      </select>
+
       {filteredGamesPaginated.length > 10 &&
         <div className="game-log__pagination-page-identifier">
           Page {currentPage + 1} of {filteredGamesPaginated.length}
@@ -198,6 +262,34 @@ const GameLog = ({ games: allGames, decks: allDecks }) => {
     </div>
   )
 
+  const renderTable = () => (
+    <div className="game-log__table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th className="date">Date</th>
+            <th className="decks">Decks</th>
+            <th className="winner">Winner</th>
+            <th className="summary">Summary</th>
+          </tr>
+        </thead>
+        {needsPagination
+          ? filteredGamesPaginated.map(renderPage)
+          : renderPage(filteredGames.games, DEFAULT_PAGE_INDEX)
+        }
+      </table>
+    </div>
+  )
+
+  const renderTableMobile = () => (
+    <div className="game-log__mobile">
+      {needsPagination
+        ? filteredGamesPaginated.map(renderPageMobile)
+        : renderPageMobile(filteredGames.games, DEFAULT_PAGE_INDEX)
+      }
+    </div>
+  )
+
   return (
     <Details className="game-log" summary={renderSummary()} open={true}>
       <div className="game-log__content" ref={container}>
@@ -213,7 +305,7 @@ const GameLog = ({ games: allGames, decks: allDecks }) => {
               </option>
               {deckOptions.map(deck => (
                 <option value={deck.id} key={`deckfilter-${deck.id}`}>
-                  {deck.commander}
+                  {`${deck.commander} (${deck.owner.nameFirst} ${deck.owner.nameLast})`}
                 </option>
               ))}
             </select>
@@ -230,7 +322,7 @@ const GameLog = ({ games: allGames, decks: allDecks }) => {
                 </option>
                 {opponentOptions.map(opponent => (
                   <option value={opponent.id} key={`opponentfilter-${opponent.id}`}>
-                    {opponent.commander}
+                    {`${opponent.commander} (${opponent.owner.nameFirst} ${opponent.owner.nameLast})`}
                   </option>
                 ))}
               </select>
@@ -263,7 +355,7 @@ const GameLog = ({ games: allGames, decks: allDecks }) => {
               </option>
               {winnerOptions.map(deck => (
                 <option value={deck.id} key={`winnerfilter-${deck.id}`}>
-                  {deck.commander}
+                  {`${deck.commander} (${deck.owner.nameFirst} ${deck.owner.nameLast})`}
                 </option>
               ))}
             </select>
@@ -283,22 +375,8 @@ const GameLog = ({ games: allGames, decks: allDecks }) => {
           </div>
         }
         {needsPagination && renderPager()}
-        <div className="game-log__table-wrapper">
-          <table>
-            <thead>
-              <tr>
-                <th className="date">Date</th>
-                <th className="decks">Decks</th>
-                <th className="winner">Winner</th>
-                <th className="summary">Summary</th>
-              </tr>
-            </thead>
-            {needsPagination
-              ? filteredGamesPaginated.map(renderPage)
-              : renderPage(filteredGames.games, DEFAULT_PAGE_INDEX)
-            }
-          </table>
-        </div>
+        {renderTableMobile()}
+        {renderTable()}
         {needsPagination && renderPager()}
       </div>
     </Details>

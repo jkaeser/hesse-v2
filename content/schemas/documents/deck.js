@@ -40,18 +40,6 @@ export default {
       validation: Rule => Rule.required()
     },
     {
-      title: 'Type',
-      name: 'type',
-      type: 'string',
-      options: {
-        list: [
-          { title: 'Player', value: 'player' },
-          { title: 'Opponent', value: 'opponent' }
-        ]
-      },
-      validation: Rule => Rule.required()
-    },
-    {
       title: 'Owner',
       name: 'owner',
       type: 'reference',
@@ -73,20 +61,15 @@ export default {
     select: {
       commander: 'commander',
       status: 'status',
-      type: 'type',
       nameFirst: 'owner.nameFirst',
       nameLast: 'owner.nameLast',
     },
     prepare(selection) {
-      const { commander, status, type, nameFirst, nameLast } = selection;
-      const emojis = {
-        player: '🦸',
-        opponent: '🦹'
-      }
+      const { commander, status, nameFirst, nameLast } = selection;
       return {
         title: commander,
         subtitle: `${nameFirst} ${nameLast} (${status})`,
-        media: <span style={{fontSize: '1.5rem'}}>{emojis[type]}</span>
+        media: <span style={{ fontSize: '1.5rem' }}>🦸</span>
       }
     }
   },
