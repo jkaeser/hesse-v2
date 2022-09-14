@@ -37,6 +37,11 @@
 
   &__table-wrapper {
     border-block: 1px solid var(--translucent);
+    display: none;
+
+    @include bp($bp-tablet-vertical) {
+      display: initial;
+    }
   }
 
   table {
@@ -56,7 +61,7 @@
       }
 
       tr:nth-of-type(even) {
-        td:not(.result) {
+        td {
           background-color: var(--translucent);
         }
       }
@@ -122,8 +127,23 @@
     padding: 1rem 0;
   }
 
+  &__pagination-mobile-pager {
+    margin-inline: 1rem;
+    padding: .5rem;
+    font-size: .8rem;
+
+    @include bp($bp-tablet-vertical) {
+      display: none;
+    }
+  }
+
   &__pagination-page-identifier {
     padding-inline: 1rem;
+    display: none;
+
+    @include bp($bp-tablet-vertical) {
+      display: initial;
+    }
   }
 
   &__pagination-list {
@@ -131,6 +151,11 @@
     padding: 0;
     list-style: none;
     max-width: 100%;
+    display: none;
+
+    @include bp($bp-tablet-vertical) {
+      display: initial;
+    }
   }
 
   &__pagination-list-item {
@@ -148,5 +173,38 @@
   &__table-wrapper {
     max-height: 800px;
     overflow: scroll;
+  }
+
+  &__mobile {
+    border-top: 1px solid var(--translucent);
+
+    @include bp($bp-tablet-vertical) {
+      display: none;
+    }
+  }
+
+  &__mobile-page {
+    &.inactive {
+      display: none;
+    }
+  }
+
+  .mobile-game {
+    padding: 1rem;
+
+    &:nth-of-type(even) {
+      background-color: var(--translucent);
+    }
+
+    &__datum {
+      + .mobile-game__datum {
+        margin-top: 1rem;
+      }
+    }
+
+    &__datum-label {
+      font-weight: 700;
+      display: block;
+    }
   }
 }
