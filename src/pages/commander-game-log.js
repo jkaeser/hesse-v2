@@ -255,14 +255,16 @@ const GameLogPage = ({ data }) => {
         />
       </Section>
       <Section cols="0">
-        <ChartsWrapper>
-          {chartDeckColors}
-          {chartWinPercentageByColor}
-        </ChartsWrapper>
-        <ChartsWrapper>
-          {/* {chartWinLossLine} */}
-          {chartGamesPlayedLine}
-        </ChartsWrapper>
+        <Details summary={`${possessor}'s Data Vizualizations`}>
+          <ChartsWrapper>
+            {chartDeckColors}
+            {chartWinPercentageByColor}
+          </ChartsWrapper>
+          <ChartsWrapper>
+            {/* {chartWinLossLine} */}
+            {chartGamesPlayedLine}
+          </ChartsWrapper>
+        </Details>
       </Section>
     </Layout>
   )

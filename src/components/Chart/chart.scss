@@ -50,7 +50,7 @@
     flex-basis: 100%;
 
     @include bp($bp-tablet-horizontal) {
-      flex-basis: calc(50% - .5rem);
+      flex-basis: calc(50% - .63rem);
     }
   }
 }

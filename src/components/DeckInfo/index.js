@@ -134,7 +134,7 @@ export const DeckInfos = ({ decks: allDecks }) => {
 
   return (
     <div className={classes.join(' ').trim()}>
-      <h2 className="decks__title">Decks</h2>
+      <h3 className="decks__title">Decks</h3>
       <FilterRow className="decks__filters">
         <div className="decks__filter-item">
           <input
