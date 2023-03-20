@@ -163,6 +163,8 @@
 
     &.active button {
       background: var(--translucent-dark);
+      text-decoration: underline;
+      text-decoration-color: var(--link-decoration);
     }
 
     + .game-log__pagination-list-item {

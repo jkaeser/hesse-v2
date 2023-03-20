@@ -21,8 +21,8 @@ section {
 
     @media (prefers-color-scheme: light) {
       &.color--white {
-        --background-color: #{$c-white-dark};
-        --text-color: #{$c-green-darker};
+        --background-color: #{color('white', 2)};
+        --text-color: #{color('green', 5)};
         --translucent: #{$c-translucent-light};
       }
     }

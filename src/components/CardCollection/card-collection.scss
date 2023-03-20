@@ -50,7 +50,7 @@ $card-width: 146px;
 
     &--collected {
       img {
-        border-color: $c-gold !important;
+        border-color: color('gold', 1) !important;
       }
     }
 
@@ -95,8 +95,8 @@ $card-width: 146px;
 
 .collected-flag {
   padding: 1rem;
-  background-color: $c-gold;
-  color: $c-white;
+  background-color: color('gold', 1);
+  color: color('white', 1);
   text-shadow: none;
   border-radius: 50%;
   position: absolute;
@@ -123,7 +123,7 @@ $card-width: 146px;
     right: -2px;
     bottom: -2px;
     left: -2px;
-    border: 1px solid $c-gold;
+    border: 1px solid color('gold', 1);
   }
 
   &::after {
@@ -131,6 +131,6 @@ $card-width: 146px;
     right: -4px;
     bottom: -4px;
     left: -4px;
-    border: 1px dotted $c-gold;
+    border: 1px dotted color('gold', 1);
   }
 }

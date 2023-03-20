@@ -1,21 +1,23 @@
 .contrast {
-  --background-color: #{$c-white-dark};
-  --text-color: #{$c-black};
+  --background-color: #{color('white', 2)};
+  --text-color: #{color('black', 2)};
   --translucent: #{$c-translucent-light};
   --translucent-dark: #{$c-translucent-darker};
+  --link: #{color('green', 3)};
+  --link-hover: #{color('red', 3)};
+  --link-decoration: #{color('tan', 2)};
   --win-bg: #006600;
   --loss-bg: #B30000;
 
   @media (prefers-color-scheme: light) {
     section.color {
-      --background-color: #{$c-white-dark} !important;
-      --text-color: #{$c-black} !important;
+      --background-color: #{color('white', 2)} !important;
+      --text-color: #{color('black', 2)} !important;
     }
   }
 
   @media (prefers-color-scheme: dark) {
-    --background-color: #{$c-black-light};
-    --text-color: #{$c-white};
-    --translucent-link: #{$c-translucent-white};
+    --background-color: #{color('black', 1)};
+    --text-color: #{color('white', 1)};
   }
 }

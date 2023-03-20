@@ -1,11 +1,14 @@
 .space {
-  --text-color: #{$c-gold};
+  --text-color: #{color('gold', 1)};
   --translucent: #{$c-translucent-white};
-  --background-color: #{$c-black};
+  --background-color: #{color('black', 2)};
+  --link: #{color('gold', 1)};
+  --link-hover: #{color('gold', 1)};
+  --link-decoration: #{color('gold', 1)};
 
   main,
   footer {
-    @include text-mask($c-black);
+    @include text-mask(var(--background-color));
 
     z-index: $z-index-foreground;
     position: relative;
@@ -13,7 +16,7 @@
 
   section.color {
     --background-color: transparent !important;
-    --text-color: #{$c-gold} !important;
+    --text-color: #{color('gold', 1)} !important;
   }
 
   h1,

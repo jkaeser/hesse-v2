@@ -1,15 +1,17 @@
 :root {
   font-family: 'Lato', sans-serif;
   font-size: 16px;
-  --background-color: #{$c-green-dark};
-  --text-color: #{$c-white};
-  --translucent-link: #{$c-translucent};
+  --background-color: #{color('green', 3)};
+  --link: #{color('white', 2)};
+  --link-hover: #{color('red', 1)};
+  --link-decoration: #{color('tan', 1)};
+  --text-color: #{color('white', 1)};
   --translucent: #{$c-translucent};
   --translucent-dark: #{$c-translucent-dark};
-  --win-bg: #{$c-green};
-  --win-text: #{$c-white};
-  --loss-bg: #{$c-red};
-  --loss-text: #{$c-white};
+  --win-bg: #{color('green', 2)};
+  --win-text: #{color('white', 1)};
+  --loss-bg: #{color('red', 1)};
+  --loss-text: #{color('white', 1)};
 
   --mtg-white: rgb(249,250,244);
   --mtg-blue: rgb(14,104,171);
@@ -18,9 +20,8 @@
   --mtg-green: rgb(0,115,62);
 
   @media (prefers-color-scheme: dark) {
-    --background-color: #{$c-green-darker};
-    --text-color: #{$c-white};
-    --translucent-link: #{$c-translucent-white};
+    --background-color: #{color('green', 5)};
+    --text-color: #{color('white', 1)};
   }
 }
 
@@ -201,12 +202,13 @@ button,
   cursor: pointer;
 
   &:hover,
-  &:focus {
+  &:focus-visible {
     background: var(--translucent);
+    border-color: var(--link-hover);
     outline: none;
   }
 
-  &:focus {
+  &:focus-visible {
     text-decoration: underline;
     box-shadow: none;
   }
@@ -242,8 +244,10 @@ select {
   border: 1px solid var(--text-color);
   max-width: 100%;
 
+  &:hover,
   &:focus-visible {
-    outline: 1px solid var(--text-color);
+    outline: none;
+    border-color: var(--link-hover);
     background-color: var(--translucent);
   }
 }

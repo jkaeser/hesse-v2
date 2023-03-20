@@ -16,6 +16,55 @@ $c-translucent-gold: transparentize($c-gold, .9);
 $c-translucent-green: transparentize(#5B9A6E, .6);
 $c-translucent-red: transparentize($c-red, .7);
 
+// New palettes
+$colors: (
+  'white': (
+  #feffff,
+  #f2f2f2,
+  ),
+  'black': (
+  #292929,
+  #000000,
+  ),
+  'green': (
+  #B4CFC5,
+  #81ae9d,
+  #475b5a,
+  #364544,
+  #313f36,
+  ),
+  'red': (
+  #fb9f89,
+  #984447,
+  #9D2406,
+  ),
+  'tan': (
+  #c4af9a,
+  #a48565,
+  #614D38,
+  ),
+  'gold': (
+  #B7A932,
+  ),
+);
+
+$c-greens: (
+  #81ae9d,
+  #475b5a,
+  #364544,
+  #313f36
+);
+$c-reds: (
+  #fb9f89,
+  #984447,
+);
+$c-tans: (
+  #c4af9a,
+);
+$c-golds: (
+  #B7A932
+);
+
 $transition-timing: .2s;
 $transition-curve: ease;
 
