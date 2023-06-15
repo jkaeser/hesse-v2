@@ -3,18 +3,18 @@
 $card-width: 146px;
 
 * + .card-collection {
-  margin-top: $gutter-small;
+  margin-block-start: $gutter-small;
 }
 
 .card-collection {
   > summary {
     &::after {
-      margin-top: 0;
+      margin-block-start: 0;
     }
   }
 
   &__title {
-    margin-bottom: 0;
+    margin-block-end: 0;
   }
 
   &__subtitle {
@@ -22,8 +22,7 @@ $card-width: 146px;
   }
 
   &__content {
-    border-left: 1px solid var(--translucent);
-    border-right: 1px solid var(--translucent);
+    border-inline: 1px solid var(--translucent);
   }
 
   &__count {
@@ -37,7 +36,7 @@ $card-width: 146px;
     gap: 2.25rem 2.5rem;
     margin: 0;
     padding: 2rem 1rem 1rem;
-    border-bottom: 1px solid var(--translucent);
+    border-block-end: 1px solid var(--translucent);
 
     @include bp($bp-phone-lg) {
       grid-template-columns: repeat(auto-fill, $card-width);
@@ -89,7 +88,7 @@ $card-width: 146px;
   }
 
   + .card-collection {
-    margin-top: $gutter-small;
+    margin-block-start: $gutter-small;
   }
 }
 
@@ -107,8 +106,8 @@ $card-width: 146px;
   align-items: center;
   justify-content: center;
   font-weight: 600;
-  right: -1.5rem;
-  top: -1.5rem;
+  inset-inline-end: -1.5rem;
+  inset-block-start: -1.5rem;
   transform: rotate(25deg);
 
   &::before,
@@ -119,18 +118,12 @@ $card-width: 146px;
   }
 
   &::before {
-    top: -2px;
-    right: -2px;
-    bottom: -2px;
-    left: -2px;
+    inset: -2px;
     border: 1px solid color('gold', 1);
   }
 
   &::after {
-    top: -4px;
-    right: -4px;
-    bottom: -4px;
-    left: -4px;
+    inset: -4px;
     border: 1px dotted color('gold', 1);
   }
 }

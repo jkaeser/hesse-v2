@@ -71,10 +71,7 @@ body > #___gatsby > div,
 .starfield {
   opacity: 0;
   position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  inset: 0;
   z-index: $z-index-background;
   pointer-events: none;
 }
@@ -88,8 +85,7 @@ body > #___gatsby > div,
     position: absolute;
     background: var(--translucent);
     padding: 1rem;
-    left: 0;
-    right: 0;
+    inset-inline: 0;
     text-align: center;
   }
 }
@@ -103,22 +99,21 @@ svg {
 main {
   @include transition;
 
-  padding-top: 20vh;
+  padding-block-start: 20vh;
 
   @include bp($bp-tablet-horizontal) {
-    padding-top: 25vh;
+    padding-block: 25vh 2rem;
   }
+}
 
-  &.scroll ~ footer {
-    @include bp($bp-tablet-horizontal) {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      z-index: $z-index-foreground;
-      background-color: var(--background-color);
-      padding-left: $gutter-large;
-    }
+footer {
+  @include bp($bp-tablet-horizontal) {
+    position: fixed;
+    inset-block-end: 0;
+    inset-inline: 0;
+    z-index: $z-index-foreground;
+    background-color: var(--background-color);
+    padding-inline-start: $gutter-large;
   }
 }
 
@@ -133,17 +128,18 @@ h1 {
 
   &.page-title {
     font-size: 3rem;
-    margin-bottom: 3rem;
+    margin-block-end: 3rem;
 
     &::first-letter {
       letter-spacing: 2px;
       background: var(--text-color);
       color: var(--background-color);
       padding: .5rem 1.25rem;
-      margin-right: .25rem;
+      margin-inline-end: .25rem;
       font-weight: 600;
       text-shadow: none;
       box-shadow: 4px 4px 0 0 var(--translucent);
+      border-radius: 1px;
     }
   }
 }
@@ -155,16 +151,16 @@ a {
 p {
   margin: 0;
   font-size: 1.125rem;
-  line-height: 1.5;
+  line-height: 1.85;
 
   + p {
-    margin-top: 1.25rem;
+    margin-block-start: 2rem;
   }
 }
 
 ul {
-  margin: 1.25rem 0;
-  padding-left: 1.1rem;
+  margin: 2rem 0;
+  padding-inline-start: 1.1rem;
 
   &.no-list {
     padding: 0;
@@ -178,13 +174,13 @@ ul {
 
 li {
   + li {
-    margin-top: .5rem;
+    margin-block-start: .5rem;
   }
 }
 
-.contact-link__label {
+.label {
   display: inline-block;
-  margin-right: .5rem;
+  margin-inline-end: .5rem;
 }
 
 button,
@@ -219,7 +215,7 @@ button,
 
   + button,
   + .button {
-    margin-left: 1rem;
+    margin-inline-start: 1rem;
   }
 }
 
@@ -233,7 +229,7 @@ details {
   > .container {
     padding: 1rem;
     border: 1px solid var(--translucent);
-    border-top: 0;
+    border-block-start: 0;
   }
 }
 

@@ -22,23 +22,22 @@ const IndexPage = () => (
           Recently I've been building <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Components">Web Components</a> for IBM using their <a href="https://carbondesignsystem.com/">Carbon design system</a>.
         </p>
         <p>
-          When I'm not building for the web, you can find me playing the drums in a band called <a href="https://dwellermusic.com/">Dweller</a>, tuning a <a href="https://magic.wizards.com/en/intro">Magic: The Gathering deck</a>, or eating ice cream.
+          When I'm not building for the web, you can find me playing the drums for the bands <a href="https://dwellermusic.com/">Dweller</a> and <a href="https://colemanrigg.com/">Coleman Rigg & The Ridge Runners</a>, tuning a <a href="https://magic.wizards.com/en/intro">Magic: The Gathering deck</a>, or indulging in ice cream.
         </p>
-        <ul className="contact-links no-list">
-          <li className="contact-link">
-            <span className="contact-link__label">Email:</span>
+        <ul className="no-list">
+          <li>
+            <span className="label">Email:</span>
             <a href="mailto:jakaeser44@gmail.com">jakaeser44@gmail.com</a>
           </li>
-          <li className="contact-link">
-            <span className="contact-link__label">GitHub:</span>
+          <li>
+            <span className="label">GitHub:</span>
             <a href="https://github.com/jkaeser">jkaeser</a>
           </li>
-          <li className="contact-link">
-            <span className="contact-link__label">CodePen:</span>
+          <li>
+            <span className="label">CodePen:</span>
             <a href="https://codepen.io/jakaeser">jkaeser</a>
           </li>
         </ul>
-        <br />
         <Button path={ resume }>Resume</Button>
       </InViewport>
     </Section>

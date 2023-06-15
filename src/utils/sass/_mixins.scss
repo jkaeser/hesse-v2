@@ -2,16 +2,12 @@
 @use "sass:map";
 
 @mixin full-width {
-  margin-left: $gutter-small * -1;
-  margin-right: $gutter-small * -1;
-  padding-left: $gutter-small;
-  padding-right: $gutter-small;
+  margin-inline: $gutter-small * -1;
+  padding-inline: $gutter-small;
 
   @include bp($bp-tablet-horizontal) {
-    margin-left: $gutter-large * -1;
-    margin-right: $gutter-mid * -1;
-    padding-left: $gutter-large;
-    padding-right: $gutter-mid;
+    margin-inline: $gutter-large * -1;
+    padding-inline: $gutter-large;
   }
 }
 

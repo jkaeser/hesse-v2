@@ -1,11 +1,10 @@
 @import '../../utils/sass/all';
 
 section {
-  padding-top: $gutter-small;
-  padding-bottom: $gutter-small;
+  padding-block: $gutter-small;
 
   &:first-of-type:not(.color) {
-    padding-top: 0;
+    padding-block-start: 0;
   }
 
   @include bp($bp-tablet-vertical) {
@@ -30,18 +29,18 @@ section {
 
   > div {
     > *:last-child {
-      margin-bottom: 0;
+      margin-block-end: 0;
     }
   }
 }
 
 section.color--green + section.color--green,
 section.color--white + section.color--white {
-  padding-top: 0;
+  padding-block-start: 0;
 }
 
 main.scroll section:last-of-type {
   @include bp($bp-tablet-horizontal) {
-    margin-bottom: $gutter-small;
+    margin-block-end: $gutter-small;
   }
 }
