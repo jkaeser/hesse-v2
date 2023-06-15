@@ -19,5 +19,7 @@
   @media (prefers-color-scheme: dark) {
     --background-color: #{color('black', 1)};
     --text-color: #{color('white', 1)};
+    --link: #{color('white', 2)};
+    --link-hover: inherit;
   }
 }

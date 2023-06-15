@@ -1,5 +1,5 @@
 :root {
-  font-family: 'Lato', sans-serif;
+  font-family: 'Nunito', sans-serif;
   font-size: 16px;
   --background-color: #{color('green', 3)};
   --link: #{color('white', 2)};
@@ -204,7 +204,7 @@ button,
   &:hover,
   &:focus-visible {
     background: var(--translucent);
-    border-color: var(--link-hover);
+    border-color: var(--link-decoration);
     outline: none;
   }
 
@@ -243,6 +243,7 @@ select {
   color: inherit;
   border: 1px solid var(--text-color);
   max-width: 100%;
+  font-family: inherit;
 
   &:hover,
   &:focus-visible {

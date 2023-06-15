@@ -19,10 +19,10 @@ const IndexPage = () => (
           I'm a web developer in Philadelphia, PA, currently working at <a href="https://www.lullabot.com/">Lullabot</a>.
         </p>
         <p>
-          Recently I've been contributing to <a href="https://github.com/carbon-design-system/carbon-for-ibm-dotcom">Carbon for IBM.com</a>, an open source component library built by IBM using their Carbon design system.
+          Recently I've been building <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Components">Web Components</a> for IBM using their <a href="https://carbondesignsystem.com/">Carbon design system</a>.
         </p>
         <p>
-          When I'm not building for the web, you can find me playing the drums in a band called <a href="https://dwellermusic.com/">Dweller</a>, tuning a <a href="https://magic.wizards.com/en/intro">Magic: The Gathering deck</a>, or eating <a href="https://www.turkeyhill.com/frozen/ice-cream/premium-ice-cream/dutch-chocolate">ice cream</a>.
+          When I'm not building for the web, you can find me playing the drums in a band called <a href="https://dwellermusic.com/">Dweller</a>, tuning a <a href="https://magic.wizards.com/en/intro">Magic: The Gathering deck</a>, or eating ice cream.
         </p>
         <ul className="contact-links no-list">
           <li className="contact-link">
