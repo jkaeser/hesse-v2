@@ -9,6 +9,8 @@ import InViewport from "components/InViewport"
 
 import resume from "files/JohnKaeser-Resume.pdf"
 
+import gritty from "images/gritty-clipart.svg";
+
 const IndexPage = () => (
   <Layout>
     <Seo title="Home" />

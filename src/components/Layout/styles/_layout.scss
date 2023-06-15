@@ -256,3 +256,46 @@ label {
 .filter-item {
   margin-block: 1rem;
 }
+
+@keyframes wiggle {
+  from {
+    transform: rotate(-5deg);
+  }
+
+  to {
+    transform: rotate(15deg);
+  }
+}
+
+.grittify {
+  @include transition;
+
+  position: relative;
+  background-color: var(--background-color);
+
+  &:hover {
+    background-color: transparent;
+
+    img {
+      opacity: 1;
+      inset-block-end: 1em;
+      animation: .4s wiggle alternate infinite ease-in-out;
+
+      @media (prefers-reduced-motion) {
+        animation: .4 wiggle ease-in-out;
+      }
+    }
+  }
+
+  img {
+    @include transition;
+
+    position: absolute;
+    width: 2em;
+    inset-inline-start: calc(50% - 1em);
+    inset-block-end: 2px;
+    opacity: 0;
+    z-index: -1;
+    pointer-events: none;
+  }
+}
