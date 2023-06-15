@@ -1,19 +1,22 @@
+@use "sass:list";
+@use "sass:map";
+
 @mixin full-width {
-  margin-left: $gutter-small * -1;
-  margin-right: $gutter-small * -1;
-  padding-left: $gutter-small;
-  padding-right: $gutter-small;
+  margin-inline: $gutter-small * -1;
+  padding-inline: $gutter-small;
 
   @include bp($bp-tablet-horizontal) {
-    margin-left: $gutter-large * -1;
-    margin-right: $gutter-mid * -1;
-    padding-left: $gutter-large;
-    padding-right: $gutter-mid;
+    margin-inline: $gutter-large * -1;
+    padding-inline: $gutter-large;
   }
 }
 
 @mixin transition($timing: $transition-timing) {
   transition: all $timing $transition-curve, outline 0s linear, outline-offset 0s linear, text-shadow 0s linear;
+
+  @media (prefers-reduced-motion) {
+    transition: none;
+  }
 }
 
 @mixin visually-hidden {
@@ -39,7 +42,7 @@
 @mixin link-base {
   @include transition;
 
-  color: var(--text-color);
+  color: var(--link);
   text-decoration: none;
   position: relative;
   font-weight: 400;
@@ -47,16 +50,22 @@
   background-position: .25em .75em;
   background-size: 100% 75%;
   background-repeat: no-repeat;
+
+  background-image: linear-gradient(to right, var(--link-decoration) 0, var(--link-decoration) 100%);
+  background-image: linear-gradient(to right, var(--link) 0, var(--link) 100%);
+  background-size: 80% 1px;
+  // background-size: 0 1px;
+  background-position: bottom right;
 }
 
 @mixin link-hover-or-focus {
-  background-position: initial;
-  background-size: 100% 100%;
+  background-image: linear-gradient(to right, var(--link-decoration) 0, var(--link-decoration) 100%);
+  background-size: 100% 1px;
+  color: var(--link-hover);
 }
 
 @mixin link-focus {
   outline: 0;
-  box-shadow: 0 1px 0 0 var(--text-color);
 }
 
 @mixin link {
@@ -95,4 +104,9 @@
     2px -2px $blur $color,
     2px 1px $blur $color,
     2px 2px $blur $color;
+}
+
+@function color($family, $hue) {
+  @debug map.get($colors, $family);
+  @return list.nth(map.get($colors, $family), $hue);
 }

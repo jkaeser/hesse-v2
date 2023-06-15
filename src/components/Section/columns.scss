@@ -3,29 +3,30 @@
 .cols {
   column-gap: $gutter-small;
 
+  &--2 {
+    @include bp($bp-tablet-vertical) {
+      column-count: 2;
+    }
+  }
+
+  &--3 {
+    @include bp($bp-tablet-vertical) {
+      column-count: 3;
+    }
+  }
+
   > div {
-    max-width: 50rem;
+    max-width: 46rem;
+    word-wrap: break-word;
   }
-}
 
-.cols h1,
-.cols h2,
-.cols h3,
-.cols h4,
-.cols h5,
-.cols h6 {
-  column-span: all;
-  margin-bottom: $gutter-small;
-}
-
-.cols--2 {
-  @include bp($bp-tablet-vertical) {
-    column-count: 2;
-  }
-}
-
-.cols--3 {
-  @include bp($bp-tablet-vertical) {
-    column-count: 3;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    column-span: all;
+    margin-block-end: $gutter-small;
   }
 }

@@ -30,10 +30,7 @@ details {
     &:hover,
     &:focus-visible {
       background: var(--translucent);
-    }
-
-    &:focus-visible {
-      outline: 1px solid var(--text-color);
+      outline: 1px solid var(--link-hover);
     }
 
     &::after {
@@ -41,8 +38,8 @@ details {
       content: "";
       height: .8rem;
       width: .8rem;
-      border-right: 1px solid var(--text-color);
-      border-bottom: 1px solid var(--text-color);
+      border-inline-end: 1px solid var(--text-color);
+      border-block-end: 1px solid var(--text-color);
       transform: rotate(45deg) translate(-.5em, -.5em);
     }
   }

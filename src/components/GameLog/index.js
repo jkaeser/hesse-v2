@@ -141,7 +141,7 @@ const GameLog = ({ games: allGames, decks: allDecks }) => {
 
   const renderSummary = () => (
     <div>
-      <h2>Games Played</h2>
+      <h3>Games Played</h3>
       {filteredGames.games.length > 0 &&
         <div>{formatDate(filteredGames.games[filteredGames.games.length - 1].date)} to {formatDate(filteredGames.games[0].date)}</div>
       }

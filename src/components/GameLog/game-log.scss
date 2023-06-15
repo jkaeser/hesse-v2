@@ -2,35 +2,36 @@
 
 .game-log {
   summary {
-    h2 {
-      margin-bottom: 0;
+    h3 {
+      font-size: 1.2rem;
+      margin-block-end: 0;
     }
 
     div {
       font-size: $font-size-small;
-      margin-top: .25rem;
+      margin-block-start: .25rem;
     }
   }
 
   &__content {
     border: 1px solid var(--translucent);
-    border-top: 0;
+    border-block-start: 0;
   }
 
   &__data-rollup {
     display: flex;
     gap: 1rem;
-    border-bottom: 1px solid var(--translucent);
+    border-block-end: 1px solid var(--translucent);
 
     > * {
       padding: 1rem;
 
       &:last-of-type {
-        border-right: 1px solid var(--translucent);
+        border-inline-end: 1px solid var(--translucent);
       }
 
       + * {
-        border-left: 1px solid var(--translucent);
+        border-inline-start: 1px solid var(--translucent);
       }
     }
   }
@@ -71,11 +72,11 @@
       td,
       th {
         &:first-of-type {
-          padding-left: 1rem;
+          padding-inline-start: 1rem;
         }
 
         &:last-of-type {
-          padding-right: 1rem;
+          padding-inline-end: 1rem;
         }
       }
     }
@@ -101,7 +102,7 @@
 
         li {
           + li {
-            margin-top: .25rem;
+            margin-block-start: .25rem;
           }
         }
       }
@@ -163,10 +164,12 @@
 
     &.active button {
       background: var(--translucent-dark);
+      text-decoration: underline;
+      text-decoration-color: var(--link-decoration);
     }
 
     + .game-log__pagination-list-item {
-      margin-top: 0;
+      margin-block-start: 0;
     }
   }
 
@@ -176,7 +179,7 @@
   }
 
   &__mobile {
-    border-top: 1px solid var(--translucent);
+    border-block-start: 1px solid var(--translucent);
 
     @include bp($bp-tablet-vertical) {
       display: none;
@@ -198,7 +201,7 @@
 
     &__datum {
       + .mobile-game__datum {
-        margin-top: 1rem;
+        margin-block-start: 1rem;
       }
     }
 
