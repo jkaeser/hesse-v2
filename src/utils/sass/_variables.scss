@@ -21,6 +21,7 @@ $colors: (
   'white': (
   #feffff,
   #f2f2f2,
+  #fcfcfc,
   ),
   'black': (
   #292929,
@@ -42,27 +43,11 @@ $colors: (
   #c4af9a,
   #a48565,
   #614D38,
+  #DBAD6A,
   ),
   'gold': (
   #B7A932,
   ),
-);
-
-$c-greens: (
-  #81ae9d,
-  #475b5a,
-  #364544,
-  #313f36
-);
-$c-reds: (
-  #fb9f89,
-  #984447,
-);
-$c-tans: (
-  #c4af9a,
-);
-$c-golds: (
-  #B7A932
 );
 
 $transition-timing: .2s;

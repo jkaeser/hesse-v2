@@ -6,12 +6,15 @@
   --link-hover: #{color('red', 1)};
   --link-decoration: #{color('tan', 1)};
   --text-color: #{color('white', 1)};
+  --text-color-light: #{color('white', 3)};
   --translucent: #{$c-translucent};
   --translucent-dark: #{$c-translucent-dark};
+  --translucent-light: #{$c-translucent-light};
   --win-bg: #{color('green', 2)};
   --win-text: #{color('white', 1)};
   --loss-bg: #{color('red', 1)};
   --loss-text: #{color('white', 1)};
+  --a11y: #{color('tan', 4)};
 
   --mtg-white: rgb(249,250,244);
   --mtg-blue: rgb(14,104,171);
@@ -79,8 +82,9 @@ body > #___gatsby > div,
 .skip-link {
   @include visually-hidden;
 
-  &:focus-visible {
+  &:focus {
     @include visually-hidden-off;
+    @include focus-visible;
 
     position: absolute;
     background: var(--translucent);
@@ -99,11 +103,8 @@ svg {
 main {
   @include transition;
 
-  padding-block-start: 20vh;
-
-  @include bp($bp-tablet-horizontal) {
-    padding-block: 25vh 2rem;
-  }
+  padding-block-start: min(25vh, 10rem);
+  padding-block-end: 3.4rem;
 }
 
 footer {
@@ -198,15 +199,16 @@ button,
   cursor: pointer;
 
   &:hover,
-  &:focus-visible {
+  &:focus {
     background: var(--translucent);
     border-color: var(--link-decoration);
     outline: none;
   }
 
   &:focus-visible {
-    text-decoration: underline;
-    box-shadow: none;
+    @include focus-visible;
+
+    border-color: transparent;
   }
 
   &::before {
@@ -242,10 +244,16 @@ select {
   font-family: inherit;
 
   &:hover,
-  &:focus-visible {
+  &:focus {
     outline: none;
     border-color: var(--link-hover);
     background-color: var(--translucent);
+  }
+
+  &:focus-visible {
+    @include focus-visible;
+
+    border-color: transparent;
   }
 }
 

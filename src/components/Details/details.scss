@@ -28,9 +28,13 @@ details {
     }
 
     &:hover,
-    &:focus-visible {
+    &:focus {
       background: var(--translucent);
       outline: 1px solid var(--link-hover);
+    }
+
+    &:focus-visible {
+      @include focus-visible;
     }
 
     &::after {

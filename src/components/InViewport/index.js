@@ -6,7 +6,7 @@ import { InView } from "react-intersection-observer"
 import './in-viewport.scss'
 
 const InViewport = ({children, threshold}) => (
-  <InView threshold={threshold} rootMargin={`-16px`}>
+  <InView threshold={threshold} rootMargin={`0px`}>
     {({ inView, ref, entry }) => (
       <div ref={ref} className={`observer ${inView ? `active` : ``}`}>
         {children}
@@ -20,7 +20,7 @@ InViewport.propTypes = {
 }
 
 InViewport.defaultProps = {
-  threshold: .25
+  threshold: .05
 }
 
 export default InViewport

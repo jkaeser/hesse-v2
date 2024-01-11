@@ -56,22 +56,11 @@ class Layout extends React.Component {
     window.sessionStorage.setItem('jkSiteMode', newMode);
   }
 
-  render() {
-    const classes = [
-      this.props.attribute ? this.props.attribute : ''
-    ]
-
+  renderModes() {
     return (
-      <div className='site-wrapper'>
-        <Helmet bodyAttributes={{ class: this.state.activeMode }} />
-        <Starfield
-          width={this.state.windowSize.width}
-          height={this.state.windowSize.height}
-        />
-        <a className="skip-link" href="#main">Skip to main content</a>
-        <main className={classes.join(' ').trim()}>
-          <div className="mode-switcher">
-          {this.modes.map((mode, index) => {
+      <div className="mode-switcher">
+        {
+          this.modes.map((mode, index) => {
             const classes = [
               `button--${mode.name}`,
               this.state.activeMode === mode.name ? 'active' : ''
@@ -90,8 +79,27 @@ class Layout extends React.Component {
                 {mode.svg}
               </button>
             )
-          })}
-          </div>
+          })
+        }
+      </div>
+    )
+  }
+
+  render() {
+    const classes = [
+      this.props.attribute ? this.props.attribute : ''
+    ]
+
+    return (
+      <div className='site-wrapper'>
+        <Helmet bodyAttributes={{ class: this.state.activeMode }} />
+        <Starfield
+          width={this.state.windowSize.width}
+          height={this.state.windowSize.height}
+        />
+        <a className="skip-link" href="#main">Skip to main content</a>
+        <main className={classes.join(' ').trim()}>
+          {/* {this.renderModes()} */}
           <span id="main"></span>
           {this.props.children}
         </main>

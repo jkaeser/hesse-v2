@@ -24,7 +24,7 @@ const IndexPage = () => (
           Recently I've been building <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Components">Web Components</a> for IBM using their <a href="https://carbondesignsystem.com/">Carbon design system</a>.
         </p>
         <p>
-          When I'm not building for the web, you can find me playing drums for the bands <a href="https://dwellermusic.com/">Dweller</a> and <a href="https://colemanrigg.com/">Coleman Rigg & The Ridge Runners</a>, tuning a <a href="https://magic.wizards.com/en/intro">Magic: The Gathering deck</a>, or eating chocolate ice cream.
+          When I'm not building for the web, you can find me playing drums for the bands <a href="https://dwellermusic.com/">Dweller</a> and <a href="https://colemanrigg.com/">Coleman Rigg & The Ridge Runners</a>, tuning a <a href="https://magic.wizards.com/en/intro">Magic: The Gathering</a> deck, or eating chocolate ice cream.
         </p>
         <ul className="no-list">
           <li>
