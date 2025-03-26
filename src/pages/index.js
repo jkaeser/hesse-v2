@@ -18,13 +18,10 @@ const IndexPage = () => (
       <h1>Hi, I'm John.</h1>
       <InViewport>
         <p>
-          I'm a web developer in <span className="grittify">Philadelphia, PA<img src={gritty} alt="Gritty, Philadelphia's hockey team's mascot."/></span>, currently working at <a href="https://www.lullabot.com/">Lullabot</a>, an employee-owned web strategy, design, and development agency.
+          I'm a web developer in <span className="grittify">Philadelphia, PA<img src={gritty} alt="Gritty, Philadelphia's hockey team's mascot."/></span> with { new Date().getFullYear() - 2015 || '10+' } years of experience writing maintainable, resilient front end code for organizations such as IBM, The Institute for Advanced Study, and Appalachian State University.
         </p>
         <p>
-          Recently I've been building <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Components">Web Components</a> for IBM using their <a href="https://carbondesignsystem.com/">Carbon design system</a>.
-        </p>
-        <p>
-          When I'm not building for the web, you can find me playing drums for the bands <a href="https://dwellermusic.com/">Dweller</a> and <a href="https://ridgerunners.band/">Ridge Runners</a> or eating chocolate ice cream.
+          When I'm not building for the web, you can find me playing drums for <a href="https://ridgerunners.band/">Ridge Runners</a> and <a href="https://dwellermusic.com/">Dweller</a> or eating plain chocolate ice cream.
         </p>
         <ul className="no-list">
           <li>
