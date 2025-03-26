@@ -48,7 +48,7 @@
   table {
     border-spacing: 0;
     border-collapse: collapse;
-    width: 100%;
+    inline-size: 100%;
 
     thead {
       tr {
@@ -87,10 +87,10 @@
       padding: .5em .75em;
       text-align: left;
       font-size: $font-size-smallish;
-      width: 18%;
+      inline-size: 18%;
 
       &:last-of-type {
-        width: 28%;
+        inline-size: 28%;
       }
 
       &.opponents {
@@ -151,7 +151,7 @@
     margin: 0;
     padding: 0;
     list-style: none;
-    max-width: 100%;
+    max-inline-size: 100%;
     display: none;
 
     @include bp($bp-tablet-vertical) {
@@ -174,7 +174,7 @@
   }
 
   &__table-wrapper {
-    max-height: 800px;
+    max-block-size: 800px;
     overflow: scroll;
   }
 

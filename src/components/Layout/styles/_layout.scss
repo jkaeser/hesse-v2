@@ -56,7 +56,7 @@ body,
 body > #___gatsby,
 body > #___gatsby > div,
 .site-wrapper {
-  height: 100%;
+  block-size: 100%;
 }
 
 .site-wrapper {
@@ -232,7 +232,7 @@ select {
   background-color: inherit;
   color: inherit;
   border: 1px solid var(--text-color);
-  max-width: 100%;
+  max-inline-size: 100%;
   font-family: inherit;
 
   &:hover,
@@ -291,7 +291,7 @@ label {
     @include transition;
 
     position: absolute;
-    width: 2em;
+    inline-size: 2em;
     inset-inline-start: calc(50% - 1em);
     inset-block-end: 2px;
     opacity: 0;

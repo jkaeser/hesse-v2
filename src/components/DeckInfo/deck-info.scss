@@ -57,8 +57,8 @@
 
   &__color-identity {
     svg {
-      width: .75em;
-      height: .75em;
+      inline-size: .75em;
+      block-size: .75em;
 
       + svg {
         margin-inline-start: .15em;
@@ -81,8 +81,8 @@
     }
 
     svg {
-      height: 1em;
-      width: 1em;
+      block-size: 1em;
+      inline-size: 1em;
       fill: var(--text-color);
     }
 
