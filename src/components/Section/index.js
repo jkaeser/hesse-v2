@@ -4,10 +4,8 @@ import PropTypes from "prop-types"
 import './columns.scss'
 import './section.scss'
 
-const Section = ({cols, color, children}) => {
+const Section = ({cols, children}) => {
   const classes = [
-    'full-width',
-    color ? `color color--${color}` : '',
     cols !== '0' ? `cols cols--${cols}` : '',
   ]
 

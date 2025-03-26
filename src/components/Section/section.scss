@@ -3,27 +3,14 @@
 section {
   padding-block: $gutter-small;
 
-  &:first-of-type:not(.color) {
+  &:first-of-type {
     padding-block-start: 0;
   }
 
   @include bp($bp-tablet-vertical) {
     &.cols--2 > .section__inner,
     &.cols--3 > .section__inner {
-      max-width: none;
-    }
-  }
-
-  &.color {
-    background-color: var(--background-color);
-    color: var(--text-color);
-
-    @media (prefers-color-scheme: light) {
-      &.color--white {
-        --background-color: #{color('white', 2)};
-        --text-color: #{color('green', 5)};
-        --translucent: #{$c-translucent-light};
-      }
+      max-inline-size: none;
     }
   }
 
@@ -32,11 +19,6 @@ section {
       margin-block-end: 0;
     }
   }
-}
-
-section.color--green + section.color--green,
-section.color--white + section.color--white {
-  padding-block-start: 0;
 }
 
 main.scroll section:last-of-type {
